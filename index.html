@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pairly — Meet someone who gets you</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #fff7fb;
+      color: #241721;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 7%;
+      background: white;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      color: #e94f87;
+    }
+
+    nav button {
+      border: none;
+      background: #e94f87;
+      color: white;
+      padding: 11px 20px;
+      border-radius: 25px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .hero {
+      min-height: 620px;
+      padding: 80px 7%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fff0f6, #f7efff);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      max-width: 750px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: #e94f87;
+    }
+
+    .hero p {
+      font-size: 19px;
+      line-height: 1.6;
+      max-width: 600px;
+      color: #655563;
+      margin-bottom: 30px;
+    }
+
+    .main-btn {
+      border: none;
+      background: #e94f87;
+      color: white;
+      padding: 16px 30px;
+      border-radius: 30px;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 70px 7%;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .subtitle {
+      color: #6d5b68;
+      margin-bottom: 35px;
+      font-size: 17px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 30px 22px;
+      border-radius: 20px;
+      text-align: left;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    }
+
+    .number {
+      width: 42px;
+      height: 42px;
+      background: #ffe0eb;
+      color: #e94f87;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #6d5b68;
+      line-height: 1.5;
+    }
+
+    .pricing {
+      background: white;
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .plan {
+      border: 1px solid #eee;
+      padding: 30px 22px;
+      border-radius: 20px;
+      text-align: left;
+    }
+
+    .plan.featured {
+      border: 2px solid #e94f87;
+    }
+
+    .plan h3 {
+      font-size: 23px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    .plan ul {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .plan li {
+      margin: 12px 0;
+      color: #655563;
+    }
+
+    .plan button {
+      width: 100%;
+      padding: 13px;
+      border-radius: 25px;
+      border: none;
+      background: #e94f87;
+      color: white;
+      font-weight: bold;
+    }
+
+    .trust {
+      background: #f7efff;
+    }
+
+    .trust-box {
+      max-width: 650px;
+      margin: auto;
+      line-height: 1.7;
+      color: #5d5060;
+      font-size: 17px;
+    }
+
+    .join {
+      background: #241721;
+      color: white;
+    }
+
+    .join h2 {
+      margin-bottom: 12px;
+    }
+
+    .join p {
+      color: #d9cbd4;
+      margin-bottom: 25px;
+    }
+
+    .join button {
+      border: none;
+      background: #e94f87;
+      color: white;
+      padding: 16px 32px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #766773;
+      background: white;
+    }
+
+    @media (max-width: 700px) {
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .steps,
+      .plans {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 55px 6%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">Pairly</div>
+    <button onclick="joinPairly()">Join Pairly</button>
+  </nav>
+
+  <main>
+
+    <section class="hero">
+      <h1>Meet someone who <span>gets you.</span></h1>
+
+      <p>
+        Pairly helps you connect with people based on compatibility,
+        interests and what truly matters to you.
+      </p>
+
+      <button class="main-btn" onclick="joinPairly()">
+        Find your match
+      </button>
+    </section>
+
+    <section>
+      <h2>How Pairly works</h2>
+      <p class="subtitle">
+        Meaningful connections shouldn't feel impossible.
+      </p>
+
+      <div class="steps">
+
+        <div class="card">
+          <div class="number">1</div>
+          <h3>Tell us about you</h3>
+          <p>
+            Share your interests, personality and what you're looking for.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="number">2</div>
+          <h3>Discover compatibility</h3>
+          <p>
+            Pairly looks beyond random swipes to help find better connections.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="number">3</div>
+          <h3>Meet someone who gets you</h3>
+          <p>
+            Start conversations with people you genuinely connect with.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="pricing">
+      <h2>Choose your Pairly experience</h2>
+      <p class="subtitle">
+        Start free. Upgrade only when you want more.
+      </p>
+
+      <div class="plans">
+
+        <div class="plan">
+          <h3>Free</h3>
+          <div class="price">₦0</div>
+
+          <ul>
+            <li>✓ Create your profile</li>
+            <li>✓ Basic compatibility matching</li>
+            <li>✓ Discover new connections</li>
+          </ul>
+
+          <button onclick="joinPairly()">Get started</button>
+        </div>
+
+        <div class="plan featured">
+          <h3>Plus</h3>
+          <div class="price">Coming soon</div>
+
+          <ul>
+            <li>✓ More match insights</li>
+            <li>✓ More discovery options</li>
+            <li>✓ Enhanced profile features</li>
+          </ul>
+
+          <button onclick="joinPairly()">Join waitlist</button>
+        </div>
+
+        <div class="plan">
+          <h3>Select</h3>
+          <div class="price">Coming soon</div>
+
+          <ul>
+            <li>✓ Premium matchmaking</li>
+            <li>✓ Priority matching</li>
+            <li>✓ Exclusive features</li>
+          </ul>
+
+          <button onclick="joinPairly()">Join waitlist</button>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="trust">
+      <h2>Built around trust</h2>
+
+      <div class="trust-box">
+        Your privacy and safety matter. Pairly is designed to encourage
+        respectful, meaningful connections and give you control over
+        your experience.
+      </div>
+    </section>
+
+    <section class="join">
+      <h2>Your next connection could be different.</h2>
+
+      <p>
+        Join Pairly and be among the first to meet someone who gets you.
+      </p>
+
+      <button onclick="joinPairly()">Create your account</button>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Pairly — Meet someone who gets you.
+  </footer>
+
+  <script>
+    function joinPairly() {
+      alert("Pairly sign-up is coming next! 💕");
+    }
+  </script>
+
+</body>
+</html>
