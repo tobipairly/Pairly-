@@ -43,6 +43,10 @@
       font-weight: bold;
     }
 
+    button {
+      cursor: pointer;
+    }
+
     .hero {
       min-height: 620px;
       padding: 80px 7%;
@@ -234,6 +238,71 @@
       background: white;
     }
 
+    /* SIGNUP */
+    .signup {
+      display: none;
+      min-height: 100vh;
+      padding: 50px 7%;
+      background: linear-gradient(135deg, #fff0f6, #f7efff);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .signup-box {
+      background: white;
+      width: 100%;
+      max-width: 430px;
+      padding: 35px 25px;
+      border-radius: 25px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+    }
+
+    .signup-box h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .signup-box p {
+      text-align: center;
+      color: #6d5b68;
+      margin-bottom: 25px;
+    }
+
+    .signup-box input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    .signup-box button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 25px;
+      background: #e94f87;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    #message {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #e94f87;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     @media (max-width: 700px) {
       .hero h1 {
         font-size: 38px;
@@ -253,141 +322,260 @@
 
 <body>
 
-  <nav>
-    <div class="logo">Pairly</div>
-    <button onclick="joinPairly()">Join Pairly</button>
-  </nav>
+  <div id="home">
 
-  <main>
+    <nav>
+      <div class="logo">Pairly</div>
+      <button onclick="joinPairly()">Join Pairly</button>
+    </nav>
 
-    <section class="hero">
-      <h1>Meet someone who <span>gets you.</span></h1>
+    <main>
 
-      <p>
-        Pairly helps you connect with people based on compatibility,
-        interests and what truly matters to you.
-      </p>
+      <section class="hero">
+        <h1>Meet someone who <span>gets you.</span></h1>
 
-      <button class="main-btn" onclick="joinPairly()">
-        Find your match
+        <p>
+          Pairly helps you connect with people based on compatibility,
+          interests and what truly matters to you.
+        </p>
+
+        <button class="main-btn" onclick="joinPairly()">
+          Find your match
+        </button>
+      </section>
+
+      <section>
+        <h2>How Pairly works</h2>
+        <p class="subtitle">
+          Meaningful connections shouldn't feel impossible.
+        </p>
+
+        <div class="steps">
+
+          <div class="card">
+            <div class="number">1</div>
+            <h3>Tell us about you</h3>
+            <p>
+              Share your interests, personality and what you're looking for.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="number">2</div>
+            <h3>Discover compatibility</h3>
+            <p>
+              Pairly looks beyond random swipes to help find better connections.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="number">3</div>
+            <h3>Meet someone who gets you</h3>
+            <p>
+              Start conversations with people you genuinely connect with.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="pricing">
+        <h2>Choose your Pairly experience</h2>
+        <p class="subtitle">
+          Start free. Upgrade only when you want more.
+        </p>
+
+        <div class="plans">
+
+          <div class="plan">
+            <h3>Free</h3>
+            <div class="price">₦0</div>
+
+            <ul>
+              <li>✓ Create your profile</li>
+              <li>✓ Basic compatibility matching</li>
+              <li>✓ Discover new connections</li>
+            </ul>
+
+            <button onclick="joinPairly()">Get started</button>
+          </div>
+
+          <div class="plan featured">
+            <h3>Plus</h3>
+            <div class="price">Coming soon</div>
+
+            <ul>
+              <li>✓ More match insights</li>
+              <li>✓ More discovery options</li>
+              <li>✓ Enhanced profile features</li>
+            </ul>
+
+            <button onclick="joinPairly()">Join waitlist</button>
+          </div>
+
+          <div class="plan">
+            <h3>Select</h3>
+            <div class="price">Coming soon</div>
+
+            <ul>
+              <li>✓ Premium matchmaking</li>
+              <li>✓ Priority matching</li>
+              <li>✓ Exclusive features</li>
+            </ul>
+
+            <button onclick="joinPairly()">Join waitlist</button>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="trust">
+        <h2>Built around trust</h2>
+
+        <div class="trust-box">
+          Your privacy and safety matter. Pairly is designed to encourage
+          respectful, meaningful connections and give you control over
+          your experience.
+        </div>
+      </section>
+
+      <section class="join">
+        <h2>Your next connection could be different.</h2>
+
+        <p>
+          Join Pairly and be among the first to meet someone who gets you.
+        </p>
+
+        <button onclick="joinPairly()">Create your account</button>
+      </section>
+
+    </main>
+
+    <footer>
+      © 2026 Pairly — Meet someone who gets you.
+    </footer>
+
+  </div>
+
+
+  <!-- SIGNUP PAGE -->
+
+  <div class="signup" id="signup">
+
+    <div class="signup-box">
+
+      <h2>Join Pairly 💕</h2>
+
+      <p>Create your free account and let's get you connected.</p>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Email address"
+        required
+      >
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        required
+      >
+
+      <button onclick="signUp()">
+        Create account
       </button>
-    </section>
 
-    <section>
-      <h2>How Pairly works</h2>
-      <p class="subtitle">
-        Meaningful connections shouldn't feel impossible.
-      </p>
+      <div id="message"></div>
 
-      <div class="steps">
+      <span class="back" onclick="goHome()">
+        ← Back to Pairly
+      </span>
 
-        <div class="card">
-          <div class="number">1</div>
-          <h3>Tell us about you</h3>
-          <p>
-            Share your interests, personality and what you're looking for.
-          </p>
-        </div>
+    </div>
 
-        <div class="card">
-          <div class="number">2</div>
-          <h3>Discover compatibility</h3>
-          <p>
-            Pairly looks beyond random swipes to help find better connections.
-          </p>
-        </div>
+  </div>
 
-        <div class="card">
-          <div class="number">3</div>
-          <h3>Meet someone who gets you</h3>
-          <p>
-            Start conversations with people you genuinely connect with.
-          </p>
-        </div>
 
-      </div>
-    </section>
-
-    <section class="pricing">
-      <h2>Choose your Pairly experience</h2>
-      <p class="subtitle">
-        Start free. Upgrade only when you want more.
-      </p>
-
-      <div class="plans">
-
-        <div class="plan">
-          <h3>Free</h3>
-          <div class="price">₦0</div>
-
-          <ul>
-            <li>✓ Create your profile</li>
-            <li>✓ Basic compatibility matching</li>
-            <li>✓ Discover new connections</li>
-          </ul>
-
-          <button onclick="joinPairly()">Get started</button>
-        </div>
-
-        <div class="plan featured">
-          <h3>Plus</h3>
-          <div class="price">Coming soon</div>
-
-          <ul>
-            <li>✓ More match insights</li>
-            <li>✓ More discovery options</li>
-            <li>✓ Enhanced profile features</li>
-          </ul>
-
-          <button onclick="joinPairly()">Join waitlist</button>
-        </div>
-
-        <div class="plan">
-          <h3>Select</h3>
-          <div class="price">Coming soon</div>
-
-          <ul>
-            <li>✓ Premium matchmaking</li>
-            <li>✓ Priority matching</li>
-            <li>✓ Exclusive features</li>
-          </ul>
-
-          <button onclick="joinPairly()">Join waitlist</button>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="trust">
-      <h2>Built around trust</h2>
-
-      <div class="trust-box">
-        Your privacy and safety matter. Pairly is designed to encourage
-        respectful, meaningful connections and give you control over
-        your experience.
-      </div>
-    </section>
-
-    <section class="join">
-      <h2>Your next connection could be different.</h2>
-
-      <p>
-        Join Pairly and be among the first to meet someone who gets you.
-      </p>
-
-      <button onclick="joinPairly()">Create your account</button>
-    </section>
-
-  </main>
-
-  <footer>
-    © 2026 Pairly — Meet someone who gets you.
-  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
+
+    const SUPABASE_URL =
+      "https://ryqnmanjdubughaaebxa.supabase.co";
+
+    const SUPABASE_KEY =
+    sb_publishable_s0eWIXBZgDa7O3TvG38feQ_Tg-vhDV_
+
+    const supabaseClient =
+      supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+
     function joinPairly() {
-      alert("Pairly sign-up is coming next! 💕");
+      document.getElementById("home").style.display = "none";
+      document.getElementById("signup").style.display = "flex";
+      window.scrollTo(0, 0);
     }
+
+
+    function goHome() {
+      document.getElementById("signup").style.display = "none";
+      document.getElementById("home").style.display = "block";
+      window.scrollTo(0, 0);
+    }
+
+
+    async function signUp() {
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const message =
+        document.getElementById("message");
+
+
+      if (!email || !password) {
+        message.textContent =
+          "Please enter your email and password.";
+        return;
+      }
+
+
+      if (password.length < 6) {
+        message.textContent =
+          "Password must be at least 6 characters.";
+        return;
+      }
+
+
+      message.textContent =
+        "Creating your account...";
+
+
+      const { data, error } =
+        await supabaseClient.auth.signUp({
+          email: email,
+          password: password
+        });
+
+
+      if (error) {
+
+        message.textContent =
+          error.message;
+
+        return;
+      }
+
+
+      message.textContent =
+        "Account created! Check your email to confirm your account. 💕";
+
+    }
+
   </script>
 
 </body>
