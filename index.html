@@ -555,12 +555,25 @@
         "Creating your account...";
 
 
-      const { data, error } =
-        await supabaseClient.auth.signUp({
-          email: email,
-          password: password
-        });
+      try {
+  const { data, error } =
+    await supabaseClient.auth.signUp({
+      email: email,
+      password: password
+    });
 
+  if (error) {
+    message.textContent = "Error: " + error.message;
+    return;
+  }
+
+  message.textContent =
+    "Account created! Check your email to confirm your account. 💕";
+
+} catch (err) {
+  message.textContent =
+    "Connection error: " + err.message;
+}
 
       if (error) {
 
