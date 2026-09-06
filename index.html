@@ -556,8 +556,8 @@
 
 
       try {
-  const { data, error } =
-    await supabaseClient.auth.signUp({
+const { data, error } =
+  await client.auth.signUp({
       email: email,
       password: password
     });
