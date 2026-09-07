@@ -896,79 +896,9 @@
   }
 }
 
-      const name =
-        document.getElementById("nameInput").value.trim();
-
-      const age =
-        document.getElementById("ageInput").value;
-
-      const gender =
-        document.getElementById("genderInput").value;
-
-      const location =
-        document.getElementById("locationInput").value.trim();
-
-      const interests =
-        document.getElementById("interestsInput").value.trim();
-
-      const lookingFor =
-        document.getElementById("lookingForInput").value;
-
-      const message =
-        document.getElementById("profileMessage");
 
 
-      message.textContent = "";
-
-
-      if (
-        !name ||
-        !age ||
-        !gender ||
-        !location ||
-        !interests ||
-        !lookingFor
-      ) {
-
-        message.textContent =
-          "Please complete all the fields.";
-
-        return;
-
-      }
-
-
-      if (Number(age) < 18) {
-
-        message.textContent =
-          "You must be 18 or older to use Pairly.";
-
-        return;
-
-      }
-
-
-      const profile = {
-
-        name: name,
-        age: age,
-        gender: gender,
-        location: location,
-        interests: interests,
-        lookingFor: lookingFor
-
-      };
-
-
-      localStorage.setItem(
-        "pairlyProfile",
-        JSON.stringify(profile)
-      );
-
-
-      showWelcome(name);
-
-    }
+    
 
 
     /* ================= CHECK LOGIN ================= */
