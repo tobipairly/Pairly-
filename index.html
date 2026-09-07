@@ -877,6 +877,48 @@
 
     }
 
+    async function loginAccount() {
+  const email = document.getElementById("loginEmailInput").value.trim();
+  const password = document.getElementById("loginPasswordInput").value;
+  const message = document.getElementById("loginMessage");
+
+  message.textContent = "";
+
+  if (!email || !password) {
+    message.textContent = "Please enter your email and password.";
+    return;
+  }
+
+  message.textContent = "Logging you in...";
+
+  try {
+    const { data, error } = await pairlyClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) {
+      message.textContent = "Error: " + error.message;
+      return;
+    }
+
+    message.textContent = "Login successful! 🎉";
+
+    const savedProfile = localStorage.getItem("pairlyProfile");
+
+    setTimeout(() => {
+      if (savedProfile) {
+        const profile = JSON.parse(savedProfile);
+        showWelcome(profile.name);
+      } else {
+        showProfile();
+      }
+    }, 800);
+
+  } catch (error) {
+    message.textContent = "Connection error: " + error.message;
+  }
+}
 
     /* ================= PROFILE ================= */
 
