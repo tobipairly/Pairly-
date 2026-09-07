@@ -826,7 +826,75 @@
 
     /* ================= PROFILE ================= */
 
-    function finishProfile() {
+    async function finishProfile() {
+  const name = document.getElementById("nameInput").value.trim();
+  const age = document.getElementById("ageInput").value;
+  const gender = document.getElementById("genderInput").value;
+  const location = document.getElementById("locationInput").value.trim();
+  const interests = document.getElementById("interestsInput").value.trim();
+  const lookingFor = document.getElementById("lookingForInput").value;
+  const message = document.getElementById("profileMessage");
+
+  message.textContent = "";
+
+  if (!name || !age || !gender || !location || !interests || !lookingFor) {
+    message.textContent = "Please complete all the fields.";
+    return;
+  }
+
+  if (Number(age) < 18) {
+    message.textContent = "You must be 18 or older to use Pairly.";
+    return;
+  }
+
+  message.textContent = "Saving your profile...";
+
+  try {
+    const { data: { user } } = await pairlyClient.auth.getUser();
+
+    if (!user) {
+      message.textContent = "Please log in again.";
+      return;
+    }
+
+    const { error } = await pairlyClient
+      .from("profiles")
+      .upsert({
+        id: user.id,
+        name: name,
+        age: Number(age),
+        gender: gender,
+        location: location,
+        interests: interests,
+        looking_for: lookingFor
+      });
+
+    if (error) {
+      message.textContent = "Error saving profile: " + error.message;
+      return;
+    }
+
+    const profile = {
+      name,
+      age,
+      gender,
+      location,
+      interests,
+      lookingFor
+    };
+
+    localStorage.setItem("pairlyProfile", JSON.stringify(profile));
+
+    message.textContent = "Profile saved successfully! 🎉";
+
+    setTimeout(() => {
+      showWelcome(name);
+    }, 800);
+
+  } catch (error) {
+    message.textContent = "Connection error: " + error.message;
+  }
+}
 
       const name =
         document.getElementById("nameInput").value.trim();
