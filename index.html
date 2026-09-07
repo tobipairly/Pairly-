@@ -576,7 +576,42 @@
 
 
   <!-- ================= PROFILE SETUP ================= -->
+<div id="loginPage" class="app-page">
+  <div class="form-card">
+    <h2>Welcome back 💕</h2>
+    <p>Log in to continue your Pairly journey.</p>
 
+    <input
+      type="email"
+      id="loginEmailInput"
+      placeholder="Email address"
+    >
+
+    <input
+      type="password"
+      id="loginPasswordInput"
+      placeholder="Password"
+    >
+
+    <button class="form-btn" onclick="loginAccount()">
+      Log in
+    </button>
+
+    <div
+      id="loginMessage"
+      style="text-align:center; margin-top:15px; color:#6d5b68;"
+    ></div>
+
+    <div style="text-align:center; margin-top:20px;">
+      <span
+        onclick="showSignup()"
+        style="color:#e94f87; font-weight:bold; cursor:pointer;"
+      >
+        ← Back to Create account
+      </span>
+    </div>
+  </div>
+</div>
   <div id="profilePage" class="app-page">
 
     <div class="app-box">
