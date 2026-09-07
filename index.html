@@ -905,44 +905,45 @@
 
     /* ================= CHECK LOGIN ================= */
 
-    async function checkExistingUser() {
+ async function checkExistingUser() {
 
-      try {
+  try {
 
-        const result =
-          await pairlyClient.auth.getSession();
+    const result =
+      await pairlyClient.auth.getSession();
 
-        const session =
-          result.data.session;
+    const session =
+      result.data.session;
 
+    if (session) {
 
-        if (session) {
+      const savedProfile =
+        localStorage.getItem("pairlyProfile");
 
-          const savedProfile =
-            localStorage.getItem("pairlyProfile");
+      if (savedProfile) {
 
+        const profile =
+          JSON.parse(savedProfile);
 
-          if (savedProfile) {
+        showWelcome(profile.name);
 
-            const profile =
-              JSON.parse(savedProfile);
+      } else {
 
-            showWelcome(profile.name);
-
-          }
-
-        }
-
-      } catch (error) {
-
-        console.log("Session check:", error.message);
+        showProfile();
 
       }
 
     }
 
+  } catch (error) {
 
-    checkExistingUser();
+    console.log("Session check:", error.message);
+
+  }
+
+}
+
+checkExistingUser();
 
   </script>
 
