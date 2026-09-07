@@ -228,7 +228,7 @@
       background: white;
     }
 
-    /* APP PAGES */
+    /* ================= APP PAGES ================= */
 
     .app-page {
       display: none;
@@ -522,48 +522,52 @@
         placeholder="Password"
         autocomplete="new-password"
       >
-<select id="countryInput">
-  <option value="+234">🇳🇬 Nigeria (+234)</option>
-  <option value="+233">🇬🇭 Ghana (+233)</option>
-  <option value="+27">🇿🇦 South Africa (+27)</option>
-  <option value="+254">🇰🇪 Kenya (+254)</option>
-  <option value="+44">🇬🇧 United Kingdom (+44)</option>
-  <option value="+1">🇺🇸 United States (+1)</option>
-  <option value="+1">🇨🇦 Canada (+1)</option>
-  <option value="+61">🇦🇺 Australia (+61)</option>
-</select>
 
-<input
-  type="tel"
-  id="phoneInput"
-  placeholder="Phone number"
-  autocomplete="tel"
->
+      <select id="countryInput">
+        <option value="+234">🇳🇬 Nigeria (+234)</option>
+        <option value="+233">🇬🇭 Ghana (+233)</option>
+        <option value="+27">🇿🇦 South Africa (+27)</option>
+        <option value="+254">🇰🇪 Kenya (+254)</option>
+        <option value="+44">🇬🇧 United Kingdom (+44)</option>
+        <option value="+1">🇺🇸 United States (+1)</option>
+        <option value="+1">🇨🇦 Canada (+1)</option>
+        <option value="+61">🇦🇺 Australia (+61)</option>
+      </select>
+
+      <input
+        type="tel"
+        id="phoneInput"
+        placeholder="Phone number"
+        autocomplete="tel"
+      >
+
       <button class="form-btn" onclick="createAccount()">
         Create account
       </button>
-      
+
       <div style="text-align:center; margin:18px 0; color:#6d5b68;">
-  Already have an account?
-  <span onclick="showLogin()" style="color:#e94f87; font-weight:bold; cursor:pointer;">
-    Log in 🔐
-  </span>
-</div>
-      
-<div style="text-align:center; margin:20px 0; color:#6d5b68;">
-  or continue with
-</div>
+        Already have an account?
+        <span
+          onclick="showLogin()"
+          style="color:#e94f87; font-weight:bold; cursor:pointer;"
+        >
+          Log in 🔐
+        </span>
+      </div>
 
+      <div style="text-align:center; margin:20px 0; color:#6d5b68;">
+        or continue with
+      </div>
 
+      <button
+        class="form-btn"
+        type="button"
+        onclick="loginWithApple()"
+        style="background:#241721; color:white;"
+      >
+         Continue with Apple
+      </button>
 
-<button
-  class="form-btn"
-  type="button"
-  onclick="loginWithApple()"
-  style="background:#241721; color:white;"
->
-   Continue with Apple
-</button>
       <div id="message" class="message"></div>
 
       <span class="back" onclick="showHome()">
@@ -575,43 +579,57 @@
   </div>
 
 
-  <!-- ================= PROFILE SETUP ================= -->
-<div id="loginPage" class="app-page">
- <div class="app-box">
-    <h2>Welcome back 💕</h2>
-    <p>Log in to continue your Pairly journey.</p>
+  <!-- ================= LOGIN PAGE ================= -->
 
-    <input
-      type="email"
-      id="loginEmailInput"
-      placeholder="Email address"
-    >
+  <div id="loginPage" class="app-page">
 
-    <input
-      type="password"
-      id="loginPasswordInput"
-      placeholder="Password"
-    >
+    <div class="app-box">
 
-    <button class="form-btn" onclick="loginAccount()">
-      Log in
-    </button>
+      <h2>Welcome back 💕</h2>
 
-    <div
-      id="loginMessage"
-      style="text-align:center; margin-top:15px; color:#6d5b68;"
-    ></div>
+      <p>
+        Log in to continue your Pairly journey.
+      </p>
 
-    <div style="text-align:center; margin-top:20px;">
-      <span
-        onclick="showSignup()"
-        style="color:#e94f87; font-weight:bold; cursor:pointer;"
+      <input
+        type="email"
+        id="loginEmailInput"
+        placeholder="Email address"
+        autocomplete="email"
       >
-        ← Back to Create account
-      </span>
+
+      <input
+        type="password"
+        id="loginPasswordInput"
+        placeholder="Password"
+        autocomplete="current-password"
+      >
+
+      <button class="form-btn" onclick="loginAccount()">
+        Log in
+      </button>
+
+      <div
+        id="loginMessage"
+        class="message"
+      ></div>
+
+      <div style="text-align:center; margin-top:20px;">
+        <span
+          onclick="showSignup()"
+          style="color:#e94f87; font-weight:bold; cursor:pointer;"
+        >
+          ← Back to Create account
+        </span>
+      </div>
+
     </div>
+
   </div>
-</div>
+
+
+  <!-- ================= PROFILE SETUP ================= -->
+
   <div id="profilePage" class="app-page">
 
     <div class="app-box">
@@ -627,6 +645,7 @@
         type="text"
         id="nameInput"
         placeholder="Your name"
+        autocomplete="name"
       >
 
       <input
@@ -660,7 +679,9 @@
         <option value="">What are you looking for?</option>
         <option value="Relationship">A relationship</option>
         <option value="Friendship">Friendship</option>
-        <option value="Meaningful connection">A meaningful connection</option>
+        <option value="Meaningful connection">
+          A meaningful connection
+        </option>
       </select>
 
       <button class="form-btn" onclick="finishProfile()">
@@ -723,9 +744,9 @@
       document.getElementById("homePage").style.display = "none";
 
       document.getElementById("signupPage").classList.remove("active");
-                                                             
-       document.getElementById("loginPage").classList.remove("active"); 
-      
+
+      document.getElementById("loginPage").classList.remove("active");
+
       document.getElementById("profilePage").classList.remove("active");
 
       document.getElementById("welcomePage").classList.remove("active");
@@ -753,16 +774,18 @@
       window.scrollTo(0, 0);
 
     }
-    
-   function showLogin() {
 
-  hideAllPages();
 
-  document.getElementById("loginPage").classList.add("active");
+    function showLogin() {
 
-  window.scrollTo(0, 0);
+      hideAllPages();
 
-}
+      document.getElementById("loginPage").classList.add("active");
+
+      window.scrollTo(0, 0);
+
+    }
+
 
     function showProfile() {
 
@@ -782,7 +805,8 @@
       document.getElementById("welcomePage").classList.add("active");
 
       document.getElementById("welcomeText").textContent =
-        "You're all set, " + name + ". Your Pairly journey starts here. 💕";
+        "You're all set, " + name +
+        ". Your Pairly journey starts here. 💕";
 
       window.scrollTo(0, 0);
 
@@ -802,9 +826,7 @@
       const message =
         document.getElementById("message");
 
-
       message.textContent = "";
-
 
       if (!email || !password) {
 
@@ -815,7 +837,6 @@
 
       }
 
-
       if (password.length < 6) {
 
         message.textContent =
@@ -825,10 +846,8 @@
 
       }
 
-
       message.textContent =
         "Creating your account...";
-
 
       try {
 
@@ -841,7 +860,6 @@
             }
           });
 
-
         if (result.error) {
 
           message.textContent =
@@ -850,7 +868,6 @@
           return;
 
         }
-
 
         if (result.data.session) {
 
@@ -864,7 +881,8 @@
         } else {
 
           message.textContent =
-            "Account created successfully! 🎉 Please check your email and confirm your account.";
+            "Account created successfully! 🎉 " +
+            "Please check your email and confirm your account.";
 
         }
 
@@ -877,193 +895,312 @@
 
     }
 
-   async function loginAccount() {
-  const email = document.getElementById("loginEmailInput").value.trim();
-  const password = document.getElementById("loginPasswordInput").value;
-  const message = document.getElementById("loginMessage");
 
-  message.textContent = "";
+    /* ================= LOGIN ================= */
 
-  if (!email || !password) {
-    message.textContent = "Please enter your email and password.";
-    return;
-  }
+    async function loginAccount() {
 
-  message.textContent = "Logging you in...";
+      const email =
+        document.getElementById("loginEmailInput").value.trim();
 
-  try {
-    const { data, error } =
-      await pairlyClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
+      const password =
+        document.getElementById("loginPasswordInput").value;
 
-    if (error) {
-      message.textContent = "Error: " + error.message;
-      return;
-    }
+      const message =
+        document.getElementById("loginMessage");
 
-    const user = data.user;
+      message.textContent = "";
 
-    const { data: profile, error: profileError } =
-      await pairlyClient
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .maybeSingle();
+      if (!email || !password) {
 
-    if (profileError) {
-      message.textContent =
-        "Error checking your profile: " + profileError.message;
-      return;
-    }
+        message.textContent =
+          "Please enter your email and password.";
 
-    if (profile) {
-      localStorage.setItem(
-        "pairlyProfile",
-        JSON.stringify(profile)
-      );
+        return;
 
-      message.textContent = "Welcome back! 💕";
-
-      setTimeout(() => {
-        showWelcome(profile.name);
-      }, 800);
-
-    } else {
+      }
 
       message.textContent =
-        "Account confirmed! Let's set up your profile 💕";
+        "Logging you in...";
 
-      setTimeout(() => {
-        showProfile();
-      }, 800);
-    }
+      try {
 
-  } catch (error) {
-    message.textContent =
-      "Connection error: " + error.message;
-  }
-} 
+        const { data, error } =
+          await pairlyClient.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
 
-    /* ================= PROFILE ================= */
+        if (error) {
 
-    async function finishProfile() {
-  const name = document.getElementById("nameInput").value.trim();
-  const age = document.getElementById("ageInput").value;
-  const gender = document.getElementById("genderInput").value;
-  const location = document.getElementById("locationInput").value.trim();
-  const interests = document.getElementById("interestsInput").value.trim();
-  const lookingFor = document.getElementById("lookingForInput").value;
-  const message = document.getElementById("profileMessage");
+          message.textContent =
+            "Error: " + error.message;
 
-  message.textContent = "";
+          return;
 
-  if (!name || !age || !gender || !location || !interests || !lookingFor) {
-    message.textContent = "Please complete all the fields.";
-    return;
-  }
+        }
 
-  if (Number(age) < 18) {
-    message.textContent = "You must be 18 or older to use Pairly.";
-    return;
-  }
+        const user = data.user;
 
-  message.textContent = "Saving your profile...";
+        const {
+          data: profile,
+          error: profileError
+        } = await pairlyClient
+          .from("profiles")
+          .select("*")
+          .eq("id", user.id)
+          .maybeSingle();
 
-  try {
-    const { data: { user } } = await pairlyClient.auth.getUser();
+        if (profileError) {
 
-    if (!user) {
-      message.textContent = "Please log in again.";
-      return;
-    }
+          message.textContent =
+            "Error checking your profile: " +
+            profileError.message;
 
-    const { error } = await pairlyClient
-      .from("profiles")
-      .upsert({
-        id: user.id,
-        name: name,
-        age: Number(age),
-        gender: gender,
-        location: location,
-        interests: interests,
-        looking_for: lookingFor
-      });
+          return;
 
-    if (error) {
-      message.textContent = "Error saving profile: " + error.message;
-      return;
-    }
+        }
 
-    const profile = {
-      name,
-      age,
-      gender,
-      location,
-      interests,
-      lookingFor
-    };
+        if (profile) {
 
-    localStorage.setItem("pairlyProfile", JSON.stringify(profile));
+          localStorage.setItem(
+            "pairlyProfile",
+            JSON.stringify(profile)
+          );
 
-    message.textContent = "Profile saved successfully! 🎉";
+          message.textContent =
+            "Welcome back! 💕";
 
-    setTimeout(() => {
-      showWelcome(name);
-    }, 800);
+          setTimeout(() => {
 
-  } catch (error) {
-    message.textContent = "Connection error: " + error.message;
-  }
-}
+            showWelcome(profile.name);
 
+          }, 800);
 
+        } else {
 
-    
+          message.textContent =
+            "Account confirmed! " +
+            "Let's set up your profile 💕";
 
+          setTimeout(() => {
 
-    /* ================= CHECK LOGIN ================= */
+            showProfile();
 
- async function checkExistingUser() {
+          }, 800);
 
-  try {
+        }
 
-    const result =
-      await pairlyClient.auth.getSession();
+      } catch (error) {
 
-    const session =
-      result.data.session;
-
-    if (session) {
-
-      const savedProfile =
-        localStorage.getItem("pairlyProfile");
-
-      if (savedProfile) {
-
-        const profile =
-          JSON.parse(savedProfile);
-
-        showWelcome(profile.name);
-
-      } else {
-
-        showProfile();
+        message.textContent =
+          "Connection error: " +
+          error.message;
 
       }
 
     }
 
-  } catch (error) {
 
-    console.log("Session check:", error.message);
+    /* ================= PROFILE ================= */
 
-  }
+    async function finishProfile() {
 
-}
+      const name =
+        document.getElementById("nameInput").value.trim();
 
-checkExistingUser();
+      const age =
+        document.getElementById("ageInput").value;
+
+      const gender =
+        document.getElementById("genderInput").value;
+
+      const location =
+        document.getElementById("locationInput").value.trim();
+
+      const interests =
+        document.getElementById("interestsInput").value.trim();
+
+      const lookingFor =
+        document.getElementById("lookingForInput").value;
+
+      const message =
+        document.getElementById("profileMessage");
+
+      message.textContent = "";
+
+      if (
+        !name ||
+        !age ||
+        !gender ||
+        !location ||
+        !interests ||
+        !lookingFor
+      ) {
+
+        message.textContent =
+          "Please complete all the fields.";
+
+        return;
+
+      }
+
+      if (Number(age) < 18) {
+
+        message.textContent =
+          "You must be 18 or older to use Pairly.";
+
+        return;
+
+      }
+
+      message.textContent =
+        "Saving your profile...";
+
+      try {
+
+        const {
+          data: { user }
+        } = await pairlyClient.auth.getUser();
+
+        if (!user) {
+
+          message.textContent =
+            "Please log in again.";
+
+          return;
+
+        }
+
+        const { error } =
+          await pairlyClient
+            .from("profiles")
+            .upsert({
+              id: user.id,
+              name: name,
+              age: Number(age),
+              gender: gender,
+              location: location,
+              interests: interests,
+              looking_for: lookingFor
+            });
+
+        if (error) {
+
+          message.textContent =
+            "Error saving profile: " +
+            error.message;
+
+          return;
+
+        }
+
+        const profile = {
+          name: name,
+          age: Number(age),
+          gender: gender,
+          location: location,
+          interests: interests,
+          looking_for: lookingFor
+        };
+
+        localStorage.setItem(
+          "pairlyProfile",
+          JSON.stringify(profile)
+        );
+
+        message.textContent =
+          "Profile saved successfully! 🎉";
+
+        setTimeout(() => {
+
+          showWelcome(name);
+
+        }, 800);
+
+      } catch (error) {
+
+        message.textContent =
+          "Connection error: " +
+          error.message;
+
+      }
+
+    }
+
+
+    /* ================= CHECK LOGIN ================= */
+
+    async function checkExistingUser() {
+
+      try {
+
+        const {
+          data: { session }
+        } = await pairlyClient.auth.getSession();
+
+        if (!session) {
+
+          showHome();
+
+          return;
+
+        }
+
+        const {
+          data: profile,
+          error: profileError
+        } = await pairlyClient
+          .from("profiles")
+          .select("*")
+          .eq("id", session.user.id)
+          .maybeSingle();
+
+        if (profileError) {
+
+          console.log(
+            "Profile check:",
+            profileError.message
+          );
+
+          showProfile();
+
+          return;
+
+        }
+
+        if (profile) {
+
+          localStorage.setItem(
+            "pairlyProfile",
+            JSON.stringify(profile)
+          );
+
+          showWelcome(profile.name);
+
+        } else {
+
+          showProfile();
+
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Session check:",
+          error.message
+        );
+
+        showHome();
+
+      }
+
+    }
+
+
+    /* ================= START APP ================= */
+
+    checkExistingUser();
 
   </script>
 
