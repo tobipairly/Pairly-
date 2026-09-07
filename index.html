@@ -19,6 +19,11 @@
       color: #241721;
     }
 
+    button {
+      border: none;
+      cursor: pointer;
+    }
+
     nav {
       display: flex;
       justify-content: space-between;
@@ -37,7 +42,7 @@
     .main-btn,
     .join button,
     .plan button,
-    .signup-box button {
+    .form-btn {
       border: none;
       background: #e94f87;
       color: white;
@@ -223,9 +228,9 @@
       background: white;
     }
 
-    /* SIGNUP PAGE */
+    /* APP PAGES */
 
-    #signupPage {
+    .app-page {
       display: none;
       min-height: 100vh;
       padding: 40px 7%;
@@ -234,44 +239,50 @@
       justify-content: center;
     }
 
-    .signup-box {
+    .app-page.active {
+      display: flex;
+    }
+
+    .app-box {
       background: white;
       width: 100%;
-      max-width: 430px;
+      max-width: 450px;
       padding: 35px 25px;
       border-radius: 25px;
       box-shadow: 0 10px 35px rgba(0,0,0,0.08);
     }
 
-    .signup-box h2 {
+    .app-box h2 {
       text-align: center;
       margin-bottom: 10px;
     }
 
-    .signup-box > p {
+    .app-box > p {
       text-align: center;
       color: #6d5b68;
       margin-bottom: 25px;
       line-height: 1.5;
     }
 
-    .signup-box input {
+    .app-box input,
+    .app-box select {
       width: 100%;
       padding: 14px;
       margin-bottom: 15px;
       border: 1px solid #ddd;
       border-radius: 12px;
       font-size: 16px;
+      background: white;
     }
 
-    .signup-box button {
+    .form-btn {
       width: 100%;
       padding: 15px;
       border-radius: 25px;
       font-size: 16px;
     }
 
-    #message {
+    .message {
       margin-top: 15px;
       text-align: center;
       line-height: 1.5;
@@ -285,6 +296,12 @@
       color: #e94f87;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .welcome-icon {
+      font-size: 55px;
+      text-align: center;
+      margin-bottom: 15px;
     }
 
     @media (max-width: 700px) {
@@ -306,7 +323,7 @@
 
 <body>
 
-  <!-- HOME PAGE -->
+  <!-- ================= HOME PAGE ================= -->
 
   <div id="homePage">
 
@@ -337,7 +354,6 @@
 
       </section>
 
-
       <section>
 
         <h2>How Pairly works</h2>
@@ -350,44 +366,31 @@
 
           <div class="card">
             <div class="number">1</div>
-
             <h3>Tell us about you</h3>
-
             <p>
               Share your interests, personality and what you're looking for.
             </p>
           </div>
 
-
           <div class="card">
-
             <div class="number">2</div>
-
             <h3>Discover compatibility</h3>
-
             <p>
               Pairly looks beyond random swipes to help find better connections.
             </p>
-
           </div>
 
-
           <div class="card">
-
             <div class="number">3</div>
-
             <h3>Meet someone who gets you</h3>
-
             <p>
               Start conversations with people you genuinely connect with.
             </p>
-
           </div>
 
         </div>
 
       </section>
-
 
       <section class="pricing">
 
@@ -417,7 +420,6 @@
 
           </div>
 
-
           <div class="plan featured">
 
             <h3>Plus</h3>
@@ -435,7 +437,6 @@
             </button>
 
           </div>
-
 
           <div class="plan">
 
@@ -459,7 +460,6 @@
 
       </section>
 
-
       <section class="trust">
 
         <h2>Built around trust</h2>
@@ -473,7 +473,6 @@
         </div>
 
       </section>
-
 
       <section class="join">
 
@@ -491,7 +490,6 @@
 
     </main>
 
-
     <footer>
       © 2026 Pairly — Meet someone who gets you.
     </footer>
@@ -499,18 +497,17 @@
   </div>
 
 
-  <!-- SIGNUP PAGE -->
+  <!-- ================= SIGNUP PAGE ================= -->
 
-  <div id="signupPage">
+  <div id="signupPage" class="app-page">
 
-    <div class="signup-box">
+    <div class="app-box">
 
       <h2>Join Pairly 💕</h2>
 
       <p>
         Create your free account and let's get you connected.
       </p>
-
 
       <input
         type="email"
@@ -519,7 +516,6 @@
         autocomplete="email"
       >
 
-
       <input
         type="password"
         id="passwordInput"
@@ -527,14 +523,11 @@
         autocomplete="new-password"
       >
 
-
-      <button onclick="createAccount()">
+      <button class="form-btn" onclick="createAccount()">
         Create account
       </button>
 
-
-      <div id="message"></div>
-
+      <div id="message" class="message"></div>
 
       <span class="back" onclick="showHome()">
         ← Back to Pairly
@@ -545,7 +538,94 @@
   </div>
 
 
-  <!-- SUPABASE -->
+  <!-- ================= PROFILE SETUP ================= -->
+
+  <div id="profilePage" class="app-page">
+
+    <div class="app-box">
+
+      <h2>Let's get to know you 💗</h2>
+
+      <p>
+        Tell us a little about yourself so Pairly can understand
+        what kind of connection may suit you.
+      </p>
+
+      <input
+        type="text"
+        id="nameInput"
+        placeholder="Your name"
+      >
+
+      <input
+        type="number"
+        id="ageInput"
+        placeholder="Your age"
+        min="18"
+        max="100"
+      >
+
+      <select id="genderInput">
+        <option value="">Select your gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <input
+        type="text"
+        id="locationInput"
+        placeholder="City / location"
+      >
+
+      <input
+        type="text"
+        id="interestsInput"
+        placeholder="Your interests"
+      >
+
+      <select id="lookingForInput">
+        <option value="">What are you looking for?</option>
+        <option value="Relationship">A relationship</option>
+        <option value="Friendship">Friendship</option>
+        <option value="Meaningful connection">A meaningful connection</option>
+      </select>
+
+      <button class="form-btn" onclick="finishProfile()">
+        Continue
+      </button>
+
+      <div id="profileMessage" class="message"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= WELCOME PAGE ================= -->
+
+  <div id="welcomePage" class="app-page">
+
+    <div class="app-box">
+
+      <div class="welcome-icon">💞</div>
+
+      <h2>Welcome to Pairly!</h2>
+
+      <p id="welcomeText">
+        Your profile is ready.
+      </p>
+
+      <button class="form-btn" onclick="showHome()">
+        Explore Pairly
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= SUPABASE ================= -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -555,23 +635,33 @@
       "https://ryqnmanjdubughaaebxa.supabase.co";
 
     const PAIRLY_KEY =
-      "YOUR_SUPABASE_PUBLISHABLE_KEY";
+      "sb_publishable_s0eWIXBZgDa7O3TvG38feQ_Tg-vhDV_";
+
+    const pairlyClient =
+      window.supabase.createClient(
+        PAIRLY_URL,
+        PAIRLY_KEY
+      );
 
 
-    function showSignup() {
+    /* ================= PAGE FUNCTIONS ================= */
+
+    function hideAllPages() {
 
       document.getElementById("homePage").style.display = "none";
 
-      document.getElementById("signupPage").style.display = "flex";
+      document.getElementById("signupPage").classList.remove("active");
 
-      window.scrollTo(0, 0);
+      document.getElementById("profilePage").classList.remove("active");
+
+      document.getElementById("welcomePage").classList.remove("active");
 
     }
 
 
     function showHome() {
 
-      document.getElementById("signupPage").style.display = "none";
+      hideAllPages();
 
       document.getElementById("homePage").style.display = "block";
 
@@ -579,6 +669,44 @@
 
     }
 
+
+    function showSignup() {
+
+      hideAllPages();
+
+      document.getElementById("signupPage").classList.add("active");
+
+      window.scrollTo(0, 0);
+
+    }
+
+
+    function showProfile() {
+
+      hideAllPages();
+
+      document.getElementById("profilePage").classList.add("active");
+
+      window.scrollTo(0, 0);
+
+    }
+
+
+    function showWelcome(name) {
+
+      hideAllPages();
+
+      document.getElementById("welcomePage").classList.add("active");
+
+      document.getElementById("welcomeText").textContent =
+        "You're all set, " + name + ". Your Pairly journey starts here. 💕";
+
+      window.scrollTo(0, 0);
+
+    }
+
+
+    /* ================= CREATE ACCOUNT ================= */
 
     async function createAccount() {
 
@@ -621,35 +749,13 @@
 
       try {
 
-        const supabase = window.supabase;
-
-
-        if (!supabase) {
-
-          throw new Error(
-            "Pairly could not connect to Supabase."
-          );
-
-        }
-
-
-        const PAIRLY_URL =
-  "https://ryqnmanjdubughaaebxa.supabase.co";
-
-const PAIRLY_KEY =
- "sb_publishable_s0eWIXBZgDa7O3TvG38feQ_Tg-vhDV_"
-
-const pairlyClient =
-  supabase.createClient(
-    PAIRLY_URL,
-    PAIRLY_KEY
-  );
-
-
         const result =
           await pairlyClient.auth.signUp({
             email: email,
-            password: password
+            password: password,
+            options: {
+              emailRedirectTo: window.location.href
+            }
           });
 
 
@@ -663,8 +769,21 @@ const pairlyClient =
         }
 
 
-        message.textContent =
-          "Account created successfully! 🎉 Check your email to confirm your account.";
+        if (result.data.session) {
+
+          message.textContent =
+            "Account created successfully! 🎉";
+
+          setTimeout(() => {
+            showProfile();
+          }, 1200);
+
+        } else {
+
+          message.textContent =
+            "Account created successfully! 🎉 Please check your email and confirm your account.";
+
+        }
 
       } catch (error) {
 
@@ -674,6 +793,127 @@ const pairlyClient =
       }
 
     }
+
+
+    /* ================= PROFILE ================= */
+
+    function finishProfile() {
+
+      const name =
+        document.getElementById("nameInput").value.trim();
+
+      const age =
+        document.getElementById("ageInput").value;
+
+      const gender =
+        document.getElementById("genderInput").value;
+
+      const location =
+        document.getElementById("locationInput").value.trim();
+
+      const interests =
+        document.getElementById("interestsInput").value.trim();
+
+      const lookingFor =
+        document.getElementById("lookingForInput").value;
+
+      const message =
+        document.getElementById("profileMessage");
+
+
+      message.textContent = "";
+
+
+      if (
+        !name ||
+        !age ||
+        !gender ||
+        !location ||
+        !interests ||
+        !lookingFor
+      ) {
+
+        message.textContent =
+          "Please complete all the fields.";
+
+        return;
+
+      }
+
+
+      if (Number(age) < 18) {
+
+        message.textContent =
+          "You must be 18 or older to use Pairly.";
+
+        return;
+
+      }
+
+
+      const profile = {
+
+        name: name,
+        age: age,
+        gender: gender,
+        location: location,
+        interests: interests,
+        lookingFor: lookingFor
+
+      };
+
+
+      localStorage.setItem(
+        "pairlyProfile",
+        JSON.stringify(profile)
+      );
+
+
+      showWelcome(name);
+
+    }
+
+
+    /* ================= CHECK LOGIN ================= */
+
+    async function checkExistingUser() {
+
+      try {
+
+        const result =
+          await pairlyClient.auth.getSession();
+
+        const session =
+          result.data.session;
+
+
+        if (session) {
+
+          const savedProfile =
+            localStorage.getItem("pairlyProfile");
+
+
+          if (savedProfile) {
+
+            const profile =
+              JSON.parse(savedProfile);
+
+            showWelcome(profile.name);
+
+          }
+
+        }
+
+      } catch (error) {
+
+        console.log("Session check:", error.message);
+
+      }
+
+    }
+
+
+    checkExistingUser();
 
   </script>
 
