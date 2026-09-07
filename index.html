@@ -877,7 +877,7 @@
 
     }
 
-    async function loginAccount() {
+   async function loginAccount() {
   const email = document.getElementById("loginEmailInput").value.trim();
   const password = document.getElementById("loginPasswordInput").value;
   const message = document.getElementById("loginMessage");
@@ -892,33 +892,59 @@
   message.textContent = "Logging you in...";
 
   try {
-    const { data, error } = await pairlyClient.auth.signInWithPassword({
-      email: email,
-      password: password
-    });
+    const { data, error } =
+      await pairlyClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
 
     if (error) {
       message.textContent = "Error: " + error.message;
       return;
     }
 
-    message.textContent = "Login successful! 🎉";
+    const user = data.user;
 
-    const savedProfile = localStorage.getItem("pairlyProfile");
+    const { data: profile, error: profileError } =
+      await pairlyClient
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .maybeSingle();
 
-    setTimeout(() => {
-      if (savedProfile) {
-        const profile = JSON.parse(savedProfile);
+    if (profileError) {
+      message.textContent =
+        "Error checking your profile: " + profileError.message;
+      return;
+    }
+
+    if (profile) {
+      localStorage.setItem(
+        "pairlyProfile",
+        JSON.stringify(profile)
+      );
+
+      message.textContent = "Welcome back! 💕";
+
+      setTimeout(() => {
         showWelcome(profile.name);
-      } else {
+      }, 800);
+
+    } else {
+
+      message.textContent =
+        "Account confirmed! Let's set up your profile 💕";
+
+      setTimeout(() => {
         showProfile();
-      }
-    }, 800);
+      }, 800);
+    }
 
   } catch (error) {
-    message.textContent = "Connection error: " + error.message;
+    message.textContent =
+      "Connection error: " + error.message;
   }
-}
+} 
 
     /* ================= PROFILE ================= */
 
