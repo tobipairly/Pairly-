@@ -2119,7 +2119,40 @@
 
     }
 
+/* ================= LOG OUT ================= */
 
+async function logoutPairly() {
+
+  try {
+
+    const { error } =
+      await pairlyClient.auth.signOut();
+
+    if (error) {
+
+      console.log(
+        "Logout error:",
+        error.message
+      );
+
+      return;
+
+    }
+
+    localStorage.removeItem("pairlyProfile");
+
+    showHome();
+
+  } catch (error) {
+
+    console.log(
+      "Logout error:",
+      error.message
+    );
+
+  }
+
+}
     /* ================= CHECK LOGIN ================= */
 
     async function checkExistingUser() {
