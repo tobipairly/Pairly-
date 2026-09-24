@@ -2145,7 +2145,26 @@
       }
 
     }
+/* ================= MATCHING EXPERIENCE ================= */
 
+function startMatchingExperience() {
+
+  hideAllPages();
+
+  const matchingPage =
+    document.getElementById("matchingPage");
+
+  if (matchingPage) {
+    matchingPage.style.display = "flex";
+  }
+
+  setTimeout(() => {
+
+    showSignup();
+
+  }, 3000);
+
+}
 /* ================= LOG OUT ================= */
 
 function logoutPairly() {
