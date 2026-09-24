@@ -395,7 +395,87 @@
       padding: 20px 0;
       color: #6d5b68;
     }
+/* ================= MATCHING LOADING ================= */
 
+.matching-box {
+  width: 100%;
+  max-width: 430px;
+  padding: 45px 25px;
+  text-align: center;
+  background: rgba(255,255,255,0.88);
+  border: 1px solid rgba(233,79,135,0.12);
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(36,23,33,0.10);
+  backdrop-filter: blur(12px);
+}
+
+.matching-heart {
+  font-size: 70px;
+  margin-bottom: 18px;
+  animation: heartPulse 1.4s ease-in-out infinite;
+}
+
+.matching-box h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.matching-box p {
+  color: #6d5b68;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.matching-loader {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.matching-loader span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e94f87;
+  animation: matchingDots 1.2s infinite ease-in-out;
+}
+
+.matching-loader span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.matching-loader span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.matching-status {
+  color: #e94f87;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes matchingDots {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+
+  40% {
+    transform: translateY(-7px);
+    opacity: 1;
+  }
+}
     @media (max-width: 700px) {
       .hero h1 {
         font-size: 38px;
