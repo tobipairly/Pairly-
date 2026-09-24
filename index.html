@@ -2121,36 +2121,28 @@
 
 /* ================= LOG OUT ================= */
 
-async function logoutPairly() {
+function logoutPairly() {
 
-  try {
+  pairlyClient.auth.signOut()
+    .then(({ error }) => {
 
-    const { error } =
-      await pairlyClient.auth.signOut();
+      if (error) {
+        console.log("Logout error:", error.message);
+        alert("Logout failed: " + error.message);
+        return;
+      }
 
-    if (error) {
+      localStorage.removeItem("pairlyProfile");
 
-      console.log(
-        "Logout error:",
-        error.message
-      );
+      showHome();
 
-      return;
+    })
+    .catch((error) => {
 
-    }
+      console.log("Logout error:", error);
+      alert("Logout failed. Please try again.");
 
-    localStorage.removeItem("pairlyProfile");
-
-    showHome();
-
-  } catch (error) {
-
-    console.log(
-      "Logout error:",
-      error.message
-    );
-
-  }
+    });
 
 }
     /* ================= CHECK LOGIN ================= */
