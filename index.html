@@ -304,6 +304,42 @@
       margin-bottom: 15px;
     }
 
+    /* ================= EXPLORE ================= */
+
+    .explore-box {
+      max-width: 600px;
+    }
+
+    .match-card {
+      background: #fff7fb;
+      border: 1px solid #f1dce6;
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+
+    .match-card h3 {
+      color: #241721;
+      margin-bottom: 8px;
+    }
+
+    .match-card p {
+      color: #6d5b68;
+      line-height: 1.5;
+      margin: 5px 0;
+    }
+
+    .match-tag {
+      display: inline-block;
+      background: #ffe0eb;
+      color: #e94f87;
+      padding: 6px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
     @media (max-width: 700px) {
       .hero h1 {
         font-size: 38px;
@@ -609,10 +645,7 @@
         Log in
       </button>
 
-      <div
-        id="loginMessage"
-        class="message"
-      ></div>
+      <div id="loginMessage" class="message"></div>
 
       <div style="text-align:center; margin-top:20px;">
         <span
@@ -710,8 +743,37 @@
       </p>
 
       <button class="form-btn" onclick="showExplore()">
-  Explore Pairly
-</button>
+        Explore Pairly
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= EXPLORE PAGE ================= -->
+
+  <div id="explorePage" class="app-page">
+
+    <div class="app-box explore-box">
+
+      <h2>Explore Pairly 💞</h2>
+
+      <p>
+        Discover people who may be a good connection for you.
+      </p>
+
+      <div id="matchesList"></div>
+
+      <div id="exploreMessage" class="message"></div>
+
+      <button
+        class="form-btn"
+        onclick="showWelcomeFromStorage()"
+        style="margin-top:20px;"
+      >
+        ← Back to Welcome
+      </button>
 
     </div>
 
@@ -719,19 +781,7 @@
 
 
   <!-- ================= SUPABASE ================= -->
-<!-- ================= EXPLORE PAGE ================= -->
-<div id="explorePage" class="app-page">
-  <div class="app-box">
-    <h2>Explore Pairly 💞</h2>
-    <p>Discover people who may be a good connection for you.</p>
 
-    <div id="matchesList"></div>
-
-    <button class="form-btn" onclick="showHome()">
-      Back to Home
-    </button>
-  </div>
-</div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
@@ -762,6 +812,8 @@
       document.getElementById("profilePage").classList.remove("active");
 
       document.getElementById("welcomePage").classList.remove("active");
+
+      document.getElementById("explorePage").classList.remove("active");
 
     }
 
@@ -825,6 +877,182 @@
     }
 
 
+    function showWelcomeFromStorage() {
+
+      const savedProfile =
+        localStorage.getItem("pairlyProfile");
+
+      if (savedProfile) {
+
+        const profile =
+          JSON.parse(savedProfile);
+
+        showWelcome(profile.name);
+
+      } else {
+
+        showHome();
+
+      }
+
+    }
+
+
+    /* ================= EXPLORE ================= */
+
+    async function showExplore() {
+
+      hideAllPages();
+
+      document.getElementById("explorePage").classList.add("active");
+
+      window.scrollTo(0, 0);
+
+      await loadMatches();
+
+    }
+
+
+    async function loadMatches() {
+
+      const matchesList =
+        document.getElementById("matchesList");
+
+      const exploreMessage =
+        document.getElementById("exploreMessage");
+
+      matchesList.innerHTML = "";
+
+      exploreMessage.textContent =
+        "Finding people for you... 💕";
+
+      try {
+
+        const {
+          data: { user },
+          error: userError
+        } = await pairlyClient.auth.getUser();
+
+        if (userError || !user) {
+
+          exploreMessage.textContent =
+            "Please log in again.";
+
+          return;
+
+        }
+
+        const {
+          data: profiles,
+          error
+        } = await pairlyClient
+          .from("profiles")
+          .select(
+            "id, name, age, gender, location, interests, looking_for"
+          )
+          .neq("id", user.id)
+          .limit(20);
+
+        if (error) {
+
+          exploreMessage.textContent =
+            "Error loading profiles: " +
+            error.message;
+
+          return;
+
+        }
+
+        if (!profiles || profiles.length === 0) {
+
+          exploreMessage.textContent =
+            "No other Pairly members yet. Invite someone to join 💕";
+
+          return;
+
+        }
+
+        exploreMessage.textContent = "";
+
+        profiles.forEach(function(profile) {
+
+          const card =
+            document.createElement("div");
+
+          card.className = "match-card";
+
+          const title =
+            document.createElement("h3");
+
+          title.textContent =
+            profile.name || "Pairly member";
+
+          card.appendChild(title);
+
+          const basicInfo =
+            document.createElement("p");
+
+          basicInfo.textContent =
+            (profile.age ? profile.age + " years old" : "") +
+            (profile.gender ? " • " + profile.gender : "");
+
+          card.appendChild(basicInfo);
+
+          if (profile.location) {
+
+            const location =
+              document.createElement("p");
+
+            location.textContent =
+              "📍 " + profile.location;
+
+            card.appendChild(location);
+
+          }
+
+          if (profile.interests) {
+
+            const interests =
+              document.createElement("p");
+
+            interests.textContent =
+              "❤️ Interests: " +
+              profile.interests;
+
+            card.appendChild(interests);
+
+          }
+
+          if (profile.looking_for) {
+
+            const lookingFor =
+              document.createElement("span");
+
+            lookingFor.className =
+              "match-tag";
+
+            lookingFor.textContent =
+              profile.looking_for;
+
+            card.appendChild(lookingFor);
+
+          }
+
+          matchesList.appendChild(card);
+
+        });
+
+      } catch (error) {
+
+        exploreMessage.textContent =
+          "Connection error: " +
+          error.message;
+
+      }
+
+    }
+
+
     /* ================= CREATE ACCOUNT ================= */
 
     async function createAccount() {
@@ -865,17 +1093,22 @@
 
         const result =
           await pairlyClient.auth.signUp({
+
             email: email,
+
             password: password,
+
             options: {
               emailRedirectTo: window.location.href
             }
+
           });
 
         if (result.error) {
 
           message.textContent =
-            "Error: " + result.error.message;
+            "Error: " +
+            result.error.message;
 
           return;
 
@@ -886,8 +1119,10 @@
           message.textContent =
             "Account created successfully! 🎉";
 
-          setTimeout(() => {
+          setTimeout(function() {
+
             showProfile();
+
           }, 1200);
 
         } else {
@@ -901,9 +1136,23 @@
       } catch (error) {
 
         message.textContent =
-          "Connection error: " + error.message;
+          "Connection error: " +
+          error.message;
 
       }
+
+    }
+
+
+    /* ================= APPLE LOGIN ================= */
+
+    async function loginWithApple() {
+
+      const message =
+        document.getElementById("message");
+
+      message.textContent =
+        "Apple login is not connected yet.";
 
     }
 
@@ -937,22 +1186,29 @@
 
       try {
 
-        const { data, error } =
-          await pairlyClient.auth.signInWithPassword({
-            email: email,
-            password: password
-          });
+        const {
+          data,
+          error
+        } = await pairlyClient.auth.signInWithPassword({
+
+          email: email,
+
+          password: password
+
+        });
 
         if (error) {
 
           message.textContent =
-            "Error: " + error.message;
+            "Error: " +
+            error.message;
 
           return;
 
         }
 
-        const user = data.user;
+        const user =
+          data.user;
 
         const {
           data: profile,
@@ -983,7 +1239,7 @@
           message.textContent =
             "Welcome back! 💕";
 
-          setTimeout(() => {
+          setTimeout(function() {
 
             showWelcome(profile.name);
 
@@ -995,7 +1251,7 @@
             "Account confirmed! " +
             "Let's set up your profile 💕";
 
-          setTimeout(() => {
+          setTimeout(function() {
 
             showProfile();
 
@@ -1084,18 +1340,27 @@
 
         }
 
-        const { error } =
-          await pairlyClient
-            .from("profiles")
-            .upsert({
-              id: user.id,
-              name: name,
-              age: Number(age),
-              gender: gender,
-              location: location,
-              interests: interests,
-              looking_for: lookingFor
-            });
+        const {
+          error
+        } = await pairlyClient
+          .from("profiles")
+          .upsert({
+
+            id: user.id,
+
+            name: name,
+
+            age: Number(age),
+
+            gender: gender,
+
+            location: location,
+
+            interests: interests,
+
+            looking_for: lookingFor
+
+          });
 
         if (error) {
 
@@ -1108,12 +1373,19 @@
         }
 
         const profile = {
+
           name: name,
+
           age: Number(age),
+
           gender: gender,
+
           location: location,
+
           interests: interests,
+
           looking_for: lookingFor
+
         };
 
         localStorage.setItem(
@@ -1124,7 +1396,7 @@
         message.textContent =
           "Profile saved successfully! 🎉";
 
-        setTimeout(() => {
+        setTimeout(function() {
 
           showWelcome(name);
 
