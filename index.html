@@ -2169,6 +2169,22 @@ function startMatchingExperience() {
   }, 3000);
 
 }
+    function startJoinExperience() {
+
+  document.getElementById("homePage").style.display = "none";
+
+  const matchingPage = document.getElementById("matchingPage");
+
+  if (matchingPage) {
+    matchingPage.style.display = "flex";
+  }
+
+  setTimeout(function() {
+    matchingPage.style.display = "none";
+    showSignup();
+  }, 3000);
+
+}
 /* ================= LOG OUT ================= */
 
 function logoutPairly() {
