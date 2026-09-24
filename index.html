@@ -304,6 +304,56 @@
       margin-bottom: 15px;
     }
 
+    /* ================= SEARCH LOCATION ================= */
+
+    .location-field {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .location-field input {
+      margin-bottom: 0 !important;
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 58px;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+      z-index: 100;
+      max-height: 220px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .suggestion-item {
+      padding: 13px 15px;
+      cursor: pointer;
+      border-bottom: 1px solid #f4edf1;
+      font-size: 15px;
+    }
+
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+
+    .suggestion-item:hover {
+      background: #fff0f6;
+      color: #e94f87;
+    }
+
+    .selected-location {
+      font-size: 13px;
+      color: #e94f87;
+      margin-top: -8px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
     /* ================= EXPLORE ================= */
 
     .explore-box {
@@ -340,6 +390,12 @@
       margin-top: 8px;
     }
 
+    .explore-loading {
+      text-align: center;
+      padding: 20px 0;
+      color: #6d5b68;
+    }
+
     @media (max-width: 700px) {
       .hero h1 {
         font-size: 38px;
@@ -366,7 +422,7 @@
     <nav>
       <div class="logo">Pairly</div>
 
-      <button onclick="showSignup()">
+      <button type="button" onclick="showSignup()">
         Join Pairly
       </button>
     </nav>
@@ -384,7 +440,7 @@
           interests and what truly matters to you.
         </p>
 
-        <button class="main-btn" onclick="showSignup()">
+        <button type="button" class="main-btn" onclick="showSignup()">
           Find your match
         </button>
 
@@ -450,7 +506,7 @@
               <li>✓ Discover new connections</li>
             </ul>
 
-            <button onclick="showSignup()">
+            <button type="button" onclick="showSignup()">
               Get started
             </button>
 
@@ -468,7 +524,7 @@
               <li>✓ Enhanced profile features</li>
             </ul>
 
-            <button onclick="showSignup()">
+            <button type="button" onclick="showSignup()">
               Join waitlist
             </button>
 
@@ -486,7 +542,7 @@
               <li>✓ Exclusive features</li>
             </ul>
 
-            <button onclick="showSignup()">
+            <button type="button" onclick="showSignup()">
               Join waitlist
             </button>
 
@@ -518,7 +574,7 @@
           Join Pairly and be among the first to meet someone who gets you.
         </p>
 
-        <button onclick="showSignup()">
+        <button type="button" onclick="showSignup()">
           Create your account
         </button>
 
@@ -577,7 +633,7 @@
         autocomplete="tel"
       >
 
-      <button class="form-btn" onclick="createAccount()">
+      <button type="button" class="form-btn" onclick="createAccount()">
         Create account
       </button>
 
@@ -596,8 +652,8 @@
       </div>
 
       <button
-        class="form-btn"
         type="button"
+        class="form-btn"
         onclick="loginWithApple()"
         style="background:#241721; color:white;"
       >
@@ -641,7 +697,7 @@
         autocomplete="current-password"
       >
 
-      <button class="form-btn" onclick="loginAccount()">
+      <button type="button" class="form-btn" onclick="loginAccount()">
         Log in
       </button>
 
@@ -696,11 +752,54 @@
         <option value="Other">Other</option>
       </select>
 
-      <input
-        type="text"
-        id="locationInput"
-        placeholder="City / location"
-      >
+
+      <!-- COUNTRY SEARCH -->
+
+      <div class="location-field">
+
+        <input
+          type="text"
+          id="profileCountryInput"
+          placeholder="Search country..."
+          autocomplete="off"
+          oninput="searchCountries()"
+          onclick="searchCountries()"
+        >
+
+        <div
+          id="countrySuggestions"
+          class="suggestions"
+        ></div>
+
+      </div>
+
+
+      <!-- CITY SEARCH -->
+
+      <div class="location-field">
+
+        <input
+          type="text"
+          id="profileCityInput"
+          placeholder="Search city..."
+          autocomplete="off"
+          oninput="searchCities()"
+          onclick="searchCities()"
+          disabled
+        >
+
+        <div
+          id="citySuggestions"
+          class="suggestions"
+        ></div>
+
+      </div>
+
+      <div
+        id="selectedLocation"
+        class="selected-location"
+      ></div>
+
 
       <input
         type="text"
@@ -717,7 +816,7 @@
         </option>
       </select>
 
-      <button class="form-btn" onclick="finishProfile()">
+      <button type="button" class="form-btn" onclick="finishProfile()">
         Continue
       </button>
 
@@ -742,7 +841,11 @@
         Your profile is ready.
       </p>
 
-      <button class="form-btn" onclick="showExplore()">
+      <button
+        type="button"
+        class="form-btn"
+        onclick="showExplore()"
+      >
         Explore Pairly
       </button>
 
@@ -768,6 +871,7 @@
       <div id="exploreMessage" class="message"></div>
 
       <button
+        type="button"
         class="form-btn"
         onclick="showWelcomeFromStorage()"
         style="margin-top:20px;"
@@ -797,6 +901,217 @@
         PAIRLY_URL,
         PAIRLY_KEY
       );
+
+
+    /* ================= LOCATION DATA ================= */
+
+    const locationData = {
+
+      "Nigeria": [
+        "Abuja",
+        "Akungba-Akoko",
+        "Akure",
+        "Benin City",
+        "Calabar",
+        "Enugu",
+        "Ibadan",
+        "Ife",
+        "Ilorin",
+        "Jos",
+        "Kaduna",
+        "Kano",
+        "Lagos",
+        "Owerri",
+        "Port Harcourt"
+      ],
+
+      "Ghana": [
+        "Accra",
+        "Kumasi",
+        "Tamale",
+        "Takoradi",
+        "Cape Coast",
+        "Tema"
+      ],
+
+      "South Africa": [
+        "Cape Town",
+        "Johannesburg",
+        "Pretoria",
+        "Durban",
+        "Gqeberha",
+        "Bloemfontein"
+      ],
+
+      "Kenya": [
+        "Nairobi",
+        "Mombasa",
+        "Kisumu",
+        "Nakuru",
+        "Eldoret"
+      ],
+
+      "United Kingdom": [
+        "London",
+        "Manchester",
+        "Birmingham",
+        "Liverpool",
+        "Leeds",
+        "Bristol",
+        "Glasgow",
+        "Edinburgh"
+      ],
+
+      "United States": [
+        "New York",
+        "Los Angeles",
+        "Chicago",
+        "Houston",
+        "Miami",
+        "Atlanta",
+        "Boston",
+        "Washington",
+        "Seattle",
+        "San Francisco"
+      ],
+
+      "Canada": [
+        "Toronto",
+        "Vancouver",
+        "Montreal",
+        "Calgary",
+        "Ottawa",
+        "Edmonton"
+      ],
+
+      "Australia": [
+        "Sydney",
+        "Melbourne",
+        "Brisbane",
+        "Perth",
+        "Adelaide",
+        "Canberra"
+      ],
+
+      "France": [
+        "Paris",
+        "Marseille",
+        "Lyon",
+        "Toulouse",
+        "Nice"
+      ],
+
+      "Germany": [
+        "Berlin",
+        "Munich",
+        "Hamburg",
+        "Frankfurt",
+        "Cologne"
+      ],
+
+      "Italy": [
+        "Rome",
+        "Milan",
+        "Naples",
+        "Turin",
+        "Florence"
+      ],
+
+      "Spain": [
+        "Madrid",
+        "Barcelona",
+        "Valencia",
+        "Seville"
+      ],
+
+      "Netherlands": [
+        "Amsterdam",
+        "Rotterdam",
+        "The Hague",
+        "Utrecht"
+      ],
+
+      "Ireland": [
+        "Dublin",
+        "Cork",
+        "Limerick",
+        "Galway"
+      ],
+
+      "United Arab Emirates": [
+        "Dubai",
+        "Abu Dhabi",
+        "Sharjah",
+        "Ajman"
+      ],
+
+      "Saudi Arabia": [
+        "Riyadh",
+        "Jeddah",
+        "Mecca",
+        "Medina",
+        "Dammam"
+      ],
+
+      "India": [
+        "Mumbai",
+        "Delhi",
+        "Bangalore",
+        "Hyderabad",
+        "Chennai",
+        "Kolkata",
+        "Pune"
+      ],
+
+      "Brazil": [
+        "São Paulo",
+        "Rio de Janeiro",
+        "Brasília",
+        "Salvador"
+      ],
+
+      "Japan": [
+        "Tokyo",
+        "Osaka",
+        "Kyoto",
+        "Yokohama",
+        "Nagoya"
+      ],
+
+      "China": [
+        "Beijing",
+        "Shanghai",
+        "Guangzhou",
+        "Shenzhen",
+        "Chengdu"
+      ],
+
+      "Singapore": [
+        "Singapore"
+      ],
+
+      "Malaysia": [
+        "Kuala Lumpur",
+        "George Town",
+        "Johor Bahru",
+        "Kota Kinabalu"
+      ],
+
+      "New Zealand": [
+        "Auckland",
+        "Wellington",
+        "Christchurch",
+        "Hamilton"
+      ]
+    };
+
+
+    const countryList =
+      Object.keys(locationData);
+
+
+    let selectedCountry = "";
+    let selectedCity = "";
 
 
     /* ================= PAGE FUNCTIONS ================= */
@@ -884,10 +1199,18 @@
 
       if (savedProfile) {
 
-        const profile =
-          JSON.parse(savedProfile);
+        try {
 
-        showWelcome(profile.name);
+          const profile =
+            JSON.parse(savedProfile);
+
+          showWelcome(profile.name || "there");
+
+        } catch (error) {
+
+          showHome();
+
+        }
 
       } else {
 
@@ -898,17 +1221,259 @@
     }
 
 
+    /* ================= COUNTRY SEARCH ================= */
+
+    function searchCountries() {
+
+      const input =
+        document.getElementById("profileCountryInput");
+
+      const suggestions =
+        document.getElementById("countrySuggestions");
+
+      const query =
+        input.value.trim().toLowerCase();
+
+      suggestions.innerHTML = "";
+
+      if (query.length < 2) {
+
+        suggestions.style.display = "none";
+
+        return;
+
+      }
+
+      const results =
+        countryList.filter(function(country) {
+
+          return country.toLowerCase().includes(query);
+
+        }).slice(0, 8);
+
+
+      if (results.length === 0) {
+
+        suggestions.style.display = "none";
+
+        return;
+
+      }
+
+
+      results.forEach(function(country) {
+
+        const item =
+          document.createElement("div");
+
+        item.className = "suggestion-item";
+
+        item.textContent = country;
+
+        item.onclick = function() {
+
+          selectCountry(country);
+
+        };
+
+        suggestions.appendChild(item);
+
+      });
+
+
+      suggestions.style.display = "block";
+
+    }
+
+
+    function selectCountry(country) {
+
+      selectedCountry = country;
+
+      selectedCity = "";
+
+      document.getElementById("profileCountryInput").value =
+        country;
+
+      const cityInput =
+        document.getElementById("profileCityInput");
+
+      cityInput.disabled = false;
+
+      cityInput.value = "";
+
+      cityInput.placeholder =
+        "Search city in " + country + "...";
+
+      document.getElementById("countrySuggestions").style.display =
+        "none";
+
+      document.getElementById("citySuggestions").innerHTML = "";
+
+      document.getElementById("citySuggestions").style.display =
+        "none";
+
+      document.getElementById("selectedLocation").style.display =
+        "none";
+
+    }
+
+
+    /* ================= CITY SEARCH ================= */
+
+    function searchCities() {
+
+      const input =
+        document.getElementById("profileCityInput");
+
+      const suggestions =
+        document.getElementById("citySuggestions");
+
+      const query =
+        input.value.trim().toLowerCase();
+
+      suggestions.innerHTML = "";
+
+      if (!selectedCountry) {
+
+        return;
+
+      }
+
+      if (query.length < 2) {
+
+        suggestions.style.display = "none";
+
+        return;
+
+      }
+
+      const cities =
+        locationData[selectedCountry] || [];
+
+
+      const results =
+        cities.filter(function(city) {
+
+          return city.toLowerCase().includes(query);
+
+        }).slice(0, 8);
+
+
+      if (results.length === 0) {
+
+        suggestions.style.display = "none";
+
+        return;
+
+      }
+
+
+      results.forEach(function(city) {
+
+        const item =
+          document.createElement("div");
+
+        item.className = "suggestion-item";
+
+        item.textContent = city;
+
+        item.onclick = function() {
+
+          selectCity(city);
+
+        };
+
+        suggestions.appendChild(item);
+
+      });
+
+
+      suggestions.style.display = "block";
+
+    }
+
+
+    function selectCity(city) {
+
+      selectedCity = city;
+
+      document.getElementById("profileCityInput").value =
+        city;
+
+      document.getElementById("citySuggestions").style.display =
+        "none";
+
+      const selectedLocation =
+        document.getElementById("selectedLocation");
+
+      selectedLocation.textContent =
+        "📍 " + city + ", " + selectedCountry;
+
+      selectedLocation.style.display =
+        "block";
+
+    }
+
+
+    /* ================= CLOSE SUGGESTIONS ================= */
+
+    document.addEventListener("click", function(event) {
+
+      if (
+        !event.target.closest(".location-field")
+      ) {
+
+        const countrySuggestions =
+          document.getElementById("countrySuggestions");
+
+        const citySuggestions =
+          document.getElementById("citySuggestions");
+
+        if (countrySuggestions) {
+
+          countrySuggestions.style.display =
+            "none";
+
+        }
+
+        if (citySuggestions) {
+
+          citySuggestions.style.display =
+            "none";
+
+        }
+
+      }
+
+    });
+
+
     /* ================= EXPLORE ================= */
 
-    async function showExplore() {
+    function showExplore() {
 
-      hideAllPages();
+      try {
 
-      document.getElementById("explorePage").classList.add("active");
+        hideAllPages();
 
-      window.scrollTo(0, 0);
+        const explorePage =
+          document.getElementById("explorePage");
 
-      await loadMatches();
+        explorePage.classList.add("active");
+
+        window.scrollTo(0, 0);
+
+        loadMatches();
+
+      } catch (error) {
+
+        console.log(
+          "Explore page error:",
+          error.message
+        );
+
+      }
 
     }
 
@@ -921,10 +1486,19 @@
       const exploreMessage =
         document.getElementById("exploreMessage");
 
-      matchesList.innerHTML = "";
 
-      exploreMessage.textContent =
-        "Finding people for you... 💕";
+      if (!matchesList || !exploreMessage) {
+
+        return;
+
+      }
+
+
+      matchesList.innerHTML =
+        '<div class="explore-loading">Finding people for you... 💕</div>';
+
+      exploreMessage.textContent = "";
+
 
       try {
 
@@ -933,7 +1507,10 @@
           error: userError
         } = await pairlyClient.auth.getUser();
 
+
         if (userError || !user) {
+
+          matchesList.innerHTML = "";
 
           exploreMessage.textContent =
             "Please log in again.";
@@ -941,6 +1518,7 @@
           return;
 
         }
+
 
         const {
           data: profiles,
@@ -953,17 +1531,27 @@
           .neq("id", user.id)
           .limit(20);
 
+
         if (error) {
 
+          matchesList.innerHTML = "";
+
           exploreMessage.textContent =
-            "Error loading profiles: " +
-            error.message;
+            "We couldn't load matches right now.";
+
+          console.log(
+            "Explore profiles error:",
+            error.message
+          );
 
           return;
 
         }
 
+
         if (!profiles || profiles.length === 0) {
+
+          matchesList.innerHTML = "";
 
           exploreMessage.textContent =
             "No other Pairly members yet. Invite someone to join 💕";
@@ -972,14 +1560,18 @@
 
         }
 
-        exploreMessage.textContent = "";
+
+        matchesList.innerHTML = "";
+
 
         profiles.forEach(function(profile) {
 
           const card =
             document.createElement("div");
 
-          card.className = "match-card";
+          card.className =
+            "match-card";
+
 
           const title =
             document.createElement("h3");
@@ -989,14 +1581,35 @@
 
           card.appendChild(title);
 
+
           const basicInfo =
             document.createElement("p");
 
+          let info = "";
+
+          if (profile.age) {
+
+            info += profile.age + " years old";
+
+          }
+
+          if (profile.gender) {
+
+            if (info) {
+
+              info += " • ";
+
+            }
+
+            info += profile.gender;
+
+          }
+
           basicInfo.textContent =
-            (profile.age ? profile.age + " years old" : "") +
-            (profile.gender ? " • " + profile.gender : "");
+            info;
 
           card.appendChild(basicInfo);
+
 
           if (profile.location) {
 
@@ -1010,6 +1623,7 @@
 
           }
 
+
           if (profile.interests) {
 
             const interests =
@@ -1022,6 +1636,7 @@
             card.appendChild(interests);
 
           }
+
 
           if (profile.looking_for) {
 
@@ -1038,15 +1653,23 @@
 
           }
 
+
           matchesList.appendChild(card);
 
         });
 
+
       } catch (error) {
 
+        matchesList.innerHTML = "";
+
         exploreMessage.textContent =
-          "Connection error: " +
-          error.message;
+          "Something went wrong while loading Explore.";
+
+        console.log(
+          "Explore error:",
+          error.message
+        );
 
       }
 
@@ -1066,7 +1689,9 @@
       const message =
         document.getElementById("message");
 
+
       message.textContent = "";
+
 
       if (!email || !password) {
 
@@ -1077,6 +1702,7 @@
 
       }
 
+
       if (password.length < 6) {
 
         message.textContent =
@@ -1086,8 +1712,10 @@
 
       }
 
+
       message.textContent =
         "Creating your account...";
+
 
       try {
 
@@ -1099,10 +1727,14 @@
             password: password,
 
             options: {
-              emailRedirectTo: window.location.href
+
+              emailRedirectTo:
+                window.location.href
+
             }
 
           });
+
 
         if (result.error) {
 
@@ -1114,16 +1746,19 @@
 
         }
 
+
         if (result.data.session) {
 
           message.textContent =
             "Account created successfully! 🎉";
+
 
           setTimeout(function() {
 
             showProfile();
 
           }, 1200);
+
 
         } else {
 
@@ -1132,6 +1767,7 @@
             "Please check your email and confirm your account.";
 
         }
+
 
       } catch (error) {
 
@@ -1170,7 +1806,9 @@
       const message =
         document.getElementById("loginMessage");
 
+
       message.textContent = "";
+
 
       if (!email || !password) {
 
@@ -1181,21 +1819,25 @@
 
       }
 
+
       message.textContent =
         "Logging you in...";
+
 
       try {
 
         const {
           data,
           error
-        } = await pairlyClient.auth.signInWithPassword({
+        } =
+          await pairlyClient.auth.signInWithPassword({
 
-          email: email,
+            email: email,
 
-          password: password
+            password: password
 
-        });
+          });
+
 
         if (error) {
 
@@ -1207,17 +1849,21 @@
 
         }
 
+
         const user =
           data.user;
+
 
         const {
           data: profile,
           error: profileError
-        } = await pairlyClient
-          .from("profiles")
-          .select("*")
-          .eq("id", user.id)
-          .maybeSingle();
+        } =
+          await pairlyClient
+            .from("profiles")
+            .select("*")
+            .eq("id", user.id)
+            .maybeSingle();
+
 
         if (profileError) {
 
@@ -1229,6 +1875,7 @@
 
         }
 
+
         if (profile) {
 
           localStorage.setItem(
@@ -1236,8 +1883,10 @@
             JSON.stringify(profile)
           );
 
+
           message.textContent =
             "Welcome back! 💕";
+
 
           setTimeout(function() {
 
@@ -1245,11 +1894,13 @@
 
           }, 800);
 
+
         } else {
 
           message.textContent =
             "Account confirmed! " +
             "Let's set up your profile 💕";
+
 
           setTimeout(function() {
 
@@ -1258,6 +1909,7 @@
           }, 800);
 
         }
+
 
       } catch (error) {
 
@@ -1283,9 +1935,6 @@
       const gender =
         document.getElementById("genderInput").value;
 
-      const location =
-        document.getElementById("locationInput").value.trim();
-
       const interests =
         document.getElementById("interestsInput").value.trim();
 
@@ -1295,13 +1944,40 @@
       const message =
         document.getElementById("profileMessage");
 
+
       message.textContent = "";
+
+
+      /* GET LOCATION */
+
+      const countryInput =
+        document.getElementById("profileCountryInput");
+
+      const cityInput =
+        document.getElementById("profileCityInput");
+
+
+      const country =
+        selectedCountry ||
+        countryInput.value.trim();
+
+      const city =
+        selectedCity ||
+        cityInput.value.trim();
+
+
+      const location =
+        city && country
+          ? city + ", " + country
+          : "";
+
 
       if (
         !name ||
         !age ||
         !gender ||
-        !location ||
+        !country ||
+        !city ||
         !interests ||
         !lookingFor
       ) {
@@ -1313,6 +1989,7 @@
 
       }
 
+
       if (Number(age) < 18) {
 
         message.textContent =
@@ -1322,14 +1999,18 @@
 
       }
 
+
       message.textContent =
         "Saving your profile...";
+
 
       try {
 
         const {
           data: { user }
-        } = await pairlyClient.auth.getUser();
+        } =
+          await pairlyClient.auth.getUser();
+
 
         if (!user) {
 
@@ -1340,27 +2021,30 @@
 
         }
 
+
         const {
           error
-        } = await pairlyClient
-          .from("profiles")
-          .upsert({
+        } =
+          await pairlyClient
+            .from("profiles")
+            .upsert({
 
-            id: user.id,
+              id: user.id,
 
-            name: name,
+              name: name,
 
-            age: Number(age),
+              age: Number(age),
 
-            gender: gender,
+              gender: gender,
 
-            location: location,
+              location: location,
 
-            interests: interests,
+              interests: interests,
 
-            looking_for: lookingFor
+              looking_for: lookingFor
 
-          });
+            });
+
 
         if (error) {
 
@@ -1372,7 +2056,10 @@
 
         }
 
+
         const profile = {
+
+          id: user.id,
 
           name: name,
 
@@ -1388,19 +2075,23 @@
 
         };
 
+
         localStorage.setItem(
           "pairlyProfile",
           JSON.stringify(profile)
         );
 
+
         message.textContent =
           "Profile saved successfully! 🎉";
+
 
         setTimeout(function() {
 
           showWelcome(name);
 
         }, 800);
+
 
       } catch (error) {
 
@@ -1421,7 +2112,9 @@
 
         const {
           data: { session }
-        } = await pairlyClient.auth.getSession();
+        } =
+          await pairlyClient.auth.getSession();
+
 
         if (!session) {
 
@@ -1431,14 +2124,17 @@
 
         }
 
+
         const {
           data: profile,
           error: profileError
-        } = await pairlyClient
-          .from("profiles")
-          .select("*")
-          .eq("id", session.user.id)
-          .maybeSingle();
+        } =
+          await pairlyClient
+            .from("profiles")
+            .select("*")
+            .eq("id", session.user.id)
+            .maybeSingle();
+
 
         if (profileError) {
 
@@ -1452,6 +2148,7 @@
           return;
 
         }
+
 
         if (profile) {
 
@@ -1467,6 +2164,7 @@
           showProfile();
 
         }
+
 
       } catch (error) {
 
