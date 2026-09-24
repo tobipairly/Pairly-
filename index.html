@@ -2150,19 +2150,22 @@
 
 function startMatchingExperience() {
 
-  hideAllPages();
+  document.getElementById("homePage").style.display = "none";
+  document.getElementById("signupPage").classList.remove("active");
+  document.getElementById("loginPage").classList.remove("active");
+  document.getElementById("profilePage").classList.remove("active");
+  document.getElementById("welcomePage").classList.remove("active");
+  document.getElementById("explorePage").classList.remove("active");
 
-  const matchingPage =
-    document.getElementById("matchingPage");
+  const matchingPage = document.getElementById("matchingPage");
 
   if (matchingPage) {
     matchingPage.style.display = "flex";
   }
 
-  setTimeout(() => {
-
+  setTimeout(function() {
+    matchingPage.style.display = "none";
     showSignup();
-
   }, 3000);
 
 }
