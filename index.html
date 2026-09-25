@@ -395,6 +395,115 @@ footer {
   display: none;
 }
 
+/* ================= COMPATIBILITY QUESTIONS ================= */
+
+.compatibility-intro {
+  background: #fff7fb;
+  border: 1px solid #f5dfe8;
+  border-radius: 15px;
+  padding: 14px;
+  margin-bottom: 20px;
+  color: #6d5b68;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.compatibility-question {
+  margin: 22px 0;
+}
+
+.compatibility-question-title {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.compatibility-question-subtitle {
+  color: #8a7783;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.option-label {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.option-label input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.option-card {
+  display: block;
+  padding: 12px 10px;
+  border: 1px solid #eadfe5;
+  border-radius: 12px;
+  color: #5f5060;
+  font-size: 13px;
+  text-align: center;
+  background: white;
+  transition: 0.2s;
+}
+
+.option-label input:checked + .option-card {
+  background: #ffe0eb;
+  border-color: #e94f87;
+  color: #e94f87;
+  font-weight: bold;
+}
+
+.multi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.multi-label {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.multi-label input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.multi-card {
+  display: block;
+  padding: 11px 9px;
+  border: 1px solid #eadfe5;
+  border-radius: 12px;
+  color: #5f5060;
+  font-size: 12px;
+  text-align: center;
+  background: white;
+  transition: 0.2s;
+}
+
+.multi-label input:checked + .multi-card {
+  background: #f7efff;
+  border-color: #a47ab9;
+  color: #704c84;
+  font-weight: bold;
+}
+
+.selection-count {
+  font-size: 11px;
+  color: #8a7783;
+  margin-top: 8px;
+}
+
 /* ================= MATCHING LOADING ================= */
 
 .matching-box {
@@ -610,6 +719,13 @@ footer {
   margin-top: 18px;
   color: #6d5b68;
   font-size: 13px;
+  line-height: 1.5;
+}
+
+.compatibility-breakdown {
+  margin-top: 10px;
+  color: #8a7783;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -1229,6 +1345,12 @@ Tell us a little about yourself so Pairly can understand
 what kind of connection may suit you.
 </p>
 
+<div class="compatibility-intro">
+The next few questions help Pairly understand your personality,
+values and lifestyle. Your answers are used to calculate your
+compatibility with other people.
+</div>
+
 <div class="profile-photo-section">
 
 <div
@@ -1341,8 +1463,197 @@ class="selected-location"
 <input
 type="text"
 id="interestsInput"
-placeholder="Your interests"
+placeholder="Your interests (e.g. music, football, photography)"
 >
+
+<!-- PERSONALITY -->
+
+<div class="compatibility-question">
+
+<div class="compatibility-question-title">
+🧠 What's your personality like?
+</div>
+
+<div class="compatibility-question-subtitle">
+Choose the one that feels most like you.
+</div>
+
+<div class="option-grid">
+
+<label class="option-label">
+<input
+type="radio"
+name="personality"
+value="Introvert"
+>
+<span class="option-card">
+Quiet / Introvert
+</span>
+</label>
+
+<label class="option-label">
+<input
+type="radio"
+name="personality"
+value="Ambivert"
+>
+<span class="option-card">
+A bit of both
+</span>
+</label>
+
+<label class="option-label">
+<input
+type="radio"
+name="personality"
+value="Extrovert"
+>
+<span class="option-card">
+Social / Extrovert
+</span>
+</label>
+
+<label class="option-label">
+<input
+type="radio"
+name="personality"
+value="Adventurous"
+>
+<span class="option-card">
+Adventurous
+</span>
+</label>
+
+</div>
+
+</div>
+
+
+<!-- VALUES -->
+
+<div class="compatibility-question">
+
+<div class="compatibility-question-title">
+❤️ What matters most to you?
+</div>
+
+<div class="compatibility-question-subtitle">
+Choose at least 2.
+</div>
+
+<div class="multi-grid">
+
+<label class="multi-label">
+<input type="checkbox" name="values" value="Honesty">
+<span class="multi-card">Honesty</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="values" value="Loyalty">
+<span class="multi-card">Loyalty</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="values" value="Family">
+<span class="multi-card">Family</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="values" value="Growth">
+<span class="multi-card">Growth</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="values" value="Ambition">
+<span class="multi-card">Ambition</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="values" value="Kindness">
+<span class="multi-card">Kindness</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="values" value="Independence">
+<span class="multi-card">Independence</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="values" value="Faith">
+<span class="multi-card">Faith</span>
+</label>
+
+</div>
+
+<div class="selection-count">
+Select 2–4 values.
+</div>
+
+</div>
+
+
+<!-- LIFESTYLE -->
+
+<div class="compatibility-question">
+
+<div class="compatibility-question-title">
+🌱 What does your lifestyle look like?
+</div>
+
+<div class="compatibility-question-subtitle">
+Choose at least 2.
+</div>
+
+<div class="multi-grid">
+
+<label class="multi-label">
+<input type="checkbox" name="lifestyle" value="Social">
+<span class="multi-card">Very social</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="lifestyle" value="Homebody">
+<span class="multi-card">Homebody</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="lifestyle" value="Fitness">
+<span class="multi-card">Fitness</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="lifestyle" value="Travel">
+<span class="multi-card">Travel</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="lifestyle" value="Career-focused">
+<span class="multi-card">Career-focused</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="lifestyle" value="Relaxed">
+<span class="multi-card">Relaxed</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="lifestyle" value="Night owl">
+<span class="multi-card">Night owl</span>
+</label>
+
+<label class="multi-label">
+<input type="checkbox" name="lifestyle" value="Early bird">
+<span class="multi-card">Early bird</span>
+</label>
+
+</div>
+
+<div class="selection-count">
+Select 2–4 lifestyle choices.
+</div>
+
+</div>
+
 
 <select id="lookingForInput">
 
@@ -1444,6 +1755,15 @@ class="form-btn"
 onclick="showExplore()"
 >
 Explore Pairly
+</button>
+
+<button
+type="button"
+class="form-btn"
+onclick="showProfileForEdit()"
+style="margin-top:12px;background:#f3edf1;color:#6d5b68;"
+>
+Edit compatibility profile
 </button>
 
 <button
@@ -1813,6 +2133,194 @@ window.scrollTo(0,0);
 }
 
 
+/* ================= PROFILE FORM HELPERS ================= */
+
+function getCheckedValues(name) {
+
+return Array.from(
+document.querySelectorAll(
+'input[name="' +
+name +
+'"]:checked'
+)
+).map(function(input){
+
+return input.value;
+
+});
+
+}
+
+
+function setCheckedValues(name, values) {
+
+document.querySelectorAll(
+'input[name="' +
+name +
+'"]'
+).forEach(function(input){
+
+input.checked =
+Array.isArray(values) &&
+values.includes(input.value);
+
+});
+
+}
+
+
+function getPersonality() {
+
+const selected =
+document.querySelector(
+'input[name="personality"]:checked'
+);
+
+return selected
+? selected.value
+: "";
+
+}
+
+
+/* ================= LOAD PROFILE INTO FORM ================= */
+
+function populateProfileForm(profile) {
+
+if(!profile) {
+return;
+}
+
+document.getElementById(
+"nameInput"
+).value =
+profile.name || "";
+
+document.getElementById(
+"ageInput"
+).value =
+profile.age || "";
+
+document.getElementById(
+"genderInput"
+).value =
+profile.gender || "";
+
+const compatibility =
+profile.compatibility_profile || {};
+
+const personality =
+compatibility.personality || "";
+
+document.querySelectorAll(
+'input[name="personality"]'
+).forEach(function(input){
+
+input.checked =
+input.value === personality;
+
+});
+
+setCheckedValues(
+"values",
+compatibility.values || []
+);
+
+setCheckedValues(
+"lifestyle",
+compatibility.lifestyle || []
+);
+
+document.getElementById(
+"interestsInput"
+).value =
+profile.interests || "";
+
+document.getElementById(
+"lookingForInput"
+).value =
+profile.looking_for || "";
+
+if(profile.profile_photo) {
+
+document.getElementById(
+"profilePhotoPreview"
+).innerHTML =
+'<img src="' +
+profile.profile_photo +
+'" alt="Profile photo">';
+
+}
+
+
+/* LOCATION */
+
+if(profile.location) {
+
+const parts =
+String(profile.location)
+.split(", ");
+
+if(parts.length >= 2) {
+
+const city =
+parts[0];
+
+const country =
+parts.slice(1).join(", ");
+
+if(locationData[country]) {
+
+selectedCountry =
+country;
+
+selectedCity =
+city;
+
+document.getElementById(
+"profileCountryInput"
+).value =
+country;
+
+const cityInput =
+document.getElementById(
+"profileCityInput"
+);
+
+cityInput.disabled =
+false;
+
+cityInput.value =
+city;
+
+cityInput.placeholder =
+"Search city in " +
+country +
+"...";
+
+const selectedLocation =
+document.getElementById(
+"selectedLocation"
+);
+
+selectedLocation.textContent =
+"📍 " +
+city +
+", " +
+country;
+
+selectedLocation.style.display =
+"block";
+
+}
+
+}
+
+}
+
+}
+
+
 /* ================= WELCOME ================= */
 
 function showWelcome(name) {
@@ -1900,6 +2408,42 @@ showHome();
 showHome();
 
 }
+
+}
+
+
+/* ================= EDIT PROFILE ================= */
+
+function showProfileForEdit() {
+
+const savedProfile =
+localStorage.getItem(
+"pairlyProfile"
+);
+
+if(savedProfile) {
+
+try {
+
+const profile =
+JSON.parse(savedProfile);
+
+populateProfileForm(
+profile
+);
+
+} catch(error) {
+
+console.log(
+"Profile edit error:",
+error.message
+);
+
+}
+
+}
+
+showProfile();
 
 }
 
@@ -2473,14 +3017,246 @@ return item
 }
 
 
-/* ---------- COMPATIBILITY ---------- */
+/* ---------- COMPATIBILITY HELPERS ---------- */
+
+function parseCompatibilityProfile(profile) {
+
+if(
+!profile ||
+!profile.compatibility_profile
+) {
+
+return {
+personality:"",
+values:[],
+lifestyle:[]
+};
+
+}
+
+let compatibility =
+profile.compatibility_profile;
+
+if(typeof compatibility === "string") {
+
+try {
+
+compatibility =
+JSON.parse(compatibility);
+
+} catch(error) {
+
+compatibility = {};
+
+}
+
+}
+
+return {
+
+personality:
+compatibility.personality ||
+"",
+
+values:
+Array.isArray(
+compatibility.values
+)
+?
+compatibility.values
+.map(function(item){
+return String(item)
+.toLowerCase();
+})
+:
+[],
+
+lifestyle:
+Array.isArray(
+compatibility.lifestyle
+)
+?
+compatibility.lifestyle
+.map(function(item){
+return String(item)
+.toLowerCase();
+})
+:
+[]
+
+};
+
+}
+
+
+function getSharedItems(
+mine,
+theirs
+) {
+
+const myItems =
+Array.isArray(mine)
+?
+mine
+.map(function(item){
+return String(item).toLowerCase();
+})
+:
+[];
+
+const theirItems =
+Array.isArray(theirs)
+?
+theirs
+.map(function(item){
+return String(item).toLowerCase();
+})
+:
+[];
+
+return myItems.filter(function(item){
+
+return theirItems.includes(item);
+
+});
+
+}
+
+
+function calculateOverlapScore(
+mine,
+theirs,
+weight
+) {
+
+if(
+!mine.length ||
+!theirs.length
+) {
+
+return 0;
+
+}
+
+const shared =
+getSharedItems(
+mine,
+theirs
+);
+
+const denominator =
+Math.max(
+mine.length,
+theirs.length
+);
+
+return Math.round(
+Math.min(
+1,
+shared.length / denominator
+) * weight
+);
+
+}
+
+
+/* ---------- REAL COMPATIBILITY ---------- */
 
 function calculateCompatibility(
 myProfile,
 otherProfile
 ) {
 
+const mine =
+parseCompatibilityProfile(
+myProfile
+);
+
+const theirs =
+parseCompatibilityProfile(
+otherProfile
+);
+
 let score = 0;
+
+
+/*
+PERSONALITY
+20 POINTS
+*/
+
+if(
+mine.personality &&
+theirs.personality
+) {
+
+if(
+mine.personality.toLowerCase() ===
+theirs.personality.toLowerCase()
+) {
+
+score += 20;
+
+} else if(
+(
+mine.personality.toLowerCase() ===
+"ambivert" &&
+(
+theirs.personality.toLowerCase() ===
+"introvert" ||
+theirs.personality.toLowerCase() ===
+"extrovert"
+)
+) ||
+(
+theirs.personality.toLowerCase() ===
+"ambivert" &&
+(
+mine.personality.toLowerCase() ===
+"introvert" ||
+mine.personality.toLowerCase() ===
+"extrovert"
+)
+)
+) {
+
+score += 14;
+
+}
+
+}
+
+
+/*
+VALUES
+25 POINTS
+*/
+
+score +=
+calculateOverlapScore(
+mine.values,
+theirs.values,
+25
+);
+
+
+/*
+LIFESTYLE
+20 POINTS
+*/
+
+score +=
+calculateOverlapScore(
+mine.lifestyle,
+theirs.lifestyle,
+20
+);
+
+
+/*
+INTERESTS
+25 POINTS
+*/
 
 const myInterests =
 parseInterests(
@@ -2492,24 +3268,38 @@ parseInterests(
 otherProfile.interests
 );
 
-const shared =
-myInterests.filter(function(item){
+if(
+myInterests.length &&
+theirInterests.length
+) {
 
-return theirInterests.includes(item);
-
-});
-
-if(shared.length > 0) {
-
-const interestScore =
-Math.min(
-50,
-shared.length * 10
+const sharedInterests =
+getSharedItems(
+myInterests,
+theirInterests
 );
 
-score += interestScore;
+const interestRatio =
+sharedInterests.length /
+Math.max(
+myInterests.length,
+theirInterests.length
+);
+
+score += Math.round(
+Math.min(
+1,
+interestRatio
+) * 25
+);
 
 }
+
+
+/*
+RELATIONSHIP GOAL
+10 POINTS
+*/
 
 if(
 myProfile.looking_for &&
@@ -2518,9 +3308,16 @@ myProfile.looking_for ===
 otherProfile.looking_for
 ) {
 
-score += 30;
+score += 10;
 
 }
+
+
+/*
+SMALL LOCATION BONUS
+This does not replace the core
+compatibility score.
+*/
 
 if(
 myProfile.location &&
@@ -2540,7 +3337,7 @@ myLocation ===
 theirLocation
 ) {
 
-score += 20;
+score += 3;
 
 } else {
 
@@ -2563,13 +3360,19 @@ myCountry ===
 theirCountry
 ) {
 
-score += 10;
+score += 2;
 
 }
 
 }
 
 }
+
+
+/*
+CORE SCORE IS 100.
+Location can add only a tiny bonus.
+*/
 
 return Math.min(
 100,
@@ -2599,11 +3402,171 @@ parseInterests(
 otherProfile.interests
 );
 
-return mine.filter(function(item){
+return getSharedItems(
+mine,
+theirs
+);
 
-return theirs.includes(item);
+}
 
-});
+
+/* ---------- COMPATIBILITY EXPLANATION ---------- */
+
+function getCompatibilityReasons(
+myProfile,
+otherProfile
+) {
+
+const reasons = [];
+
+const mine =
+parseCompatibilityProfile(
+myProfile
+);
+
+const theirs =
+parseCompatibilityProfile(
+otherProfile
+);
+
+
+/* Personality */
+
+if(
+mine.personality &&
+theirs.personality
+) {
+
+if(
+mine.personality.toLowerCase() ===
+theirs.personality.toLowerCase()
+) {
+
+reasons.push(
+"similar personality"
+);
+
+} else if(
+mine.personality.toLowerCase() ===
+"ambivert" ||
+theirs.personality.toLowerCase() ===
+"ambivert"
+) {
+
+reasons.push(
+"compatible social styles"
+);
+
+}
+
+}
+
+
+/* Values */
+
+const sharedValues =
+getSharedItems(
+mine.values,
+theirs.values
+);
+
+if(sharedValues.length) {
+
+reasons.push(
+"shared values: " +
+sharedValues
+.slice(0,2)
+.join(" and ")
+);
+
+}
+
+
+/* Lifestyle */
+
+const sharedLifestyle =
+getSharedItems(
+mine.lifestyle,
+theirs.lifestyle
+);
+
+if(sharedLifestyle.length) {
+
+reasons.push(
+"similar lifestyle: " +
+sharedLifestyle
+.slice(0,2)
+.join(" and ")
+);
+
+}
+
+
+/* Interests */
+
+const sharedInterests =
+getSharedInterests(
+myProfile,
+otherProfile
+);
+
+if(sharedInterests.length) {
+
+reasons.push(
+"shared interests: " +
+sharedInterests
+.slice(0,2)
+.join(" and ")
+);
+
+}
+
+
+/* Goal */
+
+if(
+myProfile.looking_for &&
+otherProfile.looking_for &&
+myProfile.looking_for ===
+otherProfile.looking_for
+) {
+
+reasons.push(
+"you're looking for the same type of connection"
+);
+
+}
+
+
+/* Location */
+
+if(
+myProfile.location &&
+otherProfile.location
+) {
+
+const myLocation =
+String(myProfile.location)
+.toLowerCase();
+
+const theirLocation =
+String(otherProfile.location)
+.toLowerCase();
+
+if(
+myLocation ===
+theirLocation
+) {
+
+reasons.push(
+"you're in the same city"
+);
+
+}
+
+}
+
+return reasons;
 
 }
 
@@ -2701,6 +3664,30 @@ return;
 }
 
 
+/* CHECK COMPATIBILITY PROFILE */
+
+const myCompatibility =
+parseCompatibilityProfile(
+myProfile
+);
+
+if(
+!myCompatibility.personality ||
+myCompatibility.values.length < 2 ||
+myCompatibility.lifestyle.length < 2
+) {
+
+matchesList.innerHTML =
+"";
+
+exploreMessage.textContent =
+"Please complete your compatibility profile before exploring.";
+
+return;
+
+}
+
+
 /* GET OTHER PROFILES */
 
 const {
@@ -2710,7 +3697,7 @@ error
 await pairlyClient
 .from("profiles")
 .select(
-"id,name,age,gender,location,interests,looking_for,profile_photo"
+"id,name,age,gender,location,interests,looking_for,profile_photo,compatibility_profile"
 )
 .neq(
 "id",
@@ -2742,8 +3729,16 @@ discoveryProfiles =
 (profiles || [])
 .filter(function(profile){
 
-return !passed.includes(
-profile.id
+const compatibility =
+parseCompatibilityProfile(
+profile
+);
+
+return (
+!passed.includes(profile.id) &&
+compatibility.personality &&
+compatibility.values.length >= 2 &&
+compatibility.lifestyle.length >= 2
 );
 
 })
@@ -2842,6 +3837,17 @@ profile
 const shared =
 getSharedInterests(
 myProfile,
+profile
+);
+
+const reasons =
+getCompatibilityReasons(
+myProfile,
+profile
+);
+
+const otherCompatibility =
+parseCompatibilityProfile(
 profile
 );
 
@@ -3034,6 +4040,57 @@ location
 }
 
 
+/* PERSONALITY */
+
+if(
+otherCompatibility.personality
+) {
+
+const personalitySection =
+document.createElement(
+"div"
+);
+
+personalitySection.className =
+"discovery-section";
+
+const label =
+document.createElement(
+"div"
+);
+
+label.className =
+"discovery-label";
+
+label.textContent =
+"Personality";
+
+personalitySection.appendChild(
+label
+);
+
+const chip =
+document.createElement(
+"span"
+);
+
+chip.className =
+"looking-chip";
+
+chip.textContent =
+otherCompatibility.personality;
+
+personalitySection.appendChild(
+chip
+);
+
+content.appendChild(
+personalitySection
+);
+
+}
+
+
 /* INTERESTS */
 
 if(profile.interests) {
@@ -3103,6 +4160,144 @@ interestSection
 }
 
 
+/* VALUES */
+
+if(
+otherCompatibility.values.length
+) {
+
+const valuesSection =
+document.createElement(
+"div"
+);
+
+valuesSection.className =
+"discovery-section";
+
+const label =
+document.createElement(
+"div"
+);
+
+label.className =
+"discovery-label";
+
+label.textContent =
+"Values";
+
+valuesSection.appendChild(
+label
+);
+
+const list =
+document.createElement(
+"div"
+);
+
+list.className =
+"interest-list";
+
+otherCompatibility.values
+.slice(0,6)
+.forEach(function(item){
+
+const chip =
+document.createElement(
+"span"
+);
+
+chip.className =
+"interest-chip";
+
+chip.textContent =
+item;
+
+list.appendChild(
+chip
+);
+
+});
+
+valuesSection.appendChild(
+list
+);
+
+content.appendChild(
+valuesSection
+);
+
+}
+
+
+/* LIFESTYLE */
+
+if(
+otherCompatibility.lifestyle.length
+) {
+
+const lifestyleSection =
+document.createElement(
+"div"
+);
+
+lifestyleSection.className =
+"discovery-section";
+
+const label =
+document.createElement(
+"div"
+);
+
+label.className =
+"discovery-label";
+
+label.textContent =
+"Lifestyle";
+
+lifestyleSection.appendChild(
+label
+);
+
+const list =
+document.createElement(
+"div"
+);
+
+list.className =
+"interest-list";
+
+otherCompatibility.lifestyle
+.slice(0,6)
+.forEach(function(item){
+
+const chip =
+document.createElement(
+"span"
+);
+
+chip.className =
+"looking-chip";
+
+chip.textContent =
+item;
+
+list.appendChild(
+chip
+);
+
+});
+
+lifestyleSection.appendChild(
+list
+);
+
+content.appendChild(
+lifestyleSection
+);
+
+}
+
+
 /* LOOKING FOR */
 
 if(profile.looking_for) {
@@ -3162,7 +4357,15 @@ document.createElement(
 note.className =
 "compatibility-note";
 
-if(shared.length > 0) {
+if(reasons.length > 0) {
+
+note.textContent =
+"💕 " +
+reasons
+.slice(0,3)
+.join(" • ");
+
+} else if(shared.length > 0) {
 
 note.textContent =
 "💕 You both like " +
@@ -3171,26 +4374,31 @@ shared.slice(0,3).join(", ") +
 ? " and more."
 : ".");
 
-} else if(
-myProfile.looking_for &&
-profile.looking_for &&
-myProfile.looking_for ===
-profile.looking_for
-) {
-
-note.textContent =
-"🎯 You're both looking for a " +
-String(
-profile.looking_for
-).toLowerCase() +
-".";
-
 } else {
 
 note.textContent =
-"✨ This connection is based on the profile information you've shared.";
+"✨ Your compatibility score is based on your personality, values, lifestyle, interests and relationship goals.";
 
 }
+
+const breakdown =
+document.createElement(
+"div"
+);
+
+breakdown.className =
+"compatibility-breakdown";
+
+breakdown.textContent =
+"Pairly compatibility looks at the things that matter beyond appearance.";
+
+note.appendChild(
+document.createElement("br")
+);
+
+note.appendChild(
+breakdown
+);
 
 content.appendChild(
 note
@@ -3879,15 +5087,36 @@ localStorage.setItem(
 JSON.stringify(profile)
 );
 
+const compatibility =
+parseCompatibilityProfile(
+profile
+);
+
 message.textContent =
 "Welcome back! 💕";
 
 setTimeout(
 function(){
 
+if(
+compatibility.personality &&
+compatibility.values.length >= 2 &&
+compatibility.lifestyle.length >= 2
+) {
+
 showWelcome(
 profile.name
 );
+
+} else {
+
+populateProfileForm(
+profile
+);
+
+showProfile();
+
+}
 
 },
 800
@@ -3951,6 +5180,19 @@ document.getElementById(
 "lookingForInput"
 ).value;
 
+const personality =
+getPersonality();
+
+const values =
+getCheckedValues(
+"values"
+);
+
+const lifestyle =
+getCheckedValues(
+"lifestyle"
+);
+
 const message =
 document.getElementById(
 "profileMessage"
@@ -3987,6 +5229,9 @@ country
 :
 "";
 
+
+/* VALIDATION */
+
 if(
 !name ||
 !age ||
@@ -3994,11 +5239,56 @@ if(
 !country ||
 !city ||
 !interests ||
-!lookingFor
+!lookingFor ||
+!personality
 ) {
 
 message.textContent =
 "Please complete all the fields.";
+
+return;
+
+}
+
+if(
+values.length < 2
+) {
+
+message.textContent =
+"Please choose at least 2 values.";
+
+return;
+
+}
+
+if(
+values.length > 4
+) {
+
+message.textContent =
+"Please choose no more than 4 values.";
+
+return;
+
+}
+
+if(
+lifestyle.length < 2
+) {
+
+message.textContent =
+"Please choose at least 2 lifestyle choices.";
+
+return;
+
+}
+
+if(
+lifestyle.length > 4
+) {
+
+message.textContent =
+"Please choose no more than 4 lifestyle choices.";
 
 return;
 
@@ -4035,6 +5325,22 @@ return;
 }
 
 
+/* COMPATIBILITY PROFILE */
+
+const compatibilityProfile = {
+
+personality:
+personality,
+
+values:
+values,
+
+lifestyle:
+lifestyle
+
+};
+
+
 /* SAVE PROFILE */
 
 const {
@@ -4056,7 +5362,10 @@ location:location,
 
 interests:interests,
 
-looking_for:lookingFor
+looking_for:lookingFor,
+
+compatibility_profile:
+compatibilityProfile
 
 });
 
@@ -4084,6 +5393,33 @@ photoInput.files[0];
 
 let photoUrl =
 "";
+
+const existingProfile =
+localStorage.getItem(
+"pairlyProfile"
+);
+
+if(existingProfile) {
+
+try {
+
+const oldProfile =
+JSON.parse(
+existingProfile
+);
+
+photoUrl =
+oldProfile.profile_photo ||
+"";
+
+} catch(error) {
+
+photoUrl =
+"";
+
+}
+
+}
 
 if(photoFile) {
 
@@ -4190,6 +5526,9 @@ location:location,
 interests:interests,
 
 looking_for:lookingFor,
+
+compatibility_profile:
+compatibilityProfile,
 
 profile_photo:photoUrl
 
@@ -4430,9 +5769,36 @@ localStorage.setItem(
 JSON.stringify(profile)
 );
 
+const compatibility =
+parseCompatibilityProfile(
+profile
+);
+
+if(
+compatibility.personality &&
+compatibility.values.length >= 2 &&
+compatibility.lifestyle.length >= 2
+) {
+
 showWelcome(
 profile.name
 );
+
+} else {
+
+/*
+Existing users who created profiles
+before the compatibility system will
+be asked to complete the new questions.
+*/
+
+populateProfileForm(
+profile
+);
+
+showProfile();
+
+}
 
 } else {
 
