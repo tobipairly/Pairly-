@@ -3276,7 +3276,103 @@ function showWelcome(name){
   }
 
 }
+function showMyProfile(){
 
+  hideAllPages();
+
+  const page =
+    document.getElementById(
+      "myProfilePage"
+    );
+
+  page.style.display =
+    "block";
+
+  const stored =
+    JSON.parse(
+      localStorage.getItem(
+        "pairlyProfile"
+      ) || "{}"
+    );
+
+  currentProfile =
+    stored;
+
+  document.getElementById(
+    "myProfileName"
+  ).textContent =
+    `${stored.name || "Your Name"}, ${stored.age || ""}`;
+
+  document.getElementById(
+    "myProfileBasic"
+  ).textContent =
+    `${stored.gender || "Gender"}`;
+
+  document.getElementById(
+    "myProfileLocation"
+  ).textContent =
+    `📍 ${stored.city || ""}${stored.city && stored.country ? ", " : ""}${stored.country || ""}`;
+
+  document.getElementById(
+    "myProfileInterests"
+  ).textContent =
+    stored.interests || "—";
+
+  const compatibility =
+    stored.compatibility_profile || {};
+
+  document.getElementById(
+    "myProfilePersonality"
+  ).textContent =
+    compatibility.personality || "—";
+
+  document.getElementById(
+    "myProfileValues"
+  ).textContent =
+    compatibility.values?.join(" • ") || "—";
+
+  document.getElementById(
+    "myProfileLifestyle"
+  ).textContent =
+    compatibility.lifestyle?.join(" • ") || "—";
+
+  document.getElementById(
+    "myProfileLookingFor"
+  ).textContent =
+    stored.looking_for || "—";
+
+  const photo =
+    document.getElementById(
+      "myProfilePhoto"
+    );
+
+  const placeholder =
+    document.getElementById(
+      "myProfilePhotoPlaceholder"
+    );
+
+  if(stored.profile_photo){
+
+    photo.src =
+      stored.profile_photo;
+
+    photo.style.display =
+      "block";
+
+    placeholder.style.display =
+      "none";
+
+  } else {
+
+    photo.style.display =
+      "none";
+
+    placeholder.style.display =
+      "flex";
+
+  }
+
+}
 
 function showWelcomeFromStorage(){
 
