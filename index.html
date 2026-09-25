@@ -1408,7 +1408,36 @@
 
     }
 
+/* ================= PROFILE PHOTO PREVIEW ================= */
 
+function previewProfilePhoto(event) {
+
+  const file = event.target.files[0];
+
+  const preview =
+    document.getElementById("profilePhotoPreview");
+
+  if (!file || !preview) {
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    alert("Please select an image.");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+
+    preview.innerHTML =
+      '<img src="' + e.target.result + '" alt="Profile photo">';
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
     /* ================= COUNTRY SEARCH ================= */
 
     function searchCountries() {
