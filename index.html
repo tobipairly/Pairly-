@@ -1019,7 +1019,38 @@
       >
         Explore Pairly
       </button>
-<button
+<div style="text-align:center; margin:20px 0;">
+
+  <div
+    class="profile-photo-preview"
+    id="welcomePhotoPreview"
+    style="width:90px; height:90px;"
+  >
+    <span>📷</span>
+  </div>
+
+  <label
+    for="welcomePhotoInput"
+    class="photo-upload-btn"
+  >
+    Add / Change profile picture
+  </label>
+
+  <input
+    type="file"
+    id="welcomePhotoInput"
+    accept="image/*"
+    style="display:none;"
+    onchange="uploadProfilePhoto(event)"
+  >
+
+  <div
+    id="photoUploadMessage"
+    class="message"
+  ></div>
+
+</div>
+      <button
   type="button"
   class="form-btn"
   onclick="logoutPairly()"
