@@ -459,6 +459,7 @@ footer {
   0%,100% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.12);
   }
@@ -469,13 +470,12 @@ footer {
     transform: translateY(0);
     opacity: 0.4;
   }
+
   40% {
     transform: translateY(-7px);
     opacity: 1;
   }
 }
-
-/* ================= EXPLORE ================= */
 
 /* ================= EXPLORE ================= */
 
@@ -496,7 +496,9 @@ footer {
   margin-bottom: 0 !important;
 }
 
-.profile-discovery-card {
+/* DISCOVERY CARD */
+
+.discovery-card {
   background: white;
   border-radius: 28px;
   overflow: hidden;
@@ -521,66 +523,94 @@ footer {
   object-fit: cover;
 }
 
-.discovery-placeholder {
-  font-size: 70px;
+.photo-placeholder {
+  font-size: 75px;
 }
 
-.discovery-info {
+.discovery-content {
   padding: 22px;
+}
+
+.discovery-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
 }
 
 .discovery-name {
   font-size: 28px;
   font-weight: 800;
-  margin-bottom: 5px;
 }
 
-.discovery-basic {
-  color: #6d5b68;
-  margin-bottom: 12px;
-}
-
-.compatibility-box {
-  background: #fff0f6;
-  border-radius: 16px;
-  padding: 13px 15px;
-  margin: 15px 0;
-}
-
-.compatibility-title {
-  color: #e94f87;
-  font-weight: bold;
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-
-.compatibility-score {
-  font-size: 25px;
-  font-weight: 800;
-  color: #241721;
-}
-
-.compatibility-reason {
-  color: #6d5b68;
-  font-size: 13px;
-  margin-top: 3px;
-}
-
-.discovery-details {
-  color: #6d5b68;
-  line-height: 1.6;
-  margin-top: 10px;
-}
-
-.discovery-tag {
-  display: inline-block;
+.compatibility {
   background: #ffe0eb;
   color: #e94f87;
-  padding: 7px 11px;
+  padding: 8px 11px;
+  border-radius: 18px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.discovery-info {
+  color: #6d5b68;
+  margin-bottom: 8px;
+}
+
+.discovery-location {
+  color: #6d5b68;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.discovery-section {
+  margin-top: 17px;
+}
+
+.discovery-label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #241721;
+  margin-bottom: 9px;
+}
+
+.interest-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.interest-chip {
+  display: inline-block;
+  background: #fff0f6;
+  color: #e94f87;
+  padding: 7px 10px;
   border-radius: 16px;
   font-size: 12px;
   font-weight: bold;
-  margin-top: 12px;
+}
+
+.looking-chip {
+  display: inline-block;
+  background: #f7efff;
+  color: #6d4d83;
+  padding: 8px 12px;
+  border-radius: 17px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.compatibility-note {
+  background: #fff7fb;
+  border: 1px solid #f5dfe8;
+  border-radius: 15px;
+  padding: 12px;
+  margin-top: 18px;
+  color: #6d5b68;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .discovery-actions {
@@ -590,8 +620,9 @@ footer {
   padding: 0 22px 22px;
 }
 
-.discovery-action {
-  padding: 14px;
+.pass-btn,
+.like-btn {
+  padding: 15px;
   border-radius: 25px;
   font-size: 16px;
   font-weight: bold;
@@ -607,32 +638,46 @@ footer {
   color: white;
 }
 
-.discovery-counter {
+.explore-counter {
   text-align: center;
   color: #8a7783;
   font-size: 13px;
   margin-top: 14px;
 }
 
-.pairly-match {
+/* MATCH */
+
+.match-success {
   text-align: center;
   background: linear-gradient(135deg, #fff0f6, #f7efff);
-  border-radius: 24px;
-  padding: 30px 20px;
+  border-radius: 25px;
+  padding: 35px 22px;
   margin-top: 20px;
 }
 
-.pairly-match-icon {
-  font-size: 60px;
+.match-success-icon {
+  font-size: 70px;
+  margin-bottom: 15px;
+  animation: heartPulse 1.4s ease-in-out infinite;
+}
+
+.match-success h2 {
+  font-size: 28px;
   margin-bottom: 12px;
 }
 
-.pairly-match h3 {
-  font-size: 26px;
-  margin-bottom: 8px;
+.match-success p {
+  color: #6d5b68;
+  line-height: 1.6;
+  margin-bottom: 22px;
 }
 
-.pairly-match p {
+.empty-explore {
+  text-align: center;
+  background: linear-gradient(135deg, #fff0f6, #f7efff);
+  border-radius: 25px;
+  padding: 40px 25px;
+  margin-top: 20px;
   color: #6d5b68;
   line-height: 1.6;
 }
@@ -645,6 +690,15 @@ footer {
 
 @media (max-width: 600px) {
 
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .steps,
+  .plans {
+    grid-template-columns: 1fr;
+  }
+
   .discovery-photo {
     height: 330px;
   }
@@ -653,18 +707,38 @@ footer {
     font-size: 25px;
   }
 
+  .discovery-name-row {
+    align-items: flex-start;
+  }
+
+  .compatibility {
+    font-size: 11px;
+  }
+
 }
+
+</style>
+</head>
+
+<body>
 
 <!-- ================= HOME ================= -->
 
 <div id="homePage">
 
 <nav>
-  <div class="logo">Pairly</div>
 
-  <button type="button" onclick="startJoinExperience()">
-    Join Pairly
-  </button>
+<div class="logo">
+Pairly
+</div>
+
+<button
+type="button"
+onclick="startJoinExperience()"
+>
+Join Pairly
+</button>
+
 </nav>
 
 <main>
@@ -672,56 +746,82 @@ footer {
 <section class="hero">
 
 <h1>
-  Meet someone who <span>gets you.</span>
+Meet someone who <span>gets you.</span>
 </h1>
 
 <p>
-  Pairly helps you connect with people based on compatibility,
-  interests and what truly matters to you.
+Pairly helps you connect with people based on compatibility,
+interests and what truly matters to you.
 </p>
 
 <button
-  type="button"
-  class="main-btn"
-  onclick="startMatchingExperience()"
+type="button"
+class="main-btn"
+onclick="startMatchingExperience()"
 >
-  Find your match
+Find your match
 </button>
 
 </section>
 
 <section>
 
-<h2>How Pairly works</h2>
+<h2>
+How Pairly works
+</h2>
 
 <p class="subtitle">
-  Meaningful connections shouldn't feel impossible.
+Meaningful connections shouldn't feel impossible.
 </p>
 
 <div class="steps">
 
 <div class="card">
-  <div class="number">1</div>
-  <h3>Tell us about you</h3>
-  <p>
-    Share your interests, personality and what you're looking for.
-  </p>
+
+<div class="number">
+1
+</div>
+
+<h3>
+Tell us about you
+</h3>
+
+<p>
+Share your interests, personality and what you're looking for.
+</p>
+
 </div>
 
 <div class="card">
-  <div class="number">2</div>
-  <h3>Discover compatibility</h3>
-  <p>
-    Pairly looks beyond random swipes to help find better connections.
-  </p>
+
+<div class="number">
+2
+</div>
+
+<h3>
+Discover compatibility
+</h3>
+
+<p>
+Pairly looks beyond random swipes to help find better connections.
+</p>
+
 </div>
 
 <div class="card">
-  <div class="number">3</div>
-  <h3>Meet someone who gets you</h3>
-  <p>
-    Start conversations with people you genuinely connect with.
-  </p>
+
+<div class="number">
+3
+</div>
+
+<h3>
+Meet someone who gets you
+</h3>
+
+<p>
+Start conversations with people you genuinely connect with.
+</p>
+
 </div>
 
 </div>
@@ -730,27 +830,46 @@ footer {
 
 <section class="pricing">
 
-<h2>Choose your Pairly experience</h2>
+<h2>
+Choose your Pairly experience
+</h2>
 
 <p class="subtitle">
-  Start free. Upgrade only when you want more.
+Start free. Upgrade only when you want more.
 </p>
 
 <div class="plans">
 
 <div class="plan">
 
-<h3>Free</h3>
+<h3>
+Free
+</h3>
 
-<div class="price">₦0</div>
+<div class="price">
+₦0
+</div>
 
 <ul>
-<li>✓ Create your profile</li>
-<li>✓ Basic compatibility matching</li>
-<li>✓ Discover new connections</li>
+
+<li>
+✓ Create your profile
+</li>
+
+<li>
+✓ Basic compatibility matching
+</li>
+
+<li>
+✓ Discover new connections
+</li>
+
 </ul>
 
-<button type="button" onclick="showSignup()">
+<button
+type="button"
+onclick="showSignup()"
+>
 Get started
 </button>
 
@@ -758,17 +877,34 @@ Get started
 
 <div class="plan featured">
 
-<h3>Plus</h3>
+<h3>
+Plus
+</h3>
 
-<div class="price">Coming soon</div>
+<div class="price">
+Coming soon
+</div>
 
 <ul>
-<li>✓ More match insights</li>
-<li>✓ More discovery options</li>
-<li>✓ Enhanced profile features</li>
+
+<li>
+✓ More match insights
+</li>
+
+<li>
+✓ More discovery options
+</li>
+
+<li>
+✓ Enhanced profile features
+</li>
+
 </ul>
 
-<button type="button" onclick="showSignup()">
+<button
+type="button"
+onclick="showSignup()"
+>
 Join waitlist
 </button>
 
@@ -776,17 +912,34 @@ Join waitlist
 
 <div class="plan">
 
-<h3>Select</h3>
+<h3>
+Select
+</h3>
 
-<div class="price">Coming soon</div>
+<div class="price">
+Coming soon
+</div>
 
 <ul>
-<li>✓ Premium matchmaking</li>
-<li>✓ Priority matching</li>
-<li>✓ Exclusive features</li>
+
+<li>
+✓ Premium matchmaking
+</li>
+
+<li>
+✓ Priority matching
+</li>
+
+<li>
+✓ Exclusive features
+</li>
+
 </ul>
 
-<button type="button" onclick="showSignup()">
+<button
+type="button"
+onclick="showSignup()"
+>
 Join waitlist
 </button>
 
@@ -798,7 +951,9 @@ Join waitlist
 
 <section class="trust">
 
-<h2>Built around trust</h2>
+<h2>
+Built around trust
+</h2>
 
 <div class="trust-box">
 
@@ -812,13 +967,18 @@ your experience.
 
 <section class="join">
 
-<h2>Your next connection could be different.</h2>
+<h2>
+Your next connection could be different.
+</h2>
 
 <p>
 Join Pairly and be among the first to meet someone who gets you.
 </p>
 
-<button type="button" onclick="showSignup()">
+<button
+type="button"
+onclick="showSignup()"
+>
 Create your account
 </button>
 
@@ -839,9 +999,13 @@ Create your account
 
 <div class="matching-box">
 
-<div class="matching-heart">💞</div>
+<div class="matching-heart">
+💞
+</div>
 
-<h2>Finding your match...</h2>
+<h2>
+Finding your match...
+</h2>
 
 <p>
 Pairly is looking for connections<br>
@@ -849,9 +1013,11 @@ that could genuinely click with you.
 </p>
 
 <div class="matching-loader">
+
 <span></span>
 <span></span>
 <span></span>
+
 </div>
 
 <div class="matching-status">
@@ -869,7 +1035,9 @@ Discovering compatibility...
 
 <div class="app-box">
 
-<h2>Join Pairly 💕</h2>
+<h2>
+Join Pairly 💕
+</h2>
 
 <p>
 Create your free account and let's get you connected.
@@ -890,14 +1058,39 @@ autocomplete="new-password"
 >
 
 <select id="countryInput">
-<option value="+234">🇳🇬 Nigeria (+234)</option>
-<option value="+233">🇬🇭 Ghana (+233)</option>
-<option value="+27">🇿🇦 South Africa (+27)</option>
-<option value="+254">🇰🇪 Kenya (+254)</option>
-<option value="+44">🇬🇧 United Kingdom (+44)</option>
-<option value="+1">🇺🇸 United States (+1)</option>
-<option value="+1">🇨🇦 Canada (+1)</option>
-<option value="+61">🇦🇺 Australia (+61)</option>
+
+<option value="+234">
+🇳🇬 Nigeria (+234)
+</option>
+
+<option value="+233">
+🇬🇭 Ghana (+233)
+</option>
+
+<option value="+27">
+🇿🇦 South Africa (+27)
+</option>
+
+<option value="+254">
+🇰🇪 Kenya (+254)
+</option>
+
+<option value="+44">
+🇬🇧 United Kingdom (+44)
+</option>
+
+<option value="+1">
+🇺🇸 United States (+1)
+</option>
+
+<option value="+1">
+🇨🇦 Canada (+1)
+</option>
+
+<option value="+61">
+🇦🇺 Australia (+61)
+</option>
+
 </select>
 
 <input
@@ -907,21 +1100,32 @@ placeholder="Phone number"
 autocomplete="tel"
 >
 
-<button type="button" class="form-btn" onclick="createAccount()">
+<button
+type="button"
+class="form-btn"
+onclick="createAccount()"
+>
 Create account
 </button>
 
-<div style="text-align:center;margin:18px 0;color:#6d5b68;">
+<div
+style="text-align:center;margin:18px 0;color:#6d5b68;"
+>
+
 Already have an account?
+
 <span
 onclick="showLogin()"
 style="color:#e94f87;font-weight:bold;cursor:pointer;"
 >
 Log in 🔐
 </span>
+
 </div>
 
-<div style="text-align:center;margin:20px 0;color:#6d5b68;">
+<div
+style="text-align:center;margin:20px 0;color:#6d5b68;"
+>
 or continue with
 </div>
 
@@ -934,9 +1138,15 @@ style="background:#241721;color:white;"
  Continue with Apple
 </button>
 
-<div id="message" class="message"></div>
+<div
+id="message"
+class="message"
+></div>
 
-<span class="back" onclick="showHome()">
+<span
+class="back"
+onclick="showHome()"
+>
 ← Back to Pairly
 </span>
 
@@ -951,7 +1161,9 @@ style="background:#241721;color:white;"
 
 <div class="app-box">
 
-<h2>Welcome back 💕</h2>
+<h2>
+Welcome back 💕
+</h2>
 
 <p>
 Log in to continue your Pairly journey.
@@ -971,19 +1183,30 @@ placeholder="Password"
 autocomplete="current-password"
 >
 
-<button type="button" class="form-btn" onclick="loginAccount()">
+<button
+type="button"
+class="form-btn"
+onclick="loginAccount()"
+>
 Log in
 </button>
 
-<div id="loginMessage" class="message"></div>
+<div
+id="loginMessage"
+class="message"
+></div>
 
-<div style="text-align:center;margin-top:20px;">
+<div
+style="text-align:center;margin-top:20px;"
+>
+
 <span
 onclick="showSignup()"
 style="color:#e94f87;font-weight:bold;cursor:pointer;"
 >
 ← Back to Create account
 </span>
+
 </div>
 
 </div>
@@ -997,7 +1220,9 @@ style="color:#e94f87;font-weight:bold;cursor:pointer;"
 
 <div class="app-box">
 
-<h2>Let's get to know you 💗</h2>
+<h2>
+Let's get to know you 💗
+</h2>
 
 <p>
 Tell us a little about yourself so Pairly can understand
@@ -1006,11 +1231,19 @@ what kind of connection may suit you.
 
 <div class="profile-photo-section">
 
-<div class="profile-photo-preview" id="profilePhotoPreview">
-<span>📷</span>
+<div
+class="profile-photo-preview"
+id="profilePhotoPreview"
+>
+<span>
+📷
+</span>
 </div>
 
-<label for="profilePhotoInput" class="photo-upload-btn">
+<label
+for="profilePhotoInput"
+class="photo-upload-btn"
+>
 Add profile picture
 </label>
 
@@ -1044,10 +1277,23 @@ max="100"
 >
 
 <select id="genderInput">
-<option value="">Select your gender</option>
-<option value="Male">Male</option>
-<option value="Female">Female</option>
-<option value="Other">Other</option>
+
+<option value="">
+Select your gender
+</option>
+
+<option value="Male">
+Male
+</option>
+
+<option value="Female">
+Female
+</option>
+
+<option value="Other">
+Other
+</option>
+
 </select>
 
 <div class="location-field">
@@ -1061,7 +1307,10 @@ oninput="searchCountries()"
 onclick="searchCountries()"
 >
 
-<div id="countrySuggestions" class="suggestions"></div>
+<div
+id="countrySuggestions"
+class="suggestions"
+></div>
 
 </div>
 
@@ -1077,11 +1326,17 @@ onclick="searchCities()"
 disabled
 >
 
-<div id="citySuggestions" class="suggestions"></div>
+<div
+id="citySuggestions"
+class="suggestions"
+></div>
 
 </div>
 
-<div id="selectedLocation" class="selected-location"></div>
+<div
+id="selectedLocation"
+class="selected-location"
+></div>
 
 <input
 type="text"
@@ -1090,19 +1345,37 @@ placeholder="Your interests"
 >
 
 <select id="lookingForInput">
-<option value="">What are you looking for?</option>
-<option value="Relationship">A relationship</option>
-<option value="Friendship">Friendship</option>
+
+<option value="">
+What are you looking for?
+</option>
+
+<option value="Relationship">
+A relationship
+</option>
+
+<option value="Friendship">
+Friendship
+</option>
+
 <option value="Meaningful connection">
 A meaningful connection
 </option>
+
 </select>
 
-<button type="button" class="form-btn" onclick="finishProfile()">
+<button
+type="button"
+class="form-btn"
+onclick="finishProfile()"
+>
 Continue
 </button>
 
-<div id="profileMessage" class="message"></div>
+<div
+id="profileMessage"
+class="message"
+></div>
 
 </div>
 
@@ -1115,22 +1388,32 @@ Continue
 
 <div class="app-box">
 
-<div class="welcome-icon">💞</div>
+<div class="welcome-icon">
+💞
+</div>
 
-<h2>Welcome to Pairly!</h2>
+<h2>
+Welcome to Pairly!
+</h2>
 
 <p id="welcomeText">
 Your profile is ready.
 </p>
 
-<div style="text-align:center;margin:20px 0;">
+<div
+style="text-align:center;margin:20px 0;"
+>
 
 <div
 class="profile-photo-preview"
 id="welcomePhotoPreview"
 style="width:90px;height:90px;"
 >
-<span>📷</span>
+
+<span>
+📷
+</span>
+
 </div>
 
 <label
@@ -1148,7 +1431,10 @@ style="display:none;"
 onchange="uploadProfilePhoto(event)"
 >
 
-<div id="photoUploadMessage" class="message"></div>
+<div
+id="photoUploadMessage"
+class="message"
+></div>
 
 </div>
 
@@ -1182,17 +1468,22 @@ Log Out
 
 <div class="explore-header">
 
-<h2>Explore Pairly 💞</h2>
+<h2>
+Discover on Pairly 💞
+</h2>
 
 <p>
-Discover someone who could genuinely click with you.
+Find people who share something meaningful with you.
 </p>
 
 </div>
 
 <div id="matchesList"></div>
 
-<div id="exploreMessage" class="message"></div>
+<div
+id="exploreMessage"
+class="message"
+></div>
 
 <button
 type="button"
@@ -1241,89 +1532,182 @@ PAIRLY_KEY
 const locationData = {
 
 "Nigeria":[
-"Abuja","Akungba-Akoko","Akure","Benin City","Calabar",
-"Enugu","Ibadan","Ife","Ilorin","Jos","Kaduna","Kano",
-"Lagos","Owerri","Port Harcourt"
+"Abuja",
+"Akungba-Akoko",
+"Akure",
+"Benin City",
+"Calabar",
+"Enugu",
+"Ibadan",
+"Ife",
+"Ilorin",
+"Jos",
+"Kaduna",
+"Kano",
+"Lagos",
+"Owerri",
+"Port Harcourt"
 ],
 
 "Ghana":[
-"Accra","Kumasi","Tamale","Takoradi","Cape Coast","Tema"
+"Accra",
+"Kumasi",
+"Tamale",
+"Takoradi",
+"Cape Coast",
+"Tema"
 ],
 
 "South Africa":[
-"Cape Town","Johannesburg","Pretoria","Durban",
-"Gqeberha","Bloemfontein"
+"Cape Town",
+"Johannesburg",
+"Pretoria",
+"Durban",
+"Gqeberha",
+"Bloemfontein"
 ],
 
 "Kenya":[
-"Nairobi","Mombasa","Kisumu","Nakuru","Eldoret"
+"Nairobi",
+"Mombasa",
+"Kisumu",
+"Nakuru",
+"Eldoret"
 ],
 
 "United Kingdom":[
-"London","Manchester","Birmingham","Liverpool",
-"Leeds","Bristol","Glasgow","Edinburgh"
+"London",
+"Manchester",
+"Birmingham",
+"Liverpool",
+"Leeds",
+"Bristol",
+"Glasgow",
+"Edinburgh"
 ],
 
 "United States":[
-"New York","Los Angeles","Chicago","Houston","Miami",
-"Atlanta","Boston","Washington","Seattle","San Francisco"
+"New York",
+"Los Angeles",
+"Chicago",
+"Houston",
+"Miami",
+"Atlanta",
+"Boston",
+"Washington",
+"Seattle",
+"San Francisco"
 ],
 
 "Canada":[
-"Toronto","Vancouver","Montreal","Calgary","Ottawa","Edmonton"
+"Toronto",
+"Vancouver",
+"Montreal",
+"Calgary",
+"Ottawa",
+"Edmonton"
 ],
 
 "Australia":[
-"Sydney","Melbourne","Brisbane","Perth","Adelaide","Canberra"
+"Sydney",
+"Melbourne",
+"Brisbane",
+"Perth",
+"Adelaide",
+"Canberra"
 ],
 
 "France":[
-"Paris","Marseille","Lyon","Toulouse","Nice"
+"Paris",
+"Marseille",
+"Lyon",
+"Toulouse",
+"Nice"
 ],
 
 "Germany":[
-"Berlin","Munich","Hamburg","Frankfurt","Cologne"
+"Berlin",
+"Munich",
+"Hamburg",
+"Frankfurt",
+"Cologne"
 ],
 
 "Italy":[
-"Rome","Milan","Naples","Turin","Florence"
+"Rome",
+"Milan",
+"Naples",
+"Turin",
+"Florence"
 ],
 
 "Spain":[
-"Madrid","Barcelona","Valencia","Seville"
+"Madrid",
+"Barcelona",
+"Valencia",
+"Seville"
 ],
 
 "Netherlands":[
-"Amsterdam","Rotterdam","The Hague","Utrecht"
+"Amsterdam",
+"Rotterdam",
+"The Hague",
+"Utrecht"
 ],
 
 "Ireland":[
-"Dublin","Cork","Limerick","Galway"
+"Dublin",
+"Cork",
+"Limerick",
+"Galway"
 ],
 
 "United Arab Emirates":[
-"Dubai","Abu Dhabi","Sharjah","Ajman"
+"Dubai",
+"Abu Dhabi",
+"Sharjah",
+"Ajman"
 ],
 
 "Saudi Arabia":[
-"Riyadh","Jeddah","Mecca","Medina","Dammam"
+"Riyadh",
+"Jeddah",
+"Mecca",
+"Medina",
+"Dammam"
 ],
 
 "India":[
-"Mumbai","Delhi","Bangalore","Hyderabad",
-"Chennai","Kolkata","Pune"
+"Mumbai",
+"Delhi",
+"Bangalore",
+"Hyderabad",
+"Chennai",
+"Kolkata",
+"Pune"
 ],
 
 "Brazil":[
-"São Paulo","Rio de Janeiro","Brasília","Salvador"
+"São Paulo",
+"Rio de Janeiro",
+"Brasília",
+"Salvador"
 ],
 
 "Japan":[
-"Tokyo","Osaka","Kyoto","Yokohama","Nagoya"
+"Tokyo",
+"Osaka",
+"Kyoto",
+"Yokohama",
+"Nagoya"
 ],
 
 "China":[
-"Beijing","Shanghai","Guangzhou","Shenzhen","Chengdu"
+"Beijing",
+"Shanghai",
+"Guangzhou",
+"Shenzhen",
+"Chengdu"
 ],
 
 "Singapore":[
@@ -1331,16 +1715,23 @@ const locationData = {
 ],
 
 "Malaysia":[
-"Kuala Lumpur","George Town","Johor Bahru","Kota Kinabalu"
+"Kuala Lumpur",
+"George Town",
+"Johor Bahru",
+"Kota Kinabalu"
 ],
 
 "New Zealand":[
-"Auckland","Wellington","Christchurch","Hamilton"
+"Auckland",
+"Wellington",
+"Christchurch",
+"Hamilton"
 ]
 
 };
 
-const countryList = Object.keys(locationData);
+const countryList =
+Object.keys(locationData);
 
 let selectedCountry = "";
 let selectedCity = "";
@@ -1350,28 +1741,25 @@ let selectedCity = "";
 
 function hideAllPages() {
 
-document.getElementById("homePage").style.display = "none";
+document.getElementById("homePage").style.display =
+"none";
 
-document.getElementById("matchingPage").style.display = "none";
+document.getElementById("matchingPage").style.display =
+"none";
 
-document
-.getElementById("signupPage")
+document.getElementById("signupPage")
 .classList.remove("active");
 
-document
-.getElementById("loginPage")
+document.getElementById("loginPage")
 .classList.remove("active");
 
-document
-.getElementById("profilePage")
+document.getElementById("profilePage")
 .classList.remove("active");
 
-document
-.getElementById("welcomePage")
+document.getElementById("welcomePage")
 .classList.remove("active");
 
-document
-.getElementById("explorePage")
+document.getElementById("explorePage")
 .classList.remove("active");
 
 }
@@ -1381,7 +1769,8 @@ function showHome() {
 
 hideAllPages();
 
-document.getElementById("homePage").style.display = "block";
+document.getElementById("homePage").style.display =
+"block";
 
 window.scrollTo(0,0);
 
@@ -1392,8 +1781,7 @@ function showSignup() {
 
 hideAllPages();
 
-document
-.getElementById("signupPage")
+document.getElementById("signupPage")
 .classList.add("active");
 
 window.scrollTo(0,0);
@@ -1405,8 +1793,7 @@ function showLogin() {
 
 hideAllPages();
 
-document
-.getElementById("loginPage")
+document.getElementById("loginPage")
 .classList.add("active");
 
 window.scrollTo(0,0);
@@ -1418,8 +1805,7 @@ function showProfile() {
 
 hideAllPages();
 
-document
-.getElementById("profilePage")
+document.getElementById("profilePage")
 .classList.add("active");
 
 window.scrollTo(0,0);
@@ -1433,12 +1819,12 @@ function showWelcome(name) {
 
 hideAllPages();
 
-document
-.getElementById("welcomePage")
+document.getElementById("welcomePage")
 .classList.add("active");
 
 document.getElementById("welcomeText").textContent =
-"You're all set, " + name +
+"You're all set, " +
+name +
 ". Your Pairly journey starts here. 💕";
 
 const photoPreview =
@@ -1449,7 +1835,8 @@ if(photoPreview) {
 const savedProfile =
 localStorage.getItem("pairlyProfile");
 
-photoPreview.innerHTML = "<span>📷</span>";
+photoPreview.innerHTML =
+"<span>📷</span>";
 
 if(savedProfile) {
 
@@ -1469,7 +1856,10 @@ profile.profile_photo +
 
 } catch(error) {
 
-console.log("Photo loading error:",error);
+console.log(
+"Photo loading error:",
+error
+);
 
 }
 
@@ -1494,7 +1884,10 @@ try {
 const profile =
 JSON.parse(savedProfile);
 
-showWelcome(profile.name || "there");
+showWelcome(
+profile.name ||
+"there"
+);
 
 } catch(error) {
 
@@ -1519,7 +1912,9 @@ const file =
 event.target.files[0];
 
 const preview =
-document.getElementById("profilePhotoPreview");
+document.getElementById(
+"profilePhotoPreview"
+);
 
 if(!file || !preview) {
 return;
@@ -1527,7 +1922,9 @@ return;
 
 if(!file.type.startsWith("image/")) {
 
-alert("Please select an image.");
+alert(
+"Please select an image."
+);
 
 return;
 
@@ -1559,10 +1956,14 @@ const file =
 event.target.files[0];
 
 const message =
-document.getElementById("photoUploadMessage");
+document.getElementById(
+"photoUploadMessage"
+);
 
 const preview =
-document.getElementById("welcomePhotoPreview");
+document.getElementById(
+"welcomePhotoPreview"
+);
 
 if(!file) {
 return;
@@ -1643,7 +2044,9 @@ data:publicUrlData
 } =
 pairlyClient.storage
 .from("profile-photos")
-.getPublicUrl(filePath);
+.getPublicUrl(
+filePath
+);
 
 const photoUrl =
 publicUrlData.publicUrl;
@@ -1677,7 +2080,9 @@ photoUrl +
 }
 
 const savedProfile =
-localStorage.getItem("pairlyProfile");
+localStorage.getItem(
+"pairlyProfile"
+);
 
 if(savedProfile) {
 
@@ -1717,13 +2122,19 @@ message.textContent =
 function searchCountries() {
 
 const input =
-document.getElementById("profileCountryInput");
+document.getElementById(
+"profileCountryInput"
+);
 
 const suggestions =
-document.getElementById("countrySuggestions");
+document.getElementById(
+"countrySuggestions"
+);
 
 const query =
-input.value.trim().toLowerCase();
+input.value
+.trim()
+.toLowerCase();
 
 suggestions.innerHTML = "";
 
@@ -1819,7 +2230,8 @@ document.getElementById(
 
 document.getElementById(
 "citySuggestions"
-).innerHTML = "";
+).innerHTML =
+"";
 
 document.getElementById(
 "citySuggestions"
@@ -1849,7 +2261,9 @@ document.getElementById(
 );
 
 const query =
-input.value.trim().toLowerCase();
+input.value
+.trim()
+.toLowerCase();
 
 suggestions.innerHTML = "";
 
@@ -1867,7 +2281,8 @@ return;
 }
 
 const cities =
-locationData[selectedCountry] || [];
+locationData[selectedCountry] ||
+[];
 
 const results =
 cities
@@ -2003,7 +2418,9 @@ function getPassedProfiles() {
 try {
 
 return JSON.parse(
-localStorage.getItem("pairlyPassed") || "[]"
+localStorage.getItem(
+"pairlyPassed"
+) || "[]"
 );
 
 } catch(error) {
@@ -2042,11 +2459,13 @@ if(!interests) {
 return [];
 }
 
-return interests
+return String(interests)
 .split(",")
 .map(function(item){
 
-return item.trim().toLowerCase();
+return item
+.trim()
+.toLowerCase();
 
 })
 .filter(Boolean);
@@ -2056,15 +2475,22 @@ return item.trim().toLowerCase();
 
 /* ---------- COMPATIBILITY ---------- */
 
-function calculateCompatibility(myProfile, otherProfile) {
+function calculateCompatibility(
+myProfile,
+otherProfile
+) {
 
 let score = 0;
 
 const myInterests =
-parseInterests(myProfile.interests);
+parseInterests(
+myProfile.interests
+);
 
 const theirInterests =
-parseInterests(otherProfile.interests);
+parseInterests(
+otherProfile.interests
+);
 
 const shared =
 myInterests.filter(function(item){
@@ -2102,26 +2528,40 @@ otherProfile.location
 ) {
 
 const myLocation =
-myProfile.location
+String(myProfile.location)
 .toLowerCase();
 
 const theirLocation =
-otherProfile.location
+String(otherProfile.location)
 .toLowerCase();
 
-if(myLocation === theirLocation) {
+if(
+myLocation ===
+theirLocation
+) {
 
 score += 20;
 
 } else {
 
 const myCountry =
-myLocation.split(",").pop().trim();
+myLocation
+.split(",")
+.pop()
+.trim();
 
 const theirCountry =
-theirLocation.split(",").pop().trim();
+theirLocation
+.split(",")
+.pop()
+.trim();
 
-if(myCountry === theirCountry) {
+if(
+myCountry &&
+theirCountry &&
+myCountry ===
+theirCountry
+) {
 
 score += 10;
 
@@ -2133,7 +2573,10 @@ score += 10;
 
 return Math.min(
 100,
-Math.max(0,score)
+Math.max(
+0,
+score
+)
 );
 
 }
@@ -2141,13 +2584,20 @@ Math.max(0,score)
 
 /* ---------- SHARED INTERESTS ---------- */
 
-function getSharedInterests(myProfile, otherProfile) {
+function getSharedInterests(
+myProfile,
+otherProfile
+) {
 
 const mine =
-parseInterests(myProfile.interests);
+parseInterests(
+myProfile.interests
+);
 
 const theirs =
-parseInterests(otherProfile.interests);
+parseInterests(
+otherProfile.interests
+);
 
 return mine.filter(function(item){
 
@@ -2180,15 +2630,24 @@ loadMatches();
 async function loadMatches() {
 
 const matchesList =
-document.getElementById("matchesList");
+document.getElementById(
+"matchesList"
+);
 
 const exploreMessage =
-document.getElementById("exploreMessage");
+document.getElementById(
+"exploreMessage"
+);
+
+if(!matchesList || !exploreMessage) {
+return;
+}
 
 matchesList.innerHTML =
 '<div class="explore-loading">Finding people for you... 💕</div>';
 
-exploreMessage.textContent = "";
+exploreMessage.textContent =
+"";
 
 try {
 
@@ -2198,9 +2657,13 @@ error:userError
 } =
 await pairlyClient.auth.getUser();
 
-if(userError || !user) {
+if(
+userError ||
+!user
+) {
 
-matchesList.innerHTML = "";
+matchesList.innerHTML =
+"";
 
 exploreMessage.textContent =
 "Please log in again.";
@@ -2222,9 +2685,13 @@ await pairlyClient
 .eq("id",user.id)
 .maybeSingle();
 
-if(myProfileError || !myProfile) {
+if(
+myProfileError ||
+!myProfile
+) {
 
-matchesList.innerHTML = "";
+matchesList.innerHTML =
+"";
 
 exploreMessage.textContent =
 "Please complete your profile first.";
@@ -2245,12 +2712,16 @@ await pairlyClient
 .select(
 "id,name,age,gender,location,interests,looking_for,profile_photo"
 )
-.neq("id",user.id)
+.neq(
+"id",
+user.id
+)
 .limit(50);
 
 if(error) {
 
-matchesList.innerHTML = "";
+matchesList.innerHTML =
+"";
 
 exploreMessage.textContent =
 "We couldn't load matches right now.";
@@ -2271,7 +2742,9 @@ discoveryProfiles =
 (profiles || [])
 .filter(function(profile){
 
-return !passed.includes(profile.id);
+return !passed.includes(
+profile.id
+);
 
 })
 .sort(function(a,b){
@@ -2289,9 +2762,13 @@ a
 
 });
 
-discoveryIndex = 0;
+discoveryIndex =
+0;
 
-if(discoveryProfiles.length === 0) {
+if(
+discoveryProfiles.length ===
+0
+) {
 
 renderNoMoreProfiles();
 
@@ -2299,11 +2776,14 @@ return;
 
 }
 
-renderCurrentProfile(myProfile);
+renderCurrentProfile(
+myProfile
+);
 
 } catch(error) {
 
-matchesList.innerHTML = "";
+matchesList.innerHTML =
+"";
 
 exploreMessage.textContent =
 "Something went wrong while loading Explore.";
@@ -2320,15 +2800,22 @@ error.message
 
 /* ---------- RENDER PROFILE ---------- */
 
-function renderCurrentProfile(myProfile) {
+function renderCurrentProfile(
+myProfile
+) {
 
 const matchesList =
-document.getElementById("matchesList");
+document.getElementById(
+"matchesList"
+);
 
 const exploreMessage =
-document.getElementById("exploreMessage");
+document.getElementById(
+"exploreMessage"
+);
 
-exploreMessage.textContent = "";
+exploreMessage.textContent =
+"";
 
 if(
 discoveryIndex >=
@@ -2342,7 +2829,9 @@ return;
 }
 
 const profile =
-discoveryProfiles[discoveryIndex];
+discoveryProfiles[
+discoveryIndex
+];
 
 const compatibility =
 calculateCompatibility(
@@ -2356,13 +2845,16 @@ myProfile,
 profile
 );
 
-matchesList.innerHTML = "";
+matchesList.innerHTML =
+"";
 
 
 /* CARD */
 
 const card =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 card.className =
 "discovery-card";
@@ -2371,7 +2863,9 @@ card.className =
 /* PHOTO */
 
 const photo =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 photo.className =
 "discovery-photo";
@@ -2379,20 +2873,27 @@ photo.className =
 if(profile.profile_photo) {
 
 const img =
-document.createElement("img");
+document.createElement(
+"img"
+);
 
 img.src =
 profile.profile_photo;
 
 img.alt =
-profile.name || "Pairly member";
+profile.name ||
+"Pairly member";
 
-photo.appendChild(img);
+photo.appendChild(
+img
+);
 
 } else {
 
 const placeholder =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 placeholder.className =
 "photo-placeholder";
@@ -2406,13 +2907,17 @@ placeholder
 
 }
 
-card.appendChild(photo);
+card.appendChild(
+photo
+);
 
 
 /* CONTENT */
 
 const content =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 content.className =
 "discovery-content";
@@ -2421,13 +2926,17 @@ content.className =
 /* NAME ROW */
 
 const nameRow =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 nameRow.className =
 "discovery-name-row";
 
 const name =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 name.className =
 "discovery-name";
@@ -2437,7 +2946,9 @@ profile.name ||
 "Pairly member";
 
 const compatibilityBadge =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 compatibilityBadge.className =
 "compatibility";
@@ -2446,23 +2957,31 @@ compatibilityBadge.textContent =
 compatibility +
 "% Match";
 
-nameRow.appendChild(name);
+nameRow.appendChild(
+name
+);
+
 nameRow.appendChild(
 compatibilityBadge
 );
 
-content.appendChild(nameRow);
+content.appendChild(
+nameRow
+);
 
 
 /* AGE / GENDER */
 
 const info =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 info.className =
 "discovery-info";
 
-let infoText = "";
+let infoText =
+"";
 
 if(profile.age) {
 
@@ -2475,7 +2994,8 @@ profile.age +
 if(profile.gender) {
 
 if(infoText) {
-infoText += " • ";
+infoText +=
+" • ";
 }
 
 infoText +=
@@ -2486,7 +3006,9 @@ profile.gender;
 info.textContent =
 infoText;
 
-content.appendChild(info);
+content.appendChild(
+info
+);
 
 
 /* LOCATION */
@@ -2494,7 +3016,9 @@ content.appendChild(info);
 if(profile.location) {
 
 const location =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 location.className =
 "discovery-location";
@@ -2515,13 +3039,17 @@ location
 if(profile.interests) {
 
 const interestSection =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 interestSection.className =
 "discovery-section";
 
 const label =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 label.className =
 "discovery-label";
@@ -2534,18 +3062,23 @@ label
 );
 
 const list =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 list.className =
 "interest-list";
 
 parseInterests(
 profile.interests
-).slice(0,8)
+)
+.slice(0,8)
 .forEach(function(item){
 
 const chip =
-document.createElement("span");
+document.createElement(
+"span"
+);
 
 chip.className =
 "interest-chip";
@@ -2553,7 +3086,9 @@ chip.className =
 chip.textContent =
 item;
 
-list.appendChild(chip);
+list.appendChild(
+chip
+);
 
 });
 
@@ -2573,13 +3108,17 @@ interestSection
 if(profile.looking_for) {
 
 const lookingSection =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 lookingSection.className =
 "discovery-section";
 
 const label =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 label.className =
 "discovery-label";
@@ -2592,7 +3131,9 @@ label
 );
 
 const chip =
-document.createElement("span");
+document.createElement(
+"span"
+);
 
 chip.className =
 "looking-chip";
@@ -2614,7 +3155,9 @@ lookingSection
 /* WHY MATCH */
 
 const note =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 note.className =
 "compatibility-note";
@@ -2624,16 +3167,22 @@ if(shared.length > 0) {
 note.textContent =
 "💕 You both like " +
 shared.slice(0,3).join(", ") +
-(shared.length > 3 ? " and more." : ".");
+(shared.length > 3
+? " and more."
+: ".");
 
 } else if(
+myProfile.looking_for &&
+profile.looking_for &&
 myProfile.looking_for ===
 profile.looking_for
 ) {
 
 note.textContent =
 "🎯 You're both looking for a " +
-String(profile.looking_for).toLowerCase() +
+String(
+profile.looking_for
+).toLowerCase() +
 ".";
 
 } else {
@@ -2643,21 +3192,32 @@ note.textContent =
 
 }
 
-content.appendChild(note);
+content.appendChild(
+note
+);
 
-card.appendChild(content);
+card.appendChild(
+content
+);
 
 
 /* ACTIONS */
 
 const actions =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 actions.className =
 "discovery-actions";
 
 const passButton =
-document.createElement("button");
+document.createElement(
+"button"
+);
+
+passButton.type =
+"button";
 
 passButton.className =
 "pass-btn";
@@ -2673,7 +3233,12 @@ passCurrentProfile();
 };
 
 const likeButton =
-document.createElement("button");
+document.createElement(
+"button"
+);
+
+likeButton.type =
+"button";
 
 likeButton.className =
 "like-btn";
@@ -2704,7 +3269,9 @@ actions
 /* COUNTER */
 
 const counter =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 counter.className =
 "explore-counter";
@@ -2734,11 +3301,15 @@ if(
 discoveryIndex >=
 discoveryProfiles.length
 ) {
+
 return;
+
 }
 
 const profile =
-discoveryProfiles[discoveryIndex];
+discoveryProfiles[
+discoveryIndex
+];
 
 savePassedProfile(
 profile.id
@@ -2759,11 +3330,15 @@ if(
 discoveryIndex >=
 discoveryProfiles.length
 ) {
+
 return;
+
 }
 
 const profile =
-discoveryProfiles[discoveryIndex];
+discoveryProfiles[
+discoveryIndex
+];
 
 const matchesList =
 document.getElementById(
@@ -2786,7 +3361,10 @@ error:userError
 } =
 await pairlyClient.auth.getUser();
 
-if(userError || !user) {
+if(
+userError ||
+!user
+) {
 
 exploreMessage.textContent =
 "Please log in again.";
@@ -2844,8 +3422,14 @@ error:mutualError
 await pairlyClient
 .from("likes")
 .select("id")
-.eq("user_id",profile.id)
-.eq("liked_user_id",user.id)
+.eq(
+"user_id",
+profile.id
+)
+.eq(
+"liked_user_id",
+user.id
+)
 .maybeSingle();
 
 if(mutualError) {
@@ -2942,7 +3526,9 @@ showHome();
 
 /* ---------- MUTUAL MATCH ---------- */
 
-function showPairlyMatch(profile) {
+function showPairlyMatch(
+profile
+) {
 
 const matchesList =
 document.getElementById(
@@ -2954,18 +3540,24 @@ document.getElementById(
 "exploreMessage"
 );
 
-exploreMessage.textContent = "";
+exploreMessage.textContent =
+"";
 
-matchesList.innerHTML = "";
+matchesList.innerHTML =
+"";
 
 const match =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 match.className =
 "match-success";
 
 const icon =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 icon.className =
 "match-success-icon";
@@ -2978,7 +3570,9 @@ icon
 );
 
 const title =
-document.createElement("h2");
+document.createElement(
+"h2"
+);
 
 title.textContent =
 "It's a Pairly!";
@@ -2988,11 +3582,14 @@ title
 );
 
 const text =
-document.createElement("p");
+document.createElement(
+"p"
+);
 
 text.textContent =
 "You and " +
-(profile.name || "this person") +
+(profile.name ||
+"this person") +
 " liked each other. Something worth exploring just happened.";
 
 match.appendChild(
@@ -3000,7 +3597,12 @@ text
 );
 
 const continueButton =
-document.createElement("button");
+document.createElement(
+"button"
+);
+
+continueButton.type =
+"button";
 
 continueButton.className =
 "form-btn";
@@ -3042,12 +3644,16 @@ document.getElementById(
 "exploreMessage"
 );
 
-matchesList.innerHTML = "";
+matchesList.innerHTML =
+"";
 
-exploreMessage.textContent = "";
+exploreMessage.textContent =
+"";
 
 const empty =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 empty.className =
 "empty-explore";
@@ -3086,7 +3692,8 @@ document.getElementById(
 "message"
 );
 
-message.textContent = "";
+message.textContent =
+"";
 
 if(!email || !password) {
 
@@ -3140,11 +3747,14 @@ if(result.data.session) {
 message.textContent =
 "Account created successfully! 🎉";
 
-setTimeout(function(){
+setTimeout(
+function(){
 
 showProfile();
 
-},1200);
+},
+1200
+);
 
 } else {
 
@@ -3199,7 +3809,8 @@ document.getElementById(
 "loginMessage"
 );
 
-message.textContent = "";
+message.textContent =
+"";
 
 if(!email || !password) {
 
@@ -3271,24 +3882,30 @@ JSON.stringify(profile)
 message.textContent =
 "Welcome back! 💕";
 
-setTimeout(function(){
+setTimeout(
+function(){
 
 showWelcome(
 profile.name
 );
 
-},800);
+},
+800
+);
 
 } else {
 
 message.textContent =
 "Account confirmed! Let's set up your profile 💕";
 
-setTimeout(function(){
+setTimeout(
+function(){
 
 showProfile();
 
-},800);
+},
+800
+);
 
 }
 
@@ -3339,7 +3956,8 @@ document.getElementById(
 "profileMessage"
 );
 
-message.textContent = "";
+message.textContent =
+"";
 
 const countryInput =
 document.getElementById(
@@ -3360,9 +3978,12 @@ selectedCity ||
 cityInput.value.trim();
 
 const location =
-city && country
+city &&
+country
 ?
-city + ", " + country
+city +
+", " +
+country
 :
 "";
 
@@ -3383,7 +4004,9 @@ return;
 
 }
 
-if(Number(age) < 18) {
+if(
+Number(age) < 18
+) {
 
 message.textContent =
 "You must be 18 or older to use Pairly.";
@@ -3459,11 +4082,15 @@ const photoFile =
 photoInput &&
 photoInput.files[0];
 
-let photoUrl = "";
+let photoUrl =
+"";
 
 if(photoFile) {
 
-if(photoFile.size > 5 * 1024 * 1024) {
+if(
+photoFile.size >
+5 * 1024 * 1024
+) {
 
 message.textContent =
 "Please choose an image smaller than 5MB.";
@@ -3529,7 +4156,10 @@ await pairlyClient
 .update({
 profile_photo:photoUrl
 })
-.eq("id",user.id);
+.eq(
+"id",
+user.id
+);
 
 if(photoError) {
 
@@ -3573,11 +4203,16 @@ JSON.stringify(profile)
 message.textContent =
 "Profile saved successfully! 🎉";
 
-setTimeout(function(){
+setTimeout(
+function(){
 
-showWelcome(name);
+showWelcome(
+name
+);
 
-},800);
+},
+800
+);
 
 } catch(error) {
 
@@ -3643,14 +4278,17 @@ matchingPage.style.display =
 
 }
 
-setTimeout(function(){
+setTimeout(
+function(){
 
 matchingPage.style.display =
 "none";
 
 showSignup();
 
-},3000);
+},
+3000
+);
 
 }
 
@@ -3674,14 +4312,17 @@ matchingPage.style.display =
 
 }
 
-setTimeout(function(){
+setTimeout(
+function(){
 
 matchingPage.style.display =
 "none";
 
 showSignup();
 
-},3000);
+},
+3000
+);
 
 }
 
@@ -3763,7 +4404,10 @@ error:profileError
 await pairlyClient
 .from("profiles")
 .select("*")
-.eq("id",session.user.id)
+.eq(
+"id",
+session.user.id
+)
 .maybeSingle();
 
 if(profileError) {
