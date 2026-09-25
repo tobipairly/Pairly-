@@ -1469,6 +1469,124 @@ function previewProfilePhoto(event) {
   reader.readAsDataURL(file);
 
 }
+    /* ================= UPLOAD PROFILE PHOTO ================= */
+
+async function uploadProfilePhoto(event) {
+
+  const file = event.target.files[0];
+
+  const message =
+    document.getElementById("photoUploadMessage");
+
+  const preview =
+    document.getElementById("welcomePhotoPreview");
+
+  if (!file) {
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    message.textContent = "Please select an image.";
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    message.textContent =
+      "Please choose an image smaller than 5MB.";
+    return;
+  }
+
+  message.textContent =
+    "Uploading your photo...";
+
+  try {
+
+    const {
+      data: { user },
+      error: userError
+    } = await pairlyClient.auth.getUser();
+
+    if (userError || !user) {
+      message.textContent =
+        "Please log in again.";
+      return;
+    }
+
+    const fileExtension =
+      file.name.split(".").pop();
+
+    const filePath =
+      user.id + "/profile." + fileExtension;
+
+    const {
+      error: uploadError
+    } = await pairlyClient.storage
+      .from("profile-photos")
+      .upload(
+        filePath,
+        file,
+        {
+          upsert: true,
+          contentType: file.type
+        }
+      );
+
+    if (uploadError) {
+      message.textContent =
+        "Upload failed: " +
+        uploadError.message;
+      return;
+    }
+
+    const {
+      data: publicUrlData
+    } = pairlyClient.storage
+      .from("profile-photos")
+      .getPublicUrl(filePath);
+
+    const photoUrl =
+      publicUrlData.publicUrl;
+
+    const {
+      error: profileError
+    } = await pairlyClient
+      .from("profiles")
+      .update({
+        profile_photo: photoUrl
+      })
+      .eq("id", user.id);
+
+    if (profileError) {
+      message.textContent =
+        "Photo uploaded, but profile could not be updated.";
+      return;
+    }
+
+    if (preview) {
+
+      preview.innerHTML =
+        '<img src="' +
+        photoUrl +
+        '" alt="Profile photo">';
+
+    }
+
+    message.textContent =
+      "Profile picture updated! 💕";
+
+  } catch (error) {
+
+    console.log(
+      "Profile photo upload error:",
+      error.message
+    );
+
+    message.textContent =
+      "Something went wrong. Please try again.";
+
+  }
+
+}
     /* ================= COUNTRY SEARCH ================= */
 
     function searchCountries() {
