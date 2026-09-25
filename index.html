@@ -1703,7 +1703,134 @@ textarea{
   </div>
 
 </div>
+<!-- MY PROFILE PAGE -->
 
+<div id="myProfilePage" class="app-page">
+
+  <div class="app-header">
+
+    <div class="app-logo">Pairly</div>
+
+    <button
+      class="header-btn"
+      onclick="showSettings()"
+    >
+      ⚙️
+    </button>
+
+  </div>
+
+  <div class="profile-container">
+
+    <div class="my-profile-card">
+
+      <div class="my-profile-photo-wrap">
+
+        <img
+          id="myProfilePhoto"
+          class="my-profile-photo"
+          style="display:none;"
+          alt="Profile photo"
+        >
+
+        <div
+          id="myProfilePhotoPlaceholder"
+          class="photo-placeholder"
+        >
+          👤
+        </div>
+
+      </div>
+
+      <h1 id="myProfileName">
+        Your Name
+      </h1>
+
+      <p id="myProfileBasic">
+        Age • Gender
+      </p>
+
+      <p id="myProfileLocation">
+        📍 Location
+      </p>
+
+      <div class="profile-info-section">
+
+        <h3>Interests</h3>
+
+        <p id="myProfileInterests">
+          —
+        </p>
+
+      </div>
+
+      <div class="profile-info-section">
+
+        <h3>Personality</h3>
+
+        <p id="myProfilePersonality">
+          —
+        </p>
+
+      </div>
+
+      <div class="profile-info-section">
+
+        <h3>Values</h3>
+
+        <p id="myProfileValues">
+          —
+        </p>
+
+      </div>
+
+      <div class="profile-info-section">
+
+        <h3>Lifestyle</h3>
+
+        <p id="myProfileLifestyle">
+          —
+        </p>
+
+      </div>
+
+      <div class="profile-info-section">
+
+        <h3>Looking for</h3>
+
+        <p id="myProfileLookingFor">
+          —
+        </p>
+
+      </div>
+
+      <button
+        class="primary-btn"
+        onclick="editMyProfile()"
+      >
+        Edit Profile
+      </button>
+
+      <button
+        class="secondary-btn"
+        onclick="showSettings()"
+      >
+        ⚙️ Settings
+      </button>
+
+      <button
+        class="header-btn"
+        onclick="logout()"
+        style="margin-top:10px;"
+      >
+        Log out
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
 <!-- =========================
      MATCH POPUP
