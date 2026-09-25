@@ -4,833 +4,847 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pairly — Meet someone who gets you</title>
+<title>Pairly — Meet someone who gets you.</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-body {
-  background: #fff7fb;
-  color: #241721;
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#faf8ff;
+  color:#17131f;
 }
 
-button {
-  border: none;
-  cursor: pointer;
+button,
+input,
+select{
+  font:inherit;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 7%;
-  background: white;
+button{
+  cursor:pointer;
 }
 
-.logo {
-  font-size: 28px;
-  font-weight: 800;
-  color: #e94f87;
+.page{
+  min-height:100vh;
 }
 
-nav button,
-.main-btn,
-.join button,
-.plan button,
-.form-btn {
-  border: none;
-  background: #e94f87;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
+/* =========================
+   HOME
+========================= */
 
-nav button {
-  padding: 11px 20px;
-  border-radius: 25px;
-  font-size: 15px;
+#homePage{
+  display:block;
 }
 
-.hero {
-  min-height: 620px;
-  padding: 80px 7%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #fff0f6, #f7efff);
+.navbar{
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 7%;
+  background:white;
+  border-bottom:1px solid #eee;
 }
 
-.hero h1 {
-  font-size: 48px;
-  max-width: 750px;
-  line-height: 1.1;
-  margin-bottom: 20px;
+.logo{
+  font-size:26px;
+  font-weight:800;
+  color:#6c2bd9;
 }
 
-.hero h1 span {
-  color: #e94f87;
+.nav-buttons{
+  display:flex;
+  gap:10px;
 }
 
-.hero p {
-  font-size: 19px;
-  line-height: 1.6;
-  max-width: 600px;
-  color: #655563;
-  margin-bottom: 30px;
+.nav-buttons button{
+  border:0;
+  background:none;
+  padding:10px 14px;
+  font-weight:600;
 }
 
-.main-btn {
-  padding: 16px 30px;
-  border-radius: 30px;
-  font-size: 17px;
+.login-nav{
+  color:#6c2bd9;
 }
 
-section {
-  padding: 70px 7%;
-  text-align: center;
+.signup-nav{
+  background:#6c2bd9 !important;
+  color:white;
+  border-radius:10px;
 }
 
-section h2 {
-  font-size: 32px;
-  margin-bottom: 15px;
+.hero{
+  text-align:center;
+  padding:90px 20px 70px;
+  background:linear-gradient(180deg,#faf8ff,#ffffff);
 }
 
-.subtitle {
-  color: #6d5b68;
-  margin-bottom: 35px;
-  font-size: 17px;
+.hero h1{
+  font-size:clamp(42px,8vw,72px);
+  line-height:1;
+  max-width:800px;
+  margin:auto;
+  color:#17131f;
 }
 
-.steps,
-.plans {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 1000px;
-  margin: auto;
+.hero h1 span{
+  color:#6c2bd9;
 }
 
-.card {
-  background: white;
-  padding: 30px 22px;
-  border-radius: 20px;
-  text-align: left;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+.hero p{
+  max-width:600px;
+  margin:25px auto;
+  font-size:18px;
+  line-height:1.6;
+  color:#666;
 }
 
-.number {
-  width: 42px;
-  height: 42px;
-  background: #ffe0eb;
-  color: #e94f87;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  margin-bottom: 18px;
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:30px;
 }
 
-.card h3 {
-  margin-bottom: 10px;
+.primary-btn{
+  background:#6c2bd9;
+  color:white;
+  border:0;
+  border-radius:12px;
+  padding:15px 24px;
+  font-weight:700;
 }
 
-.card p,
-.plan li {
-  color: #6d5b68;
-  line-height: 1.5;
+.secondary-btn{
+  background:white;
+  color:#6c2bd9;
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:15px 24px;
+  font-weight:700;
 }
 
-.pricing {
-  background: white;
+.section{
+  padding:70px 7%;
 }
 
-.plan {
-  border: 1px solid #eee;
-  padding: 30px 22px;
-  border-radius: 20px;
-  text-align: left;
+.section h2{
+  text-align:center;
+  font-size:34px;
+  margin-bottom:40px;
 }
 
-.plan.featured {
-  border: 2px solid #e94f87;
+.steps{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  max-width:1000px;
+  margin:auto;
 }
 
-.plan h3 {
-  font-size: 23px;
-  margin-bottom: 10px;
+.step-card{
+  background:white;
+  padding:30px;
+  border-radius:18px;
+  border:1px solid #eee;
+  text-align:center;
 }
 
-.price {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 18px;
+.step-number{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#eee4ff;
+  color:#6c2bd9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 18px;
+  font-weight:800;
 }
 
-.plan ul {
-  list-style: none;
-  margin-bottom: 20px;
+.step-card h3{
+  margin-bottom:10px;
 }
 
-.plan li {
-  margin: 12px 0;
+.step-card p{
+  color:#777;
+  line-height:1.5;
 }
 
-.plan button {
-  width: 100%;
-  padding: 13px;
-  border-radius: 25px;
+.pricing{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  max-width:1000px;
+  margin:auto;
 }
 
-.trust {
-  background: #f7efff;
+.price-card{
+  background:white;
+  border:1px solid #eee;
+  border-radius:18px;
+  padding:30px;
 }
 
-.trust-box {
-  max-width: 650px;
-  margin: auto;
-  line-height: 1.7;
-  color: #5d5060;
-  font-size: 17px;
+.price-card.featured{
+  border:2px solid #6c2bd9;
 }
 
-.join {
-  background: #241721;
-  color: white;
+.price{
+  font-size:30px;
+  font-weight:800;
+  margin:15px 0;
 }
 
-.join h2 {
-  margin-bottom: 12px;
+.price-card p{
+  color:#777;
+  line-height:1.6;
 }
 
-.join p {
-  color: #d9cbd4;
-  margin-bottom: 25px;
+.trust{
+  background:#f0eaff;
+  text-align:center;
 }
 
-.join button {
-  padding: 16px 32px;
-  border-radius: 30px;
-  font-size: 16px;
+.trust p{
+  max-width:700px;
+  margin:auto;
+  color:#625d69;
+  line-height:1.7;
 }
 
-footer {
-  text-align: center;
-  padding: 25px;
-  color: #766773;
-  background: white;
+footer{
+  text-align:center;
+  padding:30px;
+  color:#888;
+  background:white;
 }
 
-/* ================= APP PAGES ================= */
+/* =========================
+   APP PAGES
+========================= */
+
+.app-page{
+  display:none;
+  min-height:100vh;
+  background:#faf8ff;
+}
 
-.app-page {
-  display: none;
-  min-height: 100vh;
-  padding: 40px 7%;
-  background: linear-gradient(135deg, #fff0f6, #f7efff);
-  align-items: center;
-  justify-content: center;
+.app-header{
+  height:70px;
+  background:white;
+  border-bottom:1px solid #eee;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 6%;
 }
 
-.app-page.active {
-  display: flex;
+.app-logo{
+  font-size:24px;
+  font-weight:800;
+  color:#6c2bd9;
 }
 
-.app-box {
-  background: white;
-  width: 100%;
-  max-width: 450px;
-  padding: 35px 25px;
-  border-radius: 25px;
-  box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+.header-btn{
+  border:0;
+  background:#f1eaff;
+  color:#6c2bd9;
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:700;
 }
 
-.app-box h2 {
-  text-align: center;
-  margin-bottom: 10px;
+.form-container{
+  width:min(94%,600px);
+  margin:40px auto;
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  border:1px solid #eee;
 }
 
-.app-box > p {
-  text-align: center;
-  color: #6d5b68;
-  margin-bottom: 25px;
-  line-height: 1.5;
+.form-container h2{
+  margin-bottom:8px;
 }
 
-.app-box input,
-.app-box select {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  font-size: 16px;
-  background: white;
+.form-subtitle{
+  color:#777;
+  margin-bottom:25px;
+  line-height:1.5;
 }
 
-.form-btn {
-  width: 100%;
-  padding: 15px;
-  border-radius: 25px;
-  font-size: 16px;
+.form-group{
+  margin-bottom:18px;
 }
 
-.message {
-  margin-top: 15px;
-  text-align: center;
-  line-height: 1.5;
-  font-size: 14px;
+.form-group label{
+  display:block;
+  font-weight:700;
+  margin-bottom:8px;
 }
 
-.back {
-  display: block;
-  text-align: center;
-  margin-top: 18px;
-  color: #e94f87;
-  font-weight: bold;
-  cursor: pointer;
+input,
+select{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  outline:none;
+  background:white;
 }
 
-.welcome-icon {
-  font-size: 55px;
-  text-align: center;
-  margin-bottom: 15px;
+input:focus,
+select:focus{
+  border-color:#6c2bd9;
 }
 
-/* ================= PROFILE PHOTO ================= */
+textarea{
+  width:100%;
+  min-height:100px;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  resize:vertical;
+}
 
-.profile-photo-section {
-  text-align: center;
-  margin-bottom: 22px;
+.form-button{
+  width:100%;
+  background:#6c2bd9;
+  color:white;
+  border:0;
+  padding:15px;
+  border-radius:11px;
+  font-weight:800;
+  margin-top:10px;
 }
 
-.profile-photo-preview {
-  width: 110px;
-  height: 110px;
-  margin: 0 auto 14px;
-  border-radius: 50%;
-  background: #fff0f6;
-  border: 3px solid #ffe0eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  font-size: 38px;
+.small-link{
+  text-align:center;
+  margin-top:18px;
+  color:#6c2bd9;
+  cursor:pointer;
+  font-weight:600;
 }
 
-.profile-photo-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.message{
+  margin:15px 0;
+  padding:12px;
+  border-radius:9px;
+  display:none;
+  font-size:14px;
 }
 
-.photo-upload-btn {
-  display: inline-block;
-  padding: 11px 18px;
-  border-radius: 22px;
-  background: #ffe0eb;
-  color: #e94f87;
-  font-weight: bold;
-  cursor: pointer;
+.message.error{
+  display:block;
+  background:#ffe8e8;
+  color:#a10000;
 }
 
-.photo-note {
-  margin-top: 9px;
-  margin-bottom: 0 !important;
-  font-size: 12px;
-  color: #8a7783;
+.message.success{
+  display:block;
+  background:#e8fff0;
+  color:#08752f;
 }
 
-/* ================= LOCATION SEARCH ================= */
+/* =========================
+   PHONE
+========================= */
 
-.location-field {
-  position: relative;
-  margin-bottom: 15px;
+.phone-row{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:8px;
 }
+
+/* =========================
+   PROFILE PHOTO
+========================= */
 
-.location-field input {
-  margin-bottom: 0 !important;
+.photo-section{
+  text-align:center;
+  margin-bottom:25px;
 }
 
-.suggestions {
-  position: absolute;
-  top: 58px;
-  left: 0;
-  right: 0;
-  background: white;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.10);
-  z-index: 100;
-  max-height: 220px;
-  overflow-y: auto;
-  display: none;
+.photo-preview{
+  width:115px;
+  height:115px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid #eee4ff;
+  display:block;
+  margin:0 auto 12px;
+  background:#eee4ff;
 }
 
-.suggestion-item {
-  padding: 13px 15px;
-  cursor: pointer;
-  border-bottom: 1px solid #f4edf1;
-  font-size: 15px;
+.photo-placeholder{
+  width:115px;
+  height:115px;
+  border-radius:50%;
+  background:#eee4ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 12px;
+  font-size:42px;
 }
 
-.suggestion-item:hover {
-  background: #fff0f6;
-  color: #e94f87;
+.photo-button{
+  display:inline-block;
+  padding:10px 15px;
+  border-radius:9px;
+  background:#f1eaff;
+  color:#6c2bd9;
+  font-weight:700;
+  cursor:pointer;
 }
 
-.selected-location {
-  font-size: 13px;
-  color: #e94f87;
-  margin-top: -8px;
-  margin-bottom: 15px;
-  display: none;
+.hidden-file{
+  display:none;
 }
 
-/* ================= COMPATIBILITY QUESTIONS ================= */
+/* =========================
+   COMPATIBILITY
+========================= */
 
-.compatibility-intro {
-  background: #fff7fb;
-  border: 1px solid #f5dfe8;
-  border-radius: 15px;
-  padding: 14px;
-  margin-bottom: 20px;
-  color: #6d5b68;
-  font-size: 13px;
-  line-height: 1.5;
+.compatibility-section{
+  margin-top:30px;
 }
 
-.compatibility-question {
-  margin: 22px 0;
+.compatibility-section h3{
+  margin-bottom:7px;
 }
 
-.compatibility-question-title {
-  font-size: 15px;
-  font-weight: bold;
-  margin-bottom: 10px;
+.compatibility-section > p{
+  color:#777;
+  font-size:14px;
+  margin-bottom:15px;
 }
 
-.compatibility-question-subtitle {
-  color: #8a7783;
-  font-size: 12px;
-  margin-bottom: 12px;
+.choice-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
 }
 
-.option-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
+.choice{
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
 }
 
-.option-label {
-  position: relative;
-  display: block;
-  cursor: pointer;
+.choice input{
+  width:auto;
 }
 
-.option-label input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+.checkbox-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
 }
 
-.option-card {
-  display: block;
-  padding: 12px 10px;
-  border: 1px solid #eadfe5;
-  border-radius: 12px;
-  color: #5f5060;
-  font-size: 13px;
-  text-align: center;
-  background: white;
-  transition: 0.2s;
+.checkbox-item{
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:11px;
+  display:flex;
+  gap:8px;
+  align-items:center;
 }
 
-.option-label input:checked + .option-card {
-  background: #ffe0eb;
-  border-color: #e94f87;
-  color: #e94f87;
-  font-weight: bold;
+.checkbox-item input{
+  width:auto;
 }
 
-.multi-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
+/* =========================
+   WELCOME
+========================= */
+
+.welcome-container{
+  width:min(94%,850px);
+  margin:50px auto;
 }
 
-.multi-label {
-  position: relative;
-  display: block;
-  cursor: pointer;
+.welcome-card{
+  background:white;
+  border:1px solid #eee;
+  border-radius:22px;
+  padding:35px;
+  text-align:center;
 }
 
-.multi-label input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+.welcome-photo{
+  width:130px;
+  height:130px;
+  object-fit:cover;
+  border-radius:50%;
+  display:block;
+  margin:0 auto 18px;
+  background:#eee4ff;
 }
 
-.multi-card {
-  display: block;
-  padding: 11px 9px;
-  border: 1px solid #eadfe5;
-  border-radius: 12px;
-  color: #5f5060;
-  font-size: 12px;
-  text-align: center;
-  background: white;
-  transition: 0.2s;
+.welcome-card h1{
+  margin-bottom:10px;
 }
 
-.multi-label input:checked + .multi-card {
-  background: #f7efff;
-  border-color: #a47ab9;
-  color: #704c84;
-  font-weight: bold;
+.welcome-card p{
+  color:#777;
+  margin-bottom:25px;
 }
 
-.selection-count {
-  font-size: 11px;
-  color: #8a7783;
-  margin-top: 8px;
+.welcome-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-/* ================= MATCHING LOADING ================= */
+/* =========================
+   MATCHING LOADER
+========================= */
 
-.matching-box {
-  width: 100%;
-  max-width: 430px;
-  padding: 45px 25px;
-  text-align: center;
-  background: rgba(255,255,255,0.88);
-  border: 1px solid rgba(233,79,135,0.12);
-  border-radius: 30px;
-  box-shadow: 0 20px 60px rgba(36,23,33,0.10);
-  backdrop-filter: blur(12px);
+#matchingPage{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#faf8ff,#eee4ff);
 }
 
-.matching-heart {
-  font-size: 70px;
-  margin-bottom: 18px;
-  animation: heartPulse 1.4s ease-in-out infinite;
+.matching-box{
+  width:min(90%,450px);
+  text-align:center;
+  background:white;
+  padding:45px 25px;
+  border-radius:25px;
+  box-shadow:0 20px 60px rgba(60,20,100,.12);
 }
 
-.matching-box h2 {
-  font-size: 28px;
-  margin-bottom: 12px;
+.matching-heart{
+  font-size:65px;
+  animation:heartBeat 1s infinite;
 }
 
-.matching-box p {
-  color: #6d5b68;
-  line-height: 1.6;
-  margin-bottom: 28px;
+@keyframes heartBeat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
 }
 
-.matching-loader {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 22px;
+.matching-box h2{
+  margin:18px 0 10px;
 }
 
-.matching-loader span {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #e94f87;
-  animation: matchingDots 1.2s infinite ease-in-out;
+.matching-box p{
+  color:#777;
+  line-height:1.6;
 }
 
-.matching-loader span:nth-child(2) {
-  animation-delay: 0.15s;
+.matching-loader{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin:28px 0 18px;
 }
 
-.matching-loader span:nth-child(3) {
-  animation-delay: 0.3s;
+.matching-loader span{
+  width:10px;
+  height:10px;
+  background:#6c2bd9;
+  border-radius:50%;
+  animation:loader 1.2s infinite;
 }
 
-.matching-status {
-  color: #e94f87;
-  font-size: 14px;
-  font-weight: bold;
+.matching-loader span:nth-child(2){
+  animation-delay:.2s;
 }
-
-@keyframes heartPulse {
-  0%,100% {
-    transform: scale(1);
-  }
 
-  50% {
-    transform: scale(1.12);
-  }
+.matching-loader span:nth-child(3){
+  animation-delay:.4s;
 }
 
-@keyframes matchingDots {
-  0%,80%,100% {
-    transform: translateY(0);
-    opacity: 0.4;
-  }
-
-  40% {
-    transform: translateY(-7px);
-    opacity: 1;
-  }
+@keyframes loader{
+  0%,100%{opacity:.25;transform:translateY(0)}
+  50%{opacity:1;transform:translateY(-7px)}
 }
 
-/* ================= EXPLORE ================= */
-
-.explore-box {
-  max-width: 520px;
+.matching-status{
+  color:#6c2bd9;
+  font-weight:700;
+  font-size:14px;
 }
 
-.explore-header {
-  text-align: center;
-  margin-bottom: 22px;
-}
+/* =========================
+   EXPLORE
+========================= */
 
-.explore-header h2 {
-  margin-bottom: 8px;
+.explore-container{
+  width:min(94%,1100px);
+  margin:30px auto;
 }
 
-.explore-header p {
-  margin-bottom: 0 !important;
+.explore-title{
+  text-align:center;
+  margin-bottom:25px;
 }
 
-/* DISCOVERY CARD */
-
-.discovery-card {
-  background: white;
-  border-radius: 28px;
-  overflow: hidden;
-  border: 1px solid #f1dce6;
-  box-shadow: 0 15px 40px rgba(36,23,33,0.10);
-  margin-top: 20px;
+.explore-title h1{
+  margin-bottom:7px;
 }
 
-.discovery-photo {
-  width: 100%;
-  height: 360px;
-  background: linear-gradient(135deg, #fff0f6, #f7efff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+.explore-title p{
+  color:#777;
 }
 
-.discovery-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.explore-status{
+  text-align:center;
+  color:#777;
+  padding:35px;
 }
 
-.photo-placeholder {
-  font-size: 75px;
+.discovery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
 }
 
-.discovery-content {
-  padding: 22px;
+.discovery-card{
+  background:white;
+  border:1px solid #eee;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-.discovery-name-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 6px;
+.discovery-top{
+  padding:22px;
+  text-align:center;
 }
 
-.discovery-name {
-  font-size: 28px;
-  font-weight: 800;
+.discovery-photo{
+  width:105px;
+  height:105px;
+  object-fit:cover;
+  border-radius:50%;
+  background:#eee4ff;
+  display:block;
+  margin:0 auto 12px;
 }
 
-.compatibility {
-  background: #ffe0eb;
-  color: #e94f87;
-  padding: 8px 11px;
-  border-radius: 18px;
-  font-size: 12px;
-  font-weight: bold;
-  white-space: nowrap;
+.discovery-name{
+  font-size:20px;
+  font-weight:800;
 }
 
-.discovery-info {
-  color: #6d5b68;
-  margin-bottom: 8px;
+.discovery-meta{
+  color:#777;
+  font-size:14px;
+  margin-top:5px;
 }
 
-.discovery-location {
-  color: #6d5b68;
-  line-height: 1.5;
-  margin-bottom: 18px;
+.compatibility-score{
+  display:inline-block;
+  background:#eee4ff;
+  color:#6c2bd9;
+  padding:7px 12px;
+  border-radius:20px;
+  font-weight:800;
+  font-size:13px;
+  margin-top:10px;
 }
 
-.discovery-section {
-  margin-top: 17px;
+.discovery-body{
+  padding:20px;
+  border-top:1px solid #eee;
 }
 
-.discovery-label {
-  font-size: 13px;
-  font-weight: bold;
-  color: #241721;
-  margin-bottom: 9px;
+.detail{
+  margin-bottom:12px;
 }
 
-.interest-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
+.detail strong{
+  display:block;
+  font-size:13px;
+  margin-bottom:4px;
 }
 
-.interest-chip {
-  display: inline-block;
-  background: #fff0f6;
-  color: #e94f87;
-  padding: 7px 10px;
-  border-radius: 16px;
-  font-size: 12px;
-  font-weight: bold;
+.detail span{
+  color:#666;
+  font-size:14px;
+  line-height:1.5;
 }
 
-.looking-chip {
-  display: inline-block;
-  background: #f7efff;
-  color: #6d4d83;
-  padding: 8px 12px;
-  border-radius: 17px;
-  font-size: 12px;
-  font-weight: bold;
+.reason-box{
+  background:#f7f4ff;
+  border-radius:10px;
+  padding:12px;
+  color:#625d69;
+  font-size:13px;
+  line-height:1.5;
+  margin-top:12px;
 }
 
-.compatibility-note {
-  background: #fff7fb;
-  border: 1px solid #f5dfe8;
-  border-radius: 15px;
-  padding: 12px;
-  margin-top: 18px;
-  color: #6d5b68;
-  font-size: 13px;
-  line-height: 1.5;
+.card-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  padding:0 20px 20px;
 }
 
-.compatibility-breakdown {
-  margin-top: 10px;
-  color: #8a7783;
-  font-size: 12px;
-  line-height: 1.5;
+.pass-btn{
+  border:1px solid #ddd;
+  background:white;
+  color:#666;
+  padding:12px;
+  border-radius:10px;
+  font-weight:700;
 }
 
-.discovery-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  padding: 0 22px 22px;
+.like-btn{
+  border:0;
+  background:#6c2bd9;
+  color:white;
+  padding:12px;
+  border-radius:10px;
+  font-weight:700;
 }
 
-.pass-btn,
-.like-btn {
-  padding: 15px;
-  border-radius: 25px;
-  font-size: 16px;
-  font-weight: bold;
-}
+/* =========================
+   MATCH POPUP
+========================= */
 
-.pass-btn {
-  background: #f3edf1;
-  color: #6d5b68;
+.match-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(20,10,30,.65);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:1000;
 }
 
-.like-btn {
-  background: #e94f87;
-  color: white;
+.match-popup{
+  background:white;
+  width:min(92%,430px);
+  padding:35px;
+  border-radius:25px;
+  text-align:center;
 }
 
-.explore-counter {
-  text-align: center;
-  color: #8a7783;
-  font-size: 13px;
-  margin-top: 14px;
+.match-popup .big-heart{
+  font-size:65px;
 }
 
-/* MATCH */
-
-.match-success {
-  text-align: center;
-  background: linear-gradient(135deg, #fff0f6, #f7efff);
-  border-radius: 25px;
-  padding: 35px 22px;
-  margin-top: 20px;
+.match-popup h2{
+  margin:12px 0;
 }
 
-.match-success-icon {
-  font-size: 70px;
-  margin-bottom: 15px;
-  animation: heartPulse 1.4s ease-in-out infinite;
+.match-popup p{
+  color:#777;
+  line-height:1.5;
 }
 
-.match-success h2 {
-  font-size: 28px;
-  margin-bottom: 12px;
+.match-popup button{
+  margin-top:20px;
+  width:100%;
+  padding:14px;
+  background:#6c2bd9;
+  color:white;
+  border:0;
+  border-radius:10px;
+  font-weight:800;
 }
+
+/* =========================
+   EMPTY STATE
+========================= */
 
-.match-success p {
-  color: #6d5b68;
-  line-height: 1.6;
-  margin-bottom: 22px;
+.empty-state{
+  background:white;
+  border:1px solid #eee;
+  border-radius:20px;
+  padding:45px 25px;
+  text-align:center;
 }
 
-.empty-explore {
-  text-align: center;
-  background: linear-gradient(135deg, #fff0f6, #f7efff);
-  border-radius: 25px;
-  padding: 40px 25px;
-  margin-top: 20px;
-  color: #6d5b68;
-  line-height: 1.6;
+.empty-state h2{
+  margin-bottom:10px;
 }
 
-.explore-loading {
-  text-align: center;
-  padding: 30px 0;
-  color: #6d5b68;
+.empty-state p{
+  color:#777;
+  line-height:1.6;
 }
 
-@media (max-width: 600px) {
+/* =========================
+   RESPONSIVE
+========================= */
 
-  .hero h1 {
-    font-size: 40px;
-  }
+@media(max-width:800px){
 
   .steps,
-  .plans {
-    grid-template-columns: 1fr;
+  .pricing{
+    grid-template-columns:1fr;
   }
 
-  .discovery-photo {
-    height: 330px;
+  .discovery-grid{
+    grid-template-columns:1fr;
   }
 
-  .discovery-name {
-    font-size: 25px;
+  .navbar{
+    padding:0 4%;
   }
 
-  .discovery-name-row {
-    align-items: flex-start;
+  .hero{
+    padding-top:65px;
   }
 
-  .compatibility {
-    font-size: 11px;
+}
+
+@media(max-width:500px){
+
+  .navbar{
+    height:auto;
+    padding:15px 4%;
   }
 
+  .nav-buttons button{
+    padding:8px;
+    font-size:13px;
+  }
+
+  .form-container{
+    padding:22px;
+  }
+
+  .choice-grid,
+  .checkbox-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+  text-align:center;
+  padding:40px;
+  color:#777;
 }
 
 </style>
@@ -838,1001 +852,892 @@ footer {
 
 <body>
 
-<!-- ================= HOME ================= -->
+<!-- =========================
+     HOME PAGE
+========================= -->
 
-<div id="homePage">
+<div id="homePage" class="page">
 
-<nav>
+  <nav class="navbar">
 
-<div class="logo">
-Pairly
-</div>
+    <div class="logo">Pairly</div>
 
-<button
-type="button"
-onclick="startJoinExperience()"
->
-Join Pairly
-</button>
+    <div class="nav-buttons">
+      <button class="login-nav" onclick="showLogin()">Log in</button>
+      <button class="signup-nav" onclick="startJoinExperience()">Join Pairly</button>
+    </div>
 
-</nav>
+  </nav>
 
-<main>
+  <section class="hero">
 
-<section class="hero">
+    <h1>
+      Meet someone<br>
+      <span>who gets you.</span>
+    </h1>
 
-<h1>
-Meet someone who <span>gets you.</span>
-</h1>
+    <p>
+      Pairly helps you discover people who genuinely
+      fit your personality, values, lifestyle, interests
+      and relationship goals.
+    </p>
 
-<p>
-Pairly helps you connect with people based on compatibility,
-interests and what truly matters to you.
-</p>
+    <div class="hero-buttons">
 
-<button
-type="button"
-class="main-btn"
-onclick="startMatchingExperience()"
->
-Find your match
-</button>
+      <button
+        class="primary-btn"
+        onclick="startMatchingExperience()"
+      >
+        Find your match
+      </button>
 
-</section>
+      <button
+        class="secondary-btn"
+        onclick="startJoinExperience()"
+      >
+        Join Pairly
+      </button>
 
-<section>
+    </div>
 
-<h2>
-How Pairly works
-</h2>
+  </section>
 
-<p class="subtitle">
-Meaningful connections shouldn't feel impossible.
-</p>
+  <section class="section">
 
-<div class="steps">
+    <h2>How Pairly works</h2>
 
-<div class="card">
+    <div class="steps">
 
-<div class="number">
-1
-</div>
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Create your profile</h3>
+        <p>
+          Tell Pairly about yourself, your interests,
+          personality, lifestyle and what you're looking for.
+        </p>
+      </div>
 
-<h3>
-Tell us about you
-</h3>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Discover compatible people</h3>
+        <p>
+          Pairly compares important parts of your profiles
+          to help you discover people who may click with you.
+        </p>
+      </div>
 
-<p>
-Share your interests, personality and what you're looking for.
-</p>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Connect naturally</h3>
+        <p>
+          Like people you're interested in and discover
+          mutual connections.
+        </p>
+      </div>
 
-</div>
+    </div>
 
-<div class="card">
+  </section>
 
-<div class="number">
-2
-</div>
+  <section class="section">
 
-<h3>
-Discover compatibility
-</h3>
+    <h2>Simple. Personal. Pairly.</h2>
 
-<p>
-Pairly looks beyond random swipes to help find better connections.
-</p>
+    <div class="pricing">
 
-</div>
+      <div class="price-card">
 
-<div class="card">
+        <h3>Free</h3>
 
-<div class="number">
-3
-</div>
+        <div class="price">₦0</div>
 
-<h3>
-Meet someone who gets you
-</h3>
+        <p>
+          Create your profile and discover
+          compatible people.
+        </p>
 
-<p>
-Start conversations with people you genuinely connect with.
-</p>
+      </div>
 
-</div>
+      <div class="price-card featured">
 
-</div>
+        <h3>Pairly Plus</h3>
 
-</section>
+        <div class="price">Coming soon</div>
 
-<section class="pricing">
+        <p>
+          More ways to discover and connect
+          with people who fit you.
+        </p>
 
-<h2>
-Choose your Pairly experience
-</h2>
+      </div>
 
-<p class="subtitle">
-Start free. Upgrade only when you want more.
-</p>
+      <div class="price-card">
 
-<div class="plans">
+        <h3>Pairly Select</h3>
 
-<div class="plan">
+        <div class="price">Coming soon</div>
 
-<h3>
-Free
-</h3>
+        <p>
+          A more personalised Pairly experience
+          for users who want more.
+        </p>
 
-<div class="price">
-₦0
-</div>
+      </div>
 
-<ul>
+    </div>
 
-<li>
-✓ Create your profile
-</li>
+  </section>
 
-<li>
-✓ Basic compatibility matching
-</li>
+  <section class="section trust">
 
-<li>
-✓ Discover new connections
-</li>
+    <h2>Built around compatibility</h2>
 
-</ul>
+    <p>
+      Pairly isn't only about photos. Your personality,
+      values, lifestyle, interests and relationship goals
+      all help shape the people you discover.
+    </p>
 
-<button
-type="button"
-onclick="showSignup()"
->
-Get started
-</button>
+  </section>
 
-</div>
-
-<div class="plan featured">
-
-<h3>
-Plus
-</h3>
-
-<div class="price">
-Coming soon
-</div>
-
-<ul>
-
-<li>
-✓ More match insights
-</li>
-
-<li>
-✓ More discovery options
-</li>
-
-<li>
-✓ Enhanced profile features
-</li>
-
-</ul>
-
-<button
-type="button"
-onclick="showSignup()"
->
-Join waitlist
-</button>
+  <footer>
+    © 2026 Pairly. Meet someone who gets you.
+  </footer>
 
 </div>
 
-<div class="plan">
 
-<h3>
-Select
-</h3>
-
-<div class="price">
-Coming soon
-</div>
-
-<ul>
-
-<li>
-✓ Premium matchmaking
-</li>
-
-<li>
-✓ Priority matching
-</li>
-
-<li>
-✓ Exclusive features
-</li>
-
-</ul>
-
-<button
-type="button"
-onclick="showSignup()"
->
-Join waitlist
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="trust">
-
-<h2>
-Built around trust
-</h2>
-
-<div class="trust-box">
-
-Your privacy and safety matter. Pairly is designed to encourage
-respectful, meaningful connections and give you control over
-your experience.
-
-</div>
-
-</section>
-
-<section class="join">
-
-<h2>
-Your next connection could be different.
-</h2>
-
-<p>
-Join Pairly and be among the first to meet someone who gets you.
-</p>
-
-<button
-type="button"
-onclick="showSignup()"
->
-Create your account
-</button>
-
-</section>
-
-</main>
-
-<footer>
-© 2026 Pairly — Meet someone who gets you.
-</footer>
-
-</div>
-
-
-<!-- ================= MATCHING LOADING ================= -->
+<!-- =========================
+     MATCHING PAGE
+========================= -->
 
 <div id="matchingPage" class="app-page">
 
-<div class="matching-box">
+  <div class="matching-box">
 
-<div class="matching-heart">
-💞
-</div>
+    <div class="matching-heart">💞</div>
 
-<h2>
-Finding your match...
-</h2>
+    <h2>Finding your match...</h2>
 
-<p>
-Pairly is looking for connections<br>
-that could genuinely click with you.
-</p>
+    <p>
+      Pairly is looking for connections<br>
+      that could genuinely click with you.
+    </p>
 
-<div class="matching-loader">
+    <div class="matching-loader">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-<span></span>
-<span></span>
-<span></span>
+    <div class="matching-status">
+      Discovering compatibility...
+    </div>
 
-</div>
-
-<div class="matching-status">
-Discovering compatibility...
-</div>
-
-</div>
+  </div>
 
 </div>
 
 
-<!-- ================= SIGNUP ================= -->
+<!-- =========================
+     SIGNUP
+========================= -->
 
 <div id="signupPage" class="app-page">
 
-<div class="app-box">
+  <div class="app-header">
 
-<h2>
-Join Pairly 💕
-</h2>
+    <div class="app-logo">Pairly</div>
 
-<p>
-Create your free account and let's get you connected.
-</p>
+    <button
+      class="header-btn"
+      onclick="showHome()"
+    >
+      Home
+    </button>
 
-<input
-type="email"
-id="emailInput"
-placeholder="Email address"
-autocomplete="email"
->
+  </div>
 
-<input
-type="password"
-id="passwordInput"
-placeholder="Password"
-autocomplete="new-password"
->
+  <div class="form-container">
 
-<select id="countryInput">
+    <h2>Create your Pairly account</h2>
 
-<option value="+234">
-🇳🇬 Nigeria (+234)
-</option>
+    <p class="form-subtitle">
+      Let's get you started.
+    </p>
 
-<option value="+233">
-🇬🇭 Ghana (+233)
-</option>
+    <div id="signupMessage" class="message"></div>
 
-<option value="+27">
-🇿🇦 South Africa (+27)
-</option>
+    <div class="form-group">
 
-<option value="+254">
-🇰🇪 Kenya (+254)
-</option>
+      <label>Email</label>
 
-<option value="+44">
-🇬🇧 United Kingdom (+44)
-</option>
+      <input
+        id="signupEmail"
+        type="email"
+        placeholder="you@example.com"
+      >
 
-<option value="+1">
-🇺🇸 United States (+1)
-</option>
+    </div>
 
-<option value="+1">
-🇨🇦 Canada (+1)
-</option>
+    <div class="form-group">
 
-<option value="+61">
-🇦🇺 Australia (+61)
-</option>
+      <label>Password</label>
 
-</select>
+      <input
+        id="signupPassword"
+        type="password"
+        placeholder="Create a password"
+      >
 
-<input
-type="tel"
-id="phoneInput"
-placeholder="Phone number"
-autocomplete="tel"
->
+    </div>
 
-<button
-type="button"
-class="form-btn"
-onclick="createAccount()"
->
-Create account
-</button>
+    <div class="form-group">
 
-<div
-style="text-align:center;margin:18px 0;color:#6d5b68;"
->
+      <label>Phone number</label>
 
-Already have an account?
+      <div class="phone-row">
 
-<span
-onclick="showLogin()"
-style="color:#e94f87;font-weight:bold;cursor:pointer;"
->
-Log in 🔐
-</span>
+        <select id="signupCountryCode">
 
-</div>
+          <option value="+234">🇳🇬 +234</option>
+          <option value="+233">🇬🇭 +233</option>
+          <option value="+27">🇿🇦 +27</option>
+          <option value="+254">🇰🇪 +254</option>
+          <option value="+44">🇬🇧 +44</option>
+          <option value="+1">🇺🇸 +1</option>
+          <option value="+61">🇦🇺 +61</option>
 
-<div
-style="text-align:center;margin:20px 0;color:#6d5b68;"
->
-or continue with
-</div>
+        </select>
 
-<button
-type="button"
-class="form-btn"
-onclick="loginWithApple()"
-style="background:#241721;color:white;"
->
- Continue with Apple
-</button>
+        <input
+          id="signupPhone"
+          type="tel"
+          placeholder="Phone number"
+        >
 
-<div
-id="message"
-class="message"
-></div>
+      </div>
 
-<span
-class="back"
-onclick="showHome()"
->
-← Back to Pairly
-</span>
+    </div>
 
-</div>
+    <button
+      class="form-button"
+      onclick="signUp()"
+    >
+      Create account
+    </button>
+
+    <button
+      class="form-button"
+      style="margin-top:10px;background:#111;"
+      onclick="appleLogin()"
+    >
+      Continue with Apple
+    </button>
+
+    <div
+      class="small-link"
+      onclick="showLogin()"
+    >
+      Already have an account? Log in
+    </div>
+
+  </div>
 
 </div>
 
 
-<!-- ================= LOGIN ================= -->
+<!-- =========================
+     LOGIN
+========================= -->
 
 <div id="loginPage" class="app-page">
 
-<div class="app-box">
+  <div class="app-header">
 
-<h2>
-Welcome back 💕
-</h2>
+    <div class="app-logo">Pairly</div>
 
-<p>
-Log in to continue your Pairly journey.
-</p>
+    <button
+      class="header-btn"
+      onclick="showHome()"
+    >
+      Home
+    </button>
 
-<input
-type="email"
-id="loginEmailInput"
-placeholder="Email address"
-autocomplete="email"
->
+  </div>
 
-<input
-type="password"
-id="loginPasswordInput"
-placeholder="Password"
-autocomplete="current-password"
->
+  <div class="form-container">
 
-<button
-type="button"
-class="form-btn"
-onclick="loginAccount()"
->
-Log in
-</button>
+    <h2>Welcome back</h2>
 
-<div
-id="loginMessage"
-class="message"
-></div>
+    <p class="form-subtitle">
+      Log in to continue your Pairly journey.
+    </p>
 
-<div
-style="text-align:center;margin-top:20px;"
->
+    <div id="loginMessage" class="message"></div>
 
-<span
-onclick="showSignup()"
-style="color:#e94f87;font-weight:bold;cursor:pointer;"
->
-← Back to Create account
-</span>
+    <div class="form-group">
+
+      <label>Email</label>
+
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="you@example.com"
+      >
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Password</label>
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Your password"
+      >
+
+    </div>
+
+    <button
+      class="form-button"
+      onclick="login()"
+    >
+      Log in
+    </button>
+
+    <div
+      class="small-link"
+      onclick="showSignup()"
+    >
+      Don't have an account? Create one
+    </div>
+
+  </div>
 
 </div>
 
-</div>
 
-</div>
-
-
-<!-- ================= PROFILE SETUP ================= -->
+<!-- =========================
+     PROFILE SETUP
+========================= -->
 
 <div id="profilePage" class="app-page">
 
-<div class="app-box">
-
-<h2>
-Let's get to know you 💗
-</h2>
-
-<p>
-Tell us a little about yourself so Pairly can understand
-what kind of connection may suit you.
-</p>
-
-<div class="compatibility-intro">
-The next few questions help Pairly understand your personality,
-values and lifestyle. Your answers are used to calculate your
-compatibility with other people.
-</div>
-
-<div class="profile-photo-section">
-
-<div
-class="profile-photo-preview"
-id="profilePhotoPreview"
->
-<span>
-📷
-</span>
-</div>
-
-<label
-for="profilePhotoInput"
-class="photo-upload-btn"
->
-Add profile picture
-</label>
-
-<input
-type="file"
-id="profilePhotoInput"
-accept="image/*"
-style="display:none;"
-onchange="previewProfilePhoto(event)"
->
-
-<p class="photo-note">
-Add a clear photo so people can recognise you.
-</p>
-
-</div>
-
-<input
-type="text"
-id="nameInput"
-placeholder="Your name"
-autocomplete="name"
->
-
-<input
-type="number"
-id="ageInput"
-placeholder="Your age"
-min="18"
-max="100"
->
-
-<select id="genderInput">
-
-<option value="">
-Select your gender
-</option>
-
-<option value="Male">
-Male
-</option>
-
-<option value="Female">
-Female
-</option>
-
-<option value="Other">
-Other
-</option>
-
-</select>
-
-<div class="location-field">
-
-<input
-type="text"
-id="profileCountryInput"
-placeholder="Search country..."
-autocomplete="off"
-oninput="searchCountries()"
-onclick="searchCountries()"
->
-
-<div
-id="countrySuggestions"
-class="suggestions"
-></div>
-
-</div>
-
-<div class="location-field">
-
-<input
-type="text"
-id="profileCityInput"
-placeholder="Search city..."
-autocomplete="off"
-oninput="searchCities()"
-onclick="searchCities()"
-disabled
->
-
-<div
-id="citySuggestions"
-class="suggestions"
-></div>
-
-</div>
-
-<div
-id="selectedLocation"
-class="selected-location"
-></div>
-
-<input
-type="text"
-id="interestsInput"
-placeholder="Your interests (e.g. music, football, photography)"
->
-
-<!-- PERSONALITY -->
-
-<div class="compatibility-question">
-
-<div class="compatibility-question-title">
-🧠 What's your personality like?
-</div>
-
-<div class="compatibility-question-subtitle">
-Choose the one that feels most like you.
-</div>
-
-<div class="option-grid">
-
-<label class="option-label">
-<input
-type="radio"
-name="personality"
-value="Introvert"
->
-<span class="option-card">
-Quiet / Introvert
-</span>
-</label>
-
-<label class="option-label">
-<input
-type="radio"
-name="personality"
-value="Ambivert"
->
-<span class="option-card">
-A bit of both
-</span>
-</label>
-
-<label class="option-label">
-<input
-type="radio"
-name="personality"
-value="Extrovert"
->
-<span class="option-card">
-Social / Extrovert
-</span>
-</label>
-
-<label class="option-label">
-<input
-type="radio"
-name="personality"
-value="Adventurous"
->
-<span class="option-card">
-Adventurous
-</span>
-</label>
-
-</div>
-
-</div>
-
-
-<!-- VALUES -->
-
-<div class="compatibility-question">
-
-<div class="compatibility-question-title">
-❤️ What matters most to you?
-</div>
-
-<div class="compatibility-question-subtitle">
-Choose at least 2.
-</div>
-
-<div class="multi-grid">
-
-<label class="multi-label">
-<input type="checkbox" name="values" value="Honesty">
-<span class="multi-card">Honesty</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="values" value="Loyalty">
-<span class="multi-card">Loyalty</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="values" value="Family">
-<span class="multi-card">Family</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="values" value="Growth">
-<span class="multi-card">Growth</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="values" value="Ambition">
-<span class="multi-card">Ambition</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="values" value="Kindness">
-<span class="multi-card">Kindness</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="values" value="Independence">
-<span class="multi-card">Independence</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="values" value="Faith">
-<span class="multi-card">Faith</span>
-</label>
-
-</div>
-
-<div class="selection-count">
-Select 2–4 values.
-</div>
-
-</div>
-
-
-<!-- LIFESTYLE -->
-
-<div class="compatibility-question">
-
-<div class="compatibility-question-title">
-🌱 What does your lifestyle look like?
-</div>
-
-<div class="compatibility-question-subtitle">
-Choose at least 2.
-</div>
-
-<div class="multi-grid">
-
-<label class="multi-label">
-<input type="checkbox" name="lifestyle" value="Social">
-<span class="multi-card">Very social</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="lifestyle" value="Homebody">
-<span class="multi-card">Homebody</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="lifestyle" value="Fitness">
-<span class="multi-card">Fitness</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="lifestyle" value="Travel">
-<span class="multi-card">Travel</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="lifestyle" value="Career-focused">
-<span class="multi-card">Career-focused</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="lifestyle" value="Relaxed">
-<span class="multi-card">Relaxed</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="lifestyle" value="Night owl">
-<span class="multi-card">Night owl</span>
-</label>
-
-<label class="multi-label">
-<input type="checkbox" name="lifestyle" value="Early bird">
-<span class="multi-card">Early bird</span>
-</label>
-
-</div>
-
-<div class="selection-count">
-Select 2–4 lifestyle choices.
-</div>
-
-</div>
-
-
-<select id="lookingForInput">
-
-<option value="">
-What are you looking for?
-</option>
-
-<option value="Relationship">
-A relationship
-</option>
-
-<option value="Friendship">
-Friendship
-</option>
-
-<option value="Meaningful connection">
-A meaningful connection
-</option>
-
-</select>
-
-<button
-type="button"
-class="form-btn"
-onclick="finishProfile()"
->
-Continue
-</button>
-
-<div
-id="profileMessage"
-class="message"
-></div>
-
-</div>
+  <div class="app-header">
+
+    <div class="app-logo">Pairly</div>
+
+    <button
+      class="header-btn"
+      onclick="logout()"
+    >
+      Log out
+    </button>
+
+  </div>
+
+  <div class="form-container">
+
+    <h2>Build your profile</h2>
+
+    <p class="form-subtitle">
+      Help Pairly understand you better.
+    </p>
+
+    <div id="profileMessage" class="message"></div>
+
+    <!-- PHOTO -->
+
+    <div class="photo-section">
+
+      <div id="profilePhotoPlaceholder" class="photo-placeholder">
+        👤
+      </div>
+
+      <img
+        id="profilePhotoPreview"
+        class="photo-preview"
+        style="display:none;"
+        alt="Profile photo"
+      >
+
+      <label class="photo-button">
+
+        Add profile picture
+
+        <input
+          id="profilePhotoInput"
+          class="hidden-file"
+          type="file"
+          accept="image/*"
+          onchange="previewProfilePhoto(event)"
+        >
+
+      </label>
+
+    </div>
+
+    <!-- NAME -->
+
+    <div class="form-group">
+
+      <label>Name</label>
+
+      <input
+        id="profileName"
+        type="text"
+        placeholder="Your name"
+      >
+
+    </div>
+
+    <!-- AGE -->
+
+    <div class="form-group">
+
+      <label>Age</label>
+
+      <input
+        id="profileAge"
+        type="number"
+        min="18"
+        max="100"
+        placeholder="18+"
+      >
+
+    </div>
+
+    <!-- GENDER -->
+
+    <div class="form-group">
+
+      <label>Gender</label>
+
+      <select id="profileGender">
+
+        <option value="">Select</option>
+        <option value="Woman">Woman</option>
+        <option value="Man">Man</option>
+        <option value="Non-binary">Non-binary</option>
+
+      </select>
+
+    </div>
+
+    <!-- LOCATION -->
+
+    <div class="form-group">
+
+      <label>Country</label>
+
+      <select
+        id="profileCountry"
+        onchange="updateCities()"
+      ></select>
+
+    </div>
+
+    <div class="form-group">
+
+      <label>City</label>
+
+      <select id="profileCity">
+
+        <option value="">Select city</option>
+
+      </select>
+
+    </div>
+
+    <!-- INTERESTS -->
+
+    <div class="form-group">
+
+      <label>Interests</label>
+
+      <input
+        id="profileInterests"
+        type="text"
+        placeholder="Music, football, photography, gaming..."
+      >
+
+    </div>
+
+
+    <!-- PERSONALITY -->
+
+    <div class="compatibility-section">
+
+      <h3>What's your personality like?</h3>
+
+      <p>Choose the option that feels most like you.</p>
+
+      <div class="choice-grid">
+
+        <label class="choice">
+          <input
+            type="radio"
+            name="personality"
+            value="Introvert"
+          >
+          Introvert
+        </label>
+
+        <label class="choice">
+          <input
+            type="radio"
+            name="personality"
+            value="Ambivert"
+          >
+          Ambivert
+        </label>
+
+        <label class="choice">
+          <input
+            type="radio"
+            name="personality"
+            value="Extrovert"
+          >
+          Extrovert
+        </label>
+
+        <label class="choice">
+          <input
+            type="radio"
+            name="personality"
+            value="Adventurous"
+          >
+          Adventurous
+        </label>
+
+      </div>
+
+    </div>
+
+
+    <!-- VALUES -->
+
+    <div class="compatibility-section">
+
+      <h3>What matters to you?</h3>
+
+      <p>Select the values that are important to you.</p>
+
+      <div class="checkbox-grid">
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="values" value="Honesty">
+          Honesty
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="values" value="Loyalty">
+          Loyalty
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="values" value="Family">
+          Family
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="values" value="Growth">
+          Growth
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="values" value="Ambition">
+          Ambition
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="values" value="Kindness">
+          Kindness
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="values" value="Independence">
+          Independence
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="values" value="Faith">
+          Faith
+        </label>
+
+      </div>
+
+    </div>
+
+
+    <!-- LIFESTYLE -->
+
+    <div class="compatibility-section">
+
+      <h3>What's your lifestyle like?</h3>
+
+      <p>Select the things that describe you.</p>
+
+      <div class="checkbox-grid">
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="lifestyle" value="Social">
+          Social
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="lifestyle" value="Homebody">
+          Homebody
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="lifestyle" value="Fitness">
+          Fitness
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="lifestyle" value="Travel">
+          Travel
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="lifestyle" value="Career-focused">
+          Career-focused
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="lifestyle" value="Relaxed">
+          Relaxed
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="lifestyle" value="Night owl">
+          Night owl
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" name="lifestyle" value="Early bird">
+          Early bird
+        </label>
+
+      </div>
+
+    </div>
+
+
+    <!-- LOOKING FOR -->
+
+    <div class="form-group" style="margin-top:25px;">
+
+      <label>What are you looking for?</label>
+
+      <select id="profileLookingFor">
+
+        <option value="">Select</option>
+        <option value="Relationship">A relationship</option>
+        <option value="Friendship">Friendship</option>
+        <option value="Something meaningful">Something meaningful</option>
+        <option value="Still figuring it out">Still figuring it out</option>
+
+      </select>
+
+    </div>
+
+
+    <button
+      class="form-button"
+      onclick="finishProfile()"
+    >
+      Save profile
+    </button>
+
+  </div>
 
 </div>
 
 
-<!-- ================= WELCOME ================= -->
+<!-- =========================
+     WELCOME
+========================= -->
 
 <div id="welcomePage" class="app-page">
 
-<div class="app-box">
+  <div class="app-header">
 
-<div class="welcome-icon">
-💞
+    <div class="app-logo">Pairly</div>
+
+    <button
+      class="header-btn"
+      onclick="logout()"
+    >
+      Log out
+    </button>
+
+  </div>
+
+  <div class="welcome-container">
+
+    <div class="welcome-card">
+
+      <img
+        id="welcomePhotoPreview"
+        class="welcome-photo"
+        style="display:none;"
+        alt="Profile photo"
+      >
+
+      <div
+        id="welcomePhotoPlaceholder"
+        class="photo-placeholder"
+      >
+        👤
+      </div>
+
+      <h1>
+        Welcome to Pairly, <span id="welcomeName"></span> 👋
+      </h1>
+
+      <p>
+        Your profile is ready. Let's see who you might click with.
+      </p>
+
+      <div class="photo-section">
+
+        <label class="photo-button">
+
+          Add / Change profile picture
+
+          <input
+            id="welcomePhotoInput"
+            class="hidden-file"
+            type="file"
+            accept="image/*"
+            onchange="uploadProfilePhoto(event)"
+          >
+
+        </label>
+
+      </div>
+
+      <div class="welcome-actions">
+
+        <button
+          class="primary-btn"
+          onclick="showExplore()"
+        >
+          Explore Pairly
+        </button>
+
+        <button
+          class="secondary-btn"
+          onclick="editCompatibilityProfile()"
+        >
+          Edit compatibility profile
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
-<h2>
-Welcome to Pairly!
-</h2>
 
-<p id="welcomeText">
-Your profile is ready.
-</p>
-
-<div
-style="text-align:center;margin:20px 0;"
->
-
-<div
-class="profile-photo-preview"
-id="welcomePhotoPreview"
-style="width:90px;height:90px;"
->
-
-<span>
-📷
-</span>
-
-</div>
-
-<label
-for="welcomePhotoInput"
-class="photo-upload-btn"
->
-Add / Change profile picture
-</label>
-
-<input
-type="file"
-id="welcomePhotoInput"
-accept="image/*"
-style="display:none;"
-onchange="uploadProfilePhoto(event)"
->
-
-<div
-id="photoUploadMessage"
-class="message"
-></div>
-
-</div>
-
-<button
-type="button"
-class="form-btn"
-onclick="showExplore()"
->
-Explore Pairly
-</button>
-
-<button
-type="button"
-class="form-btn"
-onclick="showProfileForEdit()"
-style="margin-top:12px;background:#f3edf1;color:#6d5b68;"
->
-Edit compatibility profile
-</button>
-
-<button
-type="button"
-class="form-btn"
-onclick="logoutPairly()"
-style="margin-top:12px;background:#241721;"
->
-Log Out
-</button>
-
-</div>
-
-</div>
-
-
-<!-- ================= EXPLORE ================= -->
+<!-- =========================
+     EXPLORE
+========================= -->
 
 <div id="explorePage" class="app-page">
 
-<div class="app-box explore-box">
+  <div class="app-header">
 
-<div class="explore-header">
+    <div class="app-logo">Pairly</div>
 
-<h2>
-Discover on Pairly 💞
-</h2>
+    <div style="display:flex;gap:8px;">
 
-<p>
-Find people who share something meaningful with you.
-</p>
+      <button
+        class="header-btn"
+        onclick="showWelcomeFromStorage()"
+      >
+        Profile
+      </button>
+
+      <button
+        class="header-btn"
+        onclick="logout()"
+      >
+        Log out
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="explore-container">
+
+    <div class="explore-title">
+
+      <h1>Discover people</h1>
+
+      <p>
+        People whose profiles may genuinely fit yours.
+      </p>
+
+    </div>
+
+    <div
+      id="exploreStatus"
+      class="explore-status"
+    >
+      Finding people for you...
+    </div>
+
+    <div
+      id="discoveryGrid"
+      class="discovery-grid"
+    ></div>
+
+  </div>
 
 </div>
 
-<div id="matchesList"></div>
+
+<!-- =========================
+     MATCH POPUP
+========================= -->
 
 <div
-id="exploreMessage"
-class="message"
-></div>
-
-<button
-type="button"
-class="form-btn"
-onclick="showWelcomeFromStorage()"
-style="margin-top:20px;"
+  id="matchOverlay"
+  class="match-overlay"
 >
-← Back to Welcome
-</button>
 
-<button
-type="button"
-class="form-btn"
-onclick="logoutPairly()"
-style="margin-top:12px;background:#241721;"
->
-Log Out
-</button>
+  <div class="match-popup">
+
+    <div class="big-heart">💞</div>
+
+    <h2>It's a Pairly match!</h2>
+
+    <p id="matchText">
+      You both liked each other.
+    </p>
+
+    <button onclick="closeMatchPopup()">
+      Continue exploring
+    </button>
+
+  </div>
 
 </div>
 
-</div>
-
-
-<!-- ================= SUPABASE ================= -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const PAIRLY_URL =
 "https://ryqnmanjdubughaaebxa.supabase.co";
@@ -1842,3987 +1747,2685 @@ const PAIRLY_KEY =
 
 const pairlyClient =
 window.supabase.createClient(
-PAIRLY_URL,
-PAIRLY_KEY
+  PAIRLY_URL,
+  PAIRLY_KEY
 );
 
 
-/* ================= LOCATION DATA ================= */
+/* =====================================================
+   LOCATION DATA
+===================================================== */
 
 const locationData = {
 
-"Nigeria":[
-"Abuja",
-"Akungba-Akoko",
-"Akure",
-"Benin City",
-"Calabar",
-"Enugu",
-"Ibadan",
-"Ife",
-"Ilorin",
-"Jos",
-"Kaduna",
-"Kano",
-"Lagos",
-"Owerri",
-"Port Harcourt"
-],
+  Nigeria:[
+    "Akure",
+    "Akungba-Akoko",
+    "Lagos",
+    "Abuja",
+    "Ibadan",
+    "Benin City",
+    "Port Harcourt",
+    "Ilorin",
+    "Abeokuta",
+    "Jos",
+    "Enugu",
+    "Calabar"
+  ],
 
-"Ghana":[
-"Accra",
-"Kumasi",
-"Tamale",
-"Takoradi",
-"Cape Coast",
-"Tema"
-],
+  Ghana:[
+    "Accra",
+    "Kumasi",
+    "Takoradi",
+    "Tamale"
+  ],
 
-"South Africa":[
-"Cape Town",
-"Johannesburg",
-"Pretoria",
-"Durban",
-"Gqeberha",
-"Bloemfontein"
-],
+  "South Africa":[
+    "Johannesburg",
+    "Cape Town",
+    "Pretoria",
+    "Durban"
+  ],
 
-"Kenya":[
-"Nairobi",
-"Mombasa",
-"Kisumu",
-"Nakuru",
-"Eldoret"
-],
+  Kenya:[
+    "Nairobi",
+    "Mombasa",
+    "Kisumu"
+  ],
 
-"United Kingdom":[
-"London",
-"Manchester",
-"Birmingham",
-"Liverpool",
-"Leeds",
-"Bristol",
-"Glasgow",
-"Edinburgh"
-],
+  UK:[
+    "London",
+    "Manchester",
+    "Birmingham",
+    "Liverpool",
+    "Leeds"
+  ],
 
-"United States":[
-"New York",
-"Los Angeles",
-"Chicago",
-"Houston",
-"Miami",
-"Atlanta",
-"Boston",
-"Washington",
-"Seattle",
-"San Francisco"
-],
+  "United States":[
+    "New York",
+    "Los Angeles",
+    "Chicago",
+    "Houston",
+    "Miami"
+  ],
 
-"Canada":[
-"Toronto",
-"Vancouver",
-"Montreal",
-"Calgary",
-"Ottawa",
-"Edmonton"
-],
+  Canada:[
+    "Toronto",
+    "Vancouver",
+    "Montreal",
+    "Calgary"
+  ],
 
-"Australia":[
-"Sydney",
-"Melbourne",
-"Brisbane",
-"Perth",
-"Adelaide",
-"Canberra"
-],
+  Australia:[
+    "Sydney",
+    "Melbourne",
+    "Brisbane",
+    "Perth"
+  ],
 
-"France":[
-"Paris",
-"Marseille",
-"Lyon",
-"Toulouse",
-"Nice"
-],
+  France:[
+    "Paris",
+    "Lyon",
+    "Marseille"
+  ],
 
-"Germany":[
-"Berlin",
-"Munich",
-"Hamburg",
-"Frankfurt",
-"Cologne"
-],
+  Germany:[
+    "Berlin",
+    "Munich",
+    "Hamburg"
+  ],
 
-"Italy":[
-"Rome",
-"Milan",
-"Naples",
-"Turin",
-"Florence"
-],
+  Italy:[
+    "Rome",
+    "Milan",
+    "Naples"
+  ],
 
-"Spain":[
-"Madrid",
-"Barcelona",
-"Valencia",
-"Seville"
-],
+  Spain:[
+    "Madrid",
+    "Barcelona",
+    "Valencia"
+  ],
 
-"Netherlands":[
-"Amsterdam",
-"Rotterdam",
-"The Hague",
-"Utrecht"
-],
+  Netherlands:[
+    "Amsterdam",
+    "Rotterdam",
+    "The Hague"
+  ],
 
-"Ireland":[
-"Dublin",
-"Cork",
-"Limerick",
-"Galway"
-],
+  Ireland:[
+    "Dublin",
+    "Cork",
+    "Galway"
+  ],
 
-"United Arab Emirates":[
-"Dubai",
-"Abu Dhabi",
-"Sharjah",
-"Ajman"
-],
+  UAE:[
+    "Dubai",
+    "Abu Dhabi",
+    "Sharjah"
+  ],
 
-"Saudi Arabia":[
-"Riyadh",
-"Jeddah",
-"Mecca",
-"Medina",
-"Dammam"
-],
+  "Saudi Arabia":[
+    "Riyadh",
+    "Jeddah",
+    "Mecca"
+  ],
 
-"India":[
-"Mumbai",
-"Delhi",
-"Bangalore",
-"Hyderabad",
-"Chennai",
-"Kolkata",
-"Pune"
-],
+  India:[
+    "Mumbai",
+    "Delhi",
+    "Bangalore",
+    "Hyderabad"
+  ],
 
-"Brazil":[
-"São Paulo",
-"Rio de Janeiro",
-"Brasília",
-"Salvador"
-],
+  Brazil:[
+    "São Paulo",
+    "Rio de Janeiro",
+    "Brasília"
+  ],
 
-"Japan":[
-"Tokyo",
-"Osaka",
-"Kyoto",
-"Yokohama",
-"Nagoya"
-],
+  Japan:[
+    "Tokyo",
+    "Osaka",
+    "Kyoto"
+  ],
 
-"China":[
-"Beijing",
-"Shanghai",
-"Guangzhou",
-"Shenzhen",
-"Chengdu"
-],
+  China:[
+    "Beijing",
+    "Shanghai",
+    "Guangzhou"
+  ],
 
-"Singapore":[
-"Singapore"
-],
+  Singapore:[
+    "Singapore"
+  ],
 
-"Malaysia":[
-"Kuala Lumpur",
-"George Town",
-"Johor Bahru",
-"Kota Kinabalu"
-],
+  Malaysia:[
+    "Kuala Lumpur",
+    "George Town",
+    "Johor Bahru"
+  ],
 
-"New Zealand":[
-"Auckland",
-"Wellington",
-"Christchurch",
-"Hamilton"
-]
+  "New Zealand":[
+    "Auckland",
+    "Wellington",
+    "Christchurch"
+  ]
 
 };
 
-const countryList =
-Object.keys(locationData);
 
-let selectedCountry = "";
-let selectedCity = "";
+/* =====================================================
+   GLOBAL STATE
+===================================================== */
 
+let currentUser = null;
+let currentProfile = null;
 
-/* ================= PAGE FUNCTIONS ================= */
 
-function hideAllPages() {
+/* =====================================================
+   PAGE CONTROL
+===================================================== */
 
-document.getElementById("homePage").style.display =
-"none";
+function hideAllPages(){
 
-document.getElementById("matchingPage").style.display =
-"none";
+  const pages = [
+    "homePage",
+    "matchingPage",
+    "signupPage",
+    "loginPage",
+    "profilePage",
+    "welcomePage",
+    "explorePage"
+  ];
 
-document.getElementById("signupPage")
-.classList.remove("active");
+  pages.forEach(function(id){
 
-document.getElementById("loginPage")
-.classList.remove("active");
+    const page =
+    document.getElementById(id);
 
-document.getElementById("profilePage")
-.classList.remove("active");
+    if(!page) return;
 
-document.getElementById("welcomePage")
-.classList.remove("active");
+    if(id === "homePage"){
+      page.style.display = "none";
+    }
+    else if(id === "matchingPage"){
+      page.style.display = "none";
+    }
+    else{
+      page.classList.remove("active");
+      page.style.display = "none";
+    }
 
-document.getElementById("explorePage")
-.classList.remove("active");
+  });
 
 }
 
 
-function showHome() {
+function showHome(){
 
-hideAllPages();
+  hideAllPages();
 
-document.getElementById("homePage").style.display =
-"block";
+  document.getElementById(
+    "homePage"
+  ).style.display = "block";
 
-window.scrollTo(0,0);
-
 }
+
+
+function showSignup(){
+
+  hideAllPages();
 
+  document.getElementById(
+    "signupPage"
+  ).style.display = "block";
 
-function showSignup() {
+}
+
 
-hideAllPages();
+function showLogin(){
 
-document.getElementById("signupPage")
-.classList.add("active");
+  hideAllPages();
 
-window.scrollTo(0,0);
+  document.getElementById(
+    "loginPage"
+  ).style.display = "block";
 
 }
 
 
-function showLogin() {
+/* =====================================================
+   MATCHING EXPERIENCE
+===================================================== */
 
-hideAllPages();
+function startMatchingExperience(){
 
-document.getElementById("loginPage")
-.classList.add("active");
+  hideAllPages();
 
-window.scrollTo(0,0);
+  const matchingPage =
+  document.getElementById("matchingPage");
 
-}
+  if(!matchingPage){
+
+    console.error(
+      "Pairly: matchingPage not found."
+    );
+
+    return;
+  }
 
+  matchingPage.style.display = "flex";
 
-function showProfile() {
+  setTimeout(function(){
 
-hideAllPages();
+    matchingPage.style.display = "none";
 
-document.getElementById("profilePage")
-.classList.add("active");
+    showSignup();
 
-window.scrollTo(0,0);
+  },3000);
 
 }
 
 
-/* ================= PROFILE FORM HELPERS ================= */
+function startJoinExperience(){
 
-function getCheckedValues(name) {
+  hideAllPages();
 
-return Array.from(
-document.querySelectorAll(
-'input[name="' +
-name +
-'"]:checked'
-)
-).map(function(input){
+  const matchingPage =
+  document.getElementById("matchingPage");
 
-return input.value;
+  if(!matchingPage){
 
-});
+    console.error(
+      "Pairly: matchingPage not found."
+    );
 
-}
+    return;
+  }
 
+  matchingPage.style.display = "flex";
 
-function setCheckedValues(name, values) {
+  setTimeout(function(){
 
-document.querySelectorAll(
-'input[name="' +
-name +
-'"]'
-).forEach(function(input){
+    matchingPage.style.display = "none";
 
-input.checked =
-Array.isArray(values) &&
-values.includes(input.value);
+    showSignup();
 
-});
+  },3000);
 
 }
+
+
+/* =====================================================
+   MESSAGES
+===================================================== */
+
+function showMessage(
+  id,
+  text,
+  type
+){
 
+  const box =
+  document.getElementById(id);
 
-function getPersonality() {
+  if(!box) return;
 
-const selected =
-document.querySelector(
-'input[name="personality"]:checked'
-);
+  box.className =
+  "message " + type;
 
-return selected
-? selected.value
-: "";
+  box.textContent = text;
 
 }
 
 
-/* ================= LOAD PROFILE INTO FORM ================= */
+function clearMessage(id){
 
-function populateProfileForm(profile) {
+  const box =
+  document.getElementById(id);
 
-if(!profile) {
-return;
+  if(!box) return;
+
+  box.className = "message";
+
+  box.textContent = "";
+
 }
 
-document.getElementById(
-"nameInput"
-).value =
-profile.name || "";
 
-document.getElementById(
-"ageInput"
-).value =
-profile.age || "";
+/* =====================================================
+   SIGNUP
+===================================================== */
 
-document.getElementById(
-"genderInput"
-).value =
-profile.gender || "";
+async function signUp(){
 
-const compatibility =
-profile.compatibility_profile || {};
+  clearMessage("signupMessage");
 
-const personality =
-compatibility.personality || "";
+  const email =
+  document.getElementById(
+    "signupEmail"
+  ).value.trim();
 
-document.querySelectorAll(
-'input[name="personality"]'
-).forEach(function(input){
+  const password =
+  document.getElementById(
+    "signupPassword"
+  ).value;
 
-input.checked =
-input.value === personality;
+  const countryCode =
+  document.getElementById(
+    "signupCountryCode"
+  ).value;
 
-});
+  const phone =
+  document.getElementById(
+    "signupPhone"
+  ).value.trim();
 
-setCheckedValues(
-"values",
-compatibility.values || []
-);
+  if(!email){
 
-setCheckedValues(
-"lifestyle",
-compatibility.lifestyle || []
-);
+    showMessage(
+      "signupMessage",
+      "Please enter your email.",
+      "error"
+    );
 
-document.getElementById(
-"interestsInput"
-).value =
-profile.interests || "";
+    return;
+  }
 
-document.getElementById(
-"lookingForInput"
-).value =
-profile.looking_for || "";
+  if(!password || password.length < 6){
 
-if(profile.profile_photo) {
+    showMessage(
+      "signupMessage",
+      "Password must be at least 6 characters.",
+      "error"
+    );
 
-document.getElementById(
-"profilePhotoPreview"
-).innerHTML =
-'<img src="' +
-profile.profile_photo +
-'" alt="Profile photo">';
+    return;
+  }
 
-}
+  if(!phone){
 
+    showMessage(
+      "signupMessage",
+      "Please enter your phone number.",
+      "error"
+    );
 
-/* LOCATION */
+    return;
+  }
 
-if(profile.location) {
+  const fullPhone =
+  countryCode + phone;
 
-const parts =
-String(profile.location)
-.split(", ");
+  showMessage(
+    "signupMessage",
+    "Creating your account...",
+    "success"
+  );
 
-if(parts.length >= 2) {
+  try{
 
-const city =
-parts[0];
+    const {
+      data,
+      error
+    } =
+    await pairlyClient.auth.signUp({
 
-const country =
-parts.slice(1).join(", ");
+      email:email,
 
-if(locationData[country]) {
+      password:password,
 
-selectedCountry =
-country;
+      options:{
+        emailRedirectTo:
+        "https://tobipairly.github.io/Pairly-/",
 
-selectedCity =
-city;
+        data:{
+          phone:fullPhone
+        }
 
-document.getElementById(
-"profileCountryInput"
-).value =
-country;
+      }
 
-const cityInput =
-document.getElementById(
-"profileCityInput"
-);
+    });
 
-cityInput.disabled =
-false;
+    if(error){
 
-cityInput.value =
-city;
+      showMessage(
+        "signupMessage",
+        error.message,
+        "error"
+      );
 
-cityInput.placeholder =
-"Search city in " +
-country +
-"...";
+      return;
+    }
 
-const selectedLocation =
-document.getElementById(
-"selectedLocation"
-);
+    if(data.user){
 
-selectedLocation.textContent =
-"📍 " +
-city +
-", " +
-country;
+      showMessage(
+        "signupMessage",
+        "Account created. Check your email to confirm your account.",
+        "success"
+      );
 
-selectedLocation.style.display =
-"block";
+    }
 
-}
+  }
+  catch(error){
 
-}
+    showMessage(
+      "signupMessage",
+      "Something went wrong. Please try again.",
+      "error"
+    );
 
-}
+    console.error(error);
 
+  }
+
 }
 
 
-/* ================= WELCOME ================= */
+/* =====================================================
+   LOGIN
+===================================================== */
 
-function showWelcome(name) {
+async function login(){
 
-hideAllPages();
+  clearMessage("loginMessage");
 
-document.getElementById("welcomePage")
-.classList.add("active");
+  const email =
+  document.getElementById(
+    "loginEmail"
+  ).value.trim();
 
-document.getElementById("welcomeText").textContent =
-"You're all set, " +
-name +
-". Your Pairly journey starts here. 💕";
+  const password =
+  document.getElementById(
+    "loginPassword"
+  ).value;
 
-const photoPreview =
-document.getElementById("welcomePhotoPreview");
+  if(!email || !password){
 
-if(photoPreview) {
+    showMessage(
+      "loginMessage",
+      "Please enter your email and password.",
+      "error"
+    );
 
-const savedProfile =
-localStorage.getItem("pairlyProfile");
+    return;
+  }
 
-photoPreview.innerHTML =
-"<span>📷</span>";
+  showMessage(
+    "loginMessage",
+    "Logging you in...",
+    "success"
+  );
 
-if(savedProfile) {
+  try{
 
-try {
+    const {
+      data,
+      error
+    } =
+    await pairlyClient.auth.signInWithPassword({
 
-const profile =
-JSON.parse(savedProfile);
+      email:email,
+      password:password
 
-if(profile.profile_photo) {
+    });
 
-photoPreview.innerHTML =
-'<img src="' +
-profile.profile_photo +
-'" alt="Profile photo">';
+    if(error){
 
-}
+      showMessage(
+        "loginMessage",
+        error.message,
+        "error"
+      );
 
-} catch(error) {
+      return;
+    }
 
-console.log(
-"Photo loading error:",
-error
-);
+    if(data.user){
 
-}
+      currentUser = data.user;
 
-}
+      await checkExistingUser();
 
-}
+    }
+
+  }
+  catch(error){
+
+    console.error(error);
 
-window.scrollTo(0,0);
+    showMessage(
+      "loginMessage",
+      "Unable to log in right now.",
+      "error"
+    );
 
+  }
+
 }
 
 
-function showWelcomeFromStorage() {
+/* =====================================================
+   EXISTING USER CHECK
+===================================================== */
 
-const savedProfile =
-localStorage.getItem("pairlyProfile");
+async function checkExistingUser(){
 
-if(savedProfile) {
+  if(!currentUser){
 
-try {
+    const {
+      data
+    } =
+    await pairlyClient.auth.getUser();
 
-const profile =
-JSON.parse(savedProfile);
+    currentUser =
+    data.user;
+  }
 
-showWelcome(
-profile.name ||
-"there"
-);
+  if(!currentUser){
 
-} catch(error) {
+    showLogin();
 
-showHome();
+    return;
+  }
 
-}
+  const {
+    data,
+    error
+  } =
+  await pairlyClient
+  .from("profiles")
+  .select("*")
+  .eq("id",currentUser.id)
+  .maybeSingle();
 
-} else {
+  if(error){
 
-showHome();
+    console.error(error);
 
-}
+    showProfile();
 
-}
+    return;
+  }
 
+  if(!data){
 
-/* ================= EDIT PROFILE ================= */
+    currentProfile = null;
 
-function showProfileForEdit() {
+    localStorage.removeItem(
+      "pairlyProfile"
+    );
 
-const savedProfile =
-localStorage.getItem(
-"pairlyProfile"
-);
+    showProfile();
 
-if(savedProfile) {
+    return;
+  }
 
-try {
+  currentProfile = data;
 
-const profile =
-JSON.parse(savedProfile);
+  localStorage.setItem(
+    "pairlyProfile",
+    JSON.stringify(data)
+  );
 
-populateProfileForm(
-profile
-);
+  if(
+    !data.name ||
+    !data.age ||
+    !data.gender ||
+    !data.country ||
+    !data.city ||
+    !data.interests ||
+    !data.looking_for ||
+    !data.compatibility_profile
+  ){
 
-} catch(error) {
+    loadProfileIntoForm(data);
 
-console.log(
-"Profile edit error:",
-error.message
-);
+    showProfile();
 
-}
+    return;
+  }
 
+  showWelcome(data.name);
+
 }
 
-showProfile();
 
-}
+/* =====================================================
+   PROFILE SETUP
+===================================================== */
 
+function showProfile(){
 
-/* ================= PROFILE PHOTO PREVIEW ================= */
+  hideAllPages();
 
-function previewProfilePhoto(event) {
+  document.getElementById(
+    "profilePage"
+  ).style.display = "block";
 
-const file =
-event.target.files[0];
+  populateCountries();
 
-const preview =
-document.getElementById(
-"profilePhotoPreview"
-);
+  if(currentProfile){
 
-if(!file || !preview) {
-return;
+    loadProfileIntoForm(
+      currentProfile
+    );
+
+  }
+
 }
 
-if(!file.type.startsWith("image/")) {
 
-alert(
-"Please select an image."
-);
+function populateCountries(){
 
-return;
+  const select =
+  document.getElementById(
+    "profileCountry"
+  );
 
-}
+  if(!select) return;
 
-const reader =
-new FileReader();
+  const current =
+  select.value;
 
-reader.onload =
-function(e) {
+  select.innerHTML =
+  '<option value="">Select country</option>';
 
-preview.innerHTML =
-'<img src="' +
-e.target.result +
-'" alt="Profile photo">';
+  Object.keys(locationData)
+  .forEach(function(country){
 
-};
+    const option =
+    document.createElement("option");
 
-reader.readAsDataURL(file);
+    option.value = country;
 
+    option.textContent = country;
+
+    select.appendChild(option);
+
+  });
+
+  if(current){
+
+    select.value = current;
+
+  }
+
 }
+
+
+function updateCities(){
+
+  const country =
+  document.getElementById(
+    "profileCountry"
+  ).value;
 
+  const citySelect =
+  document.getElementById(
+    "profileCity"
+  );
 
-/* ================= UPLOAD PROFILE PHOTO ================= */
+  citySelect.innerHTML =
+  '<option value="">Select city</option>';
 
-async function uploadProfilePhoto(event) {
+  if(!country) return;
 
-const file =
-event.target.files[0];
+  const cities =
+  locationData[country] || [];
 
-const message =
-document.getElementById(
-"photoUploadMessage"
-);
+  cities.forEach(function(city){
 
-const preview =
-document.getElementById(
-"welcomePhotoPreview"
-);
+    const option =
+    document.createElement("option");
 
-if(!file) {
-return;
+    option.value = city;
+
+    option.textContent = city;
+
+    citySelect.appendChild(option);
+
+  });
+
 }
+
 
-if(!file.type.startsWith("image/")) {
+function getSelectedCheckboxes(name){
 
-message.textContent =
-"Please select an image.";
+  return Array
+  .from(
+    document.querySelectorAll(
+      'input[name="' + name + '"]:checked'
+    )
+  )
+  .map(function(input){
 
-return;
+    return input.value;
 
+  });
+
 }
+
 
-if(file.size > 5 * 1024 * 1024) {
+function getPersonality(){
 
-message.textContent =
-"Please choose an image smaller than 5MB.";
+  const selected =
+  document.querySelector(
+    'input[name="personality"]:checked'
+  );
 
-return;
+  return selected
+  ? selected.value
+  : "";
 
 }
 
-message.textContent =
-"Uploading your photo...";
 
-try {
+function clearCompatibilityChoices(){
 
-const {
-data:{user},
-error:userError
-} =
-await pairlyClient.auth.getUser();
+  document
+  .querySelectorAll(
+    'input[name="personality"]'
+  )
+  .forEach(function(input){
 
-if(userError || !user) {
+    input.checked = false;
 
-message.textContent =
-"Please log in again.";
+  });
 
-return;
+  document
+  .querySelectorAll(
+    'input[name="values"]'
+  )
+  .forEach(function(input){
 
-}
+    input.checked = false;
 
-const fileExtension =
-file.name.split(".").pop();
-
-const filePath =
-user.id +
-"/profile." +
-fileExtension;
-
-const {
-error:uploadError
-} =
-await pairlyClient.storage
-.from("profile-photos")
-.upload(
-filePath,
-file,
-{
-upsert:true,
-contentType:file.type
-}
-);
+  });
 
-if(uploadError) {
+  document
+  .querySelectorAll(
+    'input[name="lifestyle"]'
+  )
+  .forEach(function(input){
 
-message.textContent =
-"Upload failed: " +
-uploadError.message;
+    input.checked = false;
 
-return;
+  });
 
 }
 
-const {
-data:publicUrlData
-} =
-pairlyClient.storage
-.from("profile-photos")
-.getPublicUrl(
-filePath
-);
-
-const photoUrl =
-publicUrlData.publicUrl;
-
-const {
-error:profileError
-} =
-await pairlyClient
-.from("profiles")
-.update({
-profile_photo:photoUrl
-})
-.eq("id",user.id);
-
-if(profileError) {
-
-message.textContent =
-"Photo uploaded, but profile could not be updated.";
-
-return;
 
-}
+function loadProfileIntoForm(profile){
 
-if(preview) {
+  if(!profile) return;
 
-preview.innerHTML =
-'<img src="' +
-photoUrl +
-'" alt="Profile photo">';
+  document.getElementById(
+    "profileName"
+  ).value =
+  profile.name || "";
 
-}
+  document.getElementById(
+    "profileAge"
+  ).value =
+  profile.age || "";
 
-const savedProfile =
-localStorage.getItem(
-"pairlyProfile"
-);
+  document.getElementById(
+    "profileGender"
+  ).value =
+  profile.gender || "";
 
-if(savedProfile) {
+  populateCountries();
 
-const profile =
-JSON.parse(savedProfile);
+  document.getElementById(
+    "profileCountry"
+  ).value =
+  profile.country || "";
 
-profile.profile_photo =
-photoUrl;
+  updateCities();
 
-localStorage.setItem(
-"pairlyProfile",
-JSON.stringify(profile)
-);
+  document.getElementById(
+    "profileCity"
+  ).value =
+  profile.city || "";
 
-}
+  document.getElementById(
+    "profileInterests"
+  ).value =
+  profile.interests || "";
 
-message.textContent =
-"Profile picture updated! 💕";
+  document.getElementById(
+    "profileLookingFor"
+  ).value =
+  profile.looking_for || "";
 
-} catch(error) {
+  clearCompatibilityChoices();
 
-console.log(
-"Profile photo upload error:",
-error.message
-);
+  const compatibility =
+  profile.compatibility_profile || {};
 
-message.textContent =
-"Something went wrong. Please try again.";
+  const personality =
+  compatibility.personality || "";
 
-}
+  const personalityInput =
+  document.querySelector(
+    'input[name="personality"][value="' +
+    personality +
+    '"]'
+  );
 
-}
+  if(personalityInput){
 
+    personalityInput.checked = true;
 
-/* ================= COUNTRY SEARCH ================= */
+  }
 
-function searchCountries() {
+  const values =
+  Array.isArray(
+    compatibility.values
+  )
+  ? compatibility.values
+  : [];
 
-const input =
-document.getElementById(
-"profileCountryInput"
-);
+  values.forEach(function(value){
 
-const suggestions =
-document.getElementById(
-"countrySuggestions"
-);
+    const input =
+    document.querySelector(
+      'input[name="values"][value="' +
+      value +
+      '"]'
+    );
 
-const query =
-input.value
-.trim()
-.toLowerCase();
+    if(input){
 
-suggestions.innerHTML = "";
+      input.checked = true;
 
-if(query.length < 2) {
+    }
 
-suggestions.style.display =
-"none";
+  });
 
-return;
+  const lifestyle =
+  Array.isArray(
+    compatibility.lifestyle
+  )
+  ? compatibility.lifestyle
+  : [];
 
-}
+  lifestyle.forEach(function(value){
+
+    const input =
+    document.querySelector(
+      'input[name="lifestyle"][value="' +
+      value +
+      '"]'
+    );
+
+    if(input){
+
+      input.checked = true;
+
+    }
 
-const results =
-countryList
-.filter(function(country){
+  });
 
-return country
-.toLowerCase()
-.includes(query);
+  if(profile.profile_photo){
 
-})
-.slice(0,8);
+    const preview =
+    document.getElementById(
+      "profilePhotoPreview"
+    );
 
-if(results.length === 0) {
+    const placeholder =
+    document.getElementById(
+      "profilePhotoPlaceholder"
+    );
 
-suggestions.style.display =
-"none";
+    preview.src =
+    profile.profile_photo;
 
-return;
+    preview.style.display =
+    "block";
 
+    placeholder.style.display =
+    "none";
+
+  }
+
 }
 
-results.forEach(function(country){
 
-const item =
-document.createElement("div");
+/* =====================================================
+   PROFILE PHOTO PREVIEW
+===================================================== */
 
-item.className =
-"suggestion-item";
+function previewProfilePhoto(event){
 
-item.textContent =
-country;
+  const file =
+  event.target.files &&
+  event.target.files[0];
 
-item.onclick =
-function(){
+  if(!file) return;
 
-selectCountry(country);
+  const preview =
+  document.getElementById(
+    "profilePhotoPreview"
+  );
 
-};
+  const placeholder =
+  document.getElementById(
+    "profilePhotoPlaceholder"
+  );
 
-suggestions.appendChild(item);
+  preview.src =
+  URL.createObjectURL(file);
 
-});
+  preview.style.display =
+  "block";
 
-suggestions.style.display =
-"block";
+  placeholder.style.display =
+  "none";
 
 }
 
 
-function selectCountry(country) {
+/* =====================================================
+   UPLOAD PROFILE PHOTO
+===================================================== */
 
-selectedCountry =
-country;
+async function uploadProfilePhoto(event){
 
-selectedCity =
-"";
+  const file =
+  event.target.files &&
+  event.target.files[0];
 
-document.getElementById(
-"profileCountryInput"
-).value =
-country;
+  if(!file){
 
-const cityInput =
-document.getElementById(
-"profileCityInput"
-);
+    return;
+  }
 
-cityInput.disabled =
-false;
+  if(!currentUser){
 
-cityInput.value = "";
+    alert(
+      "Please log in again."
+    );
 
-cityInput.placeholder =
-"Search city in " +
-country +
-"...";
+    return;
+  }
 
-document.getElementById(
-"countrySuggestions"
-).style.display =
-"none";
+  try{
 
-document.getElementById(
-"citySuggestions"
-).innerHTML =
-"";
+    const extension =
+    file.name
+    .split(".")
+    .pop()
+    .toLowerCase();
 
-document.getElementById(
-"citySuggestions"
-).style.display =
-"none";
+    const filePath =
+    currentUser.id +
+    "/profile." +
+    extension;
 
-document.getElementById(
-"selectedLocation"
-).style.display =
-"none";
+    const {
+      error:uploadError
+    } =
+    await pairlyClient
+    .storage
+    .from("profile-photos")
+    .upload(
+      filePath,
+      file,
+      {
+        upsert:true,
+        contentType:file.type
+      }
+    );
 
-}
+    if(uploadError){
 
+      console.error(uploadError);
 
-/* ================= CITY SEARCH ================= */
+      alert(
+        "Photo upload failed: " +
+        uploadError.message
+      );
 
-function searchCities() {
+      return;
+    }
 
-const input =
-document.getElementById(
-"profileCityInput"
-);
+    const {
+      data
+    } =
+    pairlyClient
+    .storage
+    .from("profile-photos")
+    .getPublicUrl(filePath);
 
-const suggestions =
-document.getElementById(
-"citySuggestions"
-);
+    const photoUrl =
+    data.publicUrl;
 
-const query =
-input.value
-.trim()
-.toLowerCase();
+    const {
+      error:updateError
+    } =
+    await pairlyClient
+    .from("profiles")
+    .update({
+      profile_photo:photoUrl
+    })
+    .eq("id",currentUser.id);
 
-suggestions.innerHTML = "";
+    if(updateError){
 
-if(!selectedCountry) {
-return;
-}
+      console.error(updateError);
 
-if(query.length < 2) {
+      alert(
+        "Photo uploaded but profile could not be updated."
+      );
 
-suggestions.style.display =
-"none";
+      return;
+    }
 
-return;
+    if(currentProfile){
 
-}
+      currentProfile.profile_photo =
+      photoUrl;
+
+    }
+
+    const stored =
+    JSON.parse(
+      localStorage.getItem(
+        "pairlyProfile"
+      ) || "{}"
+    );
+
+    stored.profile_photo =
+    photoUrl;
+
+    localStorage.setItem(
+      "pairlyProfile",
+      JSON.stringify(stored)
+    );
+
+    const preview =
+    document.getElementById(
+      "welcomePhotoPreview"
+    );
 
-const cities =
-locationData[selectedCountry] ||
-[];
+    const placeholder =
+    document.getElementById(
+      "welcomePhotoPlaceholder"
+    );
 
-const results =
-cities
-.filter(function(city){
+    preview.src =
+    photoUrl;
 
-return city
-.toLowerCase()
-.includes(query);
+    preview.style.display =
+    "block";
 
-})
-.slice(0,8);
+    placeholder.style.display =
+    "none";
 
-if(results.length === 0) {
+    alert("Profile picture updated.");
 
-suggestions.style.display =
-"none";
+  }
+  catch(error){
 
-return;
+    console.error(error);
 
+    alert(
+      "Something went wrong while uploading the photo."
+    );
+
+  }
+
 }
 
-results.forEach(function(city){
 
-const item =
-document.createElement("div");
+/* =====================================================
+   SAVE PROFILE
+===================================================== */
 
-item.className =
-"suggestion-item";
+async function finishProfile(){
 
-item.textContent =
-city;
+  clearMessage("profileMessage");
 
-item.onclick =
-function(){
+  if(!currentUser){
 
-selectCity(city);
+    const {
+      data
+    } =
+    await pairlyClient.auth.getUser();
 
-};
+    currentUser =
+    data.user;
+  }
 
-suggestions.appendChild(item);
+  if(!currentUser){
 
-});
+    showLogin();
 
-suggestions.style.display =
-"block";
+    return;
+  }
 
-}
+  const name =
+  document.getElementById(
+    "profileName"
+  ).value.trim();
 
+  const age =
+  document.getElementById(
+    "profileAge"
+  ).value;
 
-function selectCity(city) {
+  const gender =
+  document.getElementById(
+    "profileGender"
+  ).value;
 
-selectedCity =
-city;
+  const country =
+  document.getElementById(
+    "profileCountry"
+  ).value;
 
-document.getElementById(
-"profileCityInput"
-).value =
-city;
+  const city =
+  document.getElementById(
+    "profileCity"
+  ).value;
 
-document.getElementById(
-"citySuggestions"
-).style.display =
-"none";
+  const interests =
+  document.getElementById(
+    "profileInterests"
+  ).value.trim();
 
-const selectedLocation =
-document.getElementById(
-"selectedLocation"
-);
+  const lookingFor =
+  document.getElementById(
+    "profileLookingFor"
+  ).value;
 
-selectedLocation.textContent =
-"📍 " +
-city +
-", " +
-selectedCountry;
+  const personality =
+  getPersonality();
 
-selectedLocation.style.display =
-"block";
+  const values =
+  getSelectedCheckboxes("values");
 
-}
+  const lifestyle =
+  getSelectedCheckboxes("lifestyle");
 
+  if(!name){
 
-/* ================= CLOSE LOCATION ================= */
+    showMessage(
+      "profileMessage",
+      "Please enter your name.",
+      "error"
+    );
 
-document.addEventListener(
-"click",
-function(event){
+    return;
+  }
 
-if(!event.target.closest(".location-field")) {
+  if(!age || Number(age) < 18){
 
-const countrySuggestions =
-document.getElementById(
-"countrySuggestions"
-);
+    showMessage(
+      "profileMessage",
+      "You must be 18 or older to use Pairly.",
+      "error"
+    );
 
-const citySuggestions =
-document.getElementById(
-"citySuggestions"
-);
+    return;
+  }
 
-if(countrySuggestions) {
+  if(!gender){
 
-countrySuggestions.style.display =
-"none";
+    showMessage(
+      "profileMessage",
+      "Please select your gender.",
+      "error"
+    );
 
-}
+    return;
+  }
 
-if(citySuggestions) {
+  if(!country || !city){
 
-citySuggestions.style.display =
-"none";
+    showMessage(
+      "profileMessage",
+      "Please select your country and city.",
+      "error"
+    );
 
-}
+    return;
+  }
 
-}
+  if(!interests){
 
-}
-);
+    showMessage(
+      "profileMessage",
+      "Please add at least one interest.",
+      "error"
+    );
 
+    return;
+  }
 
-/* ================================================= */
-/* ================= EXPLORE ======================== */
-/* ================================================= */
+  if(!personality){
 
-let discoveryProfiles = [];
+    showMessage(
+      "profileMessage",
+      "Please choose your personality.",
+      "error"
+    );
 
-let discoveryIndex = 0;
+    return;
+  }
 
+  if(values.length === 0){
 
-/* ---------- PASSED PROFILES ---------- */
+    showMessage(
+      "profileMessage",
+      "Please choose at least one value.",
+      "error"
+    );
 
-function getPassedProfiles() {
+    return;
+  }
 
-try {
+  if(lifestyle.length === 0){
 
-return JSON.parse(
-localStorage.getItem(
-"pairlyPassed"
-) || "[]"
-);
+    showMessage(
+      "profileMessage",
+      "Please choose at least one lifestyle option.",
+      "error"
+    );
 
-} catch(error) {
+    return;
+  }
 
-return [];
+  if(!lookingFor){
 
-}
+    showMessage(
+      "profileMessage",
+      "Please choose what you're looking for.",
+      "error"
+    );
 
-}
+    return;
+  }
 
+  showMessage(
+    "profileMessage",
+    "Saving your profile...",
+    "success"
+  );
 
-function savePassedProfile(id) {
+  const oldProfile =
+  currentProfile || {};
 
-const passed =
-getPassedProfiles();
+  const compatibilityProfile = {
 
-if(!passed.includes(id)) {
+    personality:personality,
 
-passed.push(id);
+    values:values,
 
-localStorage.setItem(
-"pairlyPassed",
-JSON.stringify(passed)
-);
+    lifestyle:lifestyle
 
-}
+  };
 
-}
+  const profileData = {
 
+    id:currentUser.id,
 
-/* ---------- INTERESTS ---------- */
+    name:name,
 
-function parseInterests(interests) {
+    age:Number(age),
 
-if(!interests) {
-return [];
-}
+    gender:gender,
 
-return String(interests)
-.split(",")
-.map(function(item){
+    country:country,
 
-return item
-.trim()
-.toLowerCase();
+    city:city,
 
-})
-.filter(Boolean);
+    interests:interests,
 
-}
+    looking_for:lookingFor,
 
+    compatibility_profile:
+    compatibilityProfile,
 
-/* ---------- COMPATIBILITY HELPERS ---------- */
+    profile_photo:
+    oldProfile.profile_photo ||
+    null
 
-function parseCompatibilityProfile(profile) {
+  };
 
-if(
-!profile ||
-!profile.compatibility_profile
-) {
+  try{
 
-return {
-personality:"",
-values:[],
-lifestyle:[]
-};
+    const {
+      data,
+      error
+    } =
+    await pairlyClient
+    .from("profiles")
+    .upsert(
+      profileData,
+      {
+        onConflict:"id"
+      }
+    )
+    .select()
+    .single();
 
-}
+    if(error){
 
-let compatibility =
-profile.compatibility_profile;
+      console.error(error);
 
-if(typeof compatibility === "string") {
+      showMessage(
+        "profileMessage",
+        error.message,
+        "error"
+      );
 
-try {
+      return;
+    }
 
-compatibility =
-JSON.parse(compatibility);
+    currentProfile =
+    data;
 
-} catch(error) {
+    localStorage.setItem(
+      "pairlyProfile",
+      JSON.stringify(data)
+    );
 
-compatibility = {};
+    const fileInput =
+    document.getElementById(
+      "profilePhotoInput"
+    );
 
-}
+    if(
+      fileInput &&
+      fileInput.files &&
+      fileInput.files[0]
+    ){
+
+      await uploadProfilePhoto(
+        {
+          target:fileInput
+        }
+      );
+
+      const {
+        data:updatedProfile
+      } =
+      await pairlyClient
+      .from("profiles")
+      .select("*")
+      .eq("id",currentUser.id)
+      .single();
+
+      if(updatedProfile){
 
+        currentProfile =
+        updatedProfile;
+
+        localStorage.setItem(
+          "pairlyProfile",
+          JSON.stringify(
+            updatedProfile
+          )
+        );
+
+      }
+
+    }
+
+    showWelcome(name);
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "profileMessage",
+      "Something went wrong while saving your profile.",
+      "error"
+    );
+
+  }
+
 }
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+function showWelcome(name){
+
+  hideAllPages();
+
+  const welcome =
+  document.getElementById(
+    "welcomePage"
+  );
+
+  welcome.style.display =
+  "block";
+
+  document.getElementById(
+    "welcomeName"
+  ).textContent =
+  name || "there";
+
+  const stored =
+  JSON.parse(
+    localStorage.getItem(
+      "pairlyProfile"
+    ) || "{}"
+  );
+
+  if(stored.profile_photo){
+
+    const photo =
+    document.getElementById(
+      "welcomePhotoPreview"
+    );
 
-return {
-
-personality:
-compatibility.personality ||
-"",
-
-values:
-Array.isArray(
-compatibility.values
-)
-?
-compatibility.values
-.map(function(item){
-return String(item)
-.toLowerCase();
-})
-:
-[],
-
-lifestyle:
-Array.isArray(
-compatibility.lifestyle
-)
-?
-compatibility.lifestyle
-.map(function(item){
-return String(item)
-.toLowerCase();
-})
-:
-[]
-
-};
+    const placeholder =
+    document.getElementById(
+      "welcomePhotoPlaceholder"
+    );
 
+    photo.src =
+    stored.profile_photo;
+
+    photo.style.display =
+    "block";
+
+    placeholder.style.display =
+    "none";
+
+  }
+
 }
+
+
+function showWelcomeFromStorage(){
+
+  const stored =
+  JSON.parse(
+    localStorage.getItem(
+      "pairlyProfile"
+    ) || "null"
+  );
+
+  if(!stored){
+
+    showProfile();
 
+    return;
+  }
 
-function getSharedItems(
-mine,
-theirs
-) {
-
-const myItems =
-Array.isArray(mine)
-?
-mine
-.map(function(item){
-return String(item).toLowerCase();
-})
-:
-[];
-
-const theirItems =
-Array.isArray(theirs)
-?
-theirs
-.map(function(item){
-return String(item).toLowerCase();
-})
-:
-[];
-
-return myItems.filter(function(item){
-
-return theirItems.includes(item);
-
-});
+  currentProfile =
+  stored;
 
+  showWelcome(
+    stored.name
+  );
+
 }
 
 
-function calculateOverlapScore(
-mine,
-theirs,
-weight
-) {
+/* =====================================================
+   EDIT COMPATIBILITY
+===================================================== */
 
-if(
-!mine.length ||
-!theirs.length
-) {
+function editCompatibilityProfile(){
 
-return 0;
+  showProfile();
 
 }
+
+
+/* =====================================================
+   COMPATIBILITY CALCULATION
+===================================================== */
+
+function normaliseArray(value){
+
+  if(!Array.isArray(value)){
 
-const shared =
-getSharedItems(
-mine,
-theirs
-);
-
-const denominator =
-Math.max(
-mine.length,
-theirs.length
-);
-
-return Math.round(
-Math.min(
-1,
-shared.length / denominator
-) * weight
-);
+    return [];
 
+  }
+
+  return value
+  .map(function(item){
+
+    return String(item)
+    .trim()
+    .toLowerCase();
+
+  })
+  .filter(Boolean);
+
 }
+
 
+function overlapScore(
+  first,
+  second,
+  maxPoints
+){
+
+  const a =
+  normaliseArray(first);
+
+  const b =
+  normaliseArray(second);
+
+  if(
+    a.length === 0 ||
+    b.length === 0
+  ){
+
+    return 0;
+
+  }
+
+  const setB =
+  new Set(b);
+
+  let overlap = 0;
+
+  a.forEach(function(item){
+
+    if(setB.has(item)){
+
+      overlap++;
+
+    }
+
+  });
+
+  const smaller =
+  Math.min(
+    a.length,
+    b.length
+  );
+
+  if(smaller === 0){
+
+    return 0;
+
+  }
+
+  return Math.round(
+    (overlap / smaller) *
+    maxPoints
+  );
+
+}
 
-/* ---------- REAL COMPATIBILITY ---------- */
 
 function calculateCompatibility(
-myProfile,
-otherProfile
-) {
-
-const mine =
-parseCompatibilityProfile(
-myProfile
-);
-
-const theirs =
-parseCompatibilityProfile(
-otherProfile
-);
-
-let score = 0;
-
-
-/*
-PERSONALITY
-20 POINTS
-*/
-
-if(
-mine.personality &&
-theirs.personality
-) {
-
-if(
-mine.personality.toLowerCase() ===
-theirs.personality.toLowerCase()
-) {
-
-score += 20;
-
-} else if(
-(
-mine.personality.toLowerCase() ===
-"ambivert" &&
-(
-theirs.personality.toLowerCase() ===
-"introvert" ||
-theirs.personality.toLowerCase() ===
-"extrovert"
-)
-) ||
-(
-theirs.personality.toLowerCase() ===
-"ambivert" &&
-(
-mine.personality.toLowerCase() ===
-"introvert" ||
-mine.personality.toLowerCase() ===
-"extrovert"
-)
-)
-) {
-
-score += 14;
-
-}
-
-}
-
-
-/*
-VALUES
-25 POINTS
-*/
-
-score +=
-calculateOverlapScore(
-mine.values,
-theirs.values,
-25
-);
-
-
-/*
-LIFESTYLE
-20 POINTS
-*/
-
-score +=
-calculateOverlapScore(
-mine.lifestyle,
-theirs.lifestyle,
-20
-);
-
-
-/*
-INTERESTS
-25 POINTS
-*/
-
-const myInterests =
-parseInterests(
-myProfile.interests
-);
-
-const theirInterests =
-parseInterests(
-otherProfile.interests
-);
-
-if(
-myInterests.length &&
-theirInterests.length
-) {
-
-const sharedInterests =
-getSharedItems(
-myInterests,
-theirInterests
-);
-
-const interestRatio =
-sharedInterests.length /
-Math.max(
-myInterests.length,
-theirInterests.length
-);
-
-score += Math.round(
-Math.min(
-1,
-interestRatio
-) * 25
-);
-
-}
-
-
-/*
-RELATIONSHIP GOAL
-10 POINTS
-*/
-
-if(
-myProfile.looking_for &&
-otherProfile.looking_for &&
-myProfile.looking_for ===
-otherProfile.looking_for
-) {
-
-score += 10;
-
-}
-
-
-/*
-SMALL LOCATION BONUS
-This does not replace the core
-compatibility score.
-*/
-
-if(
-myProfile.location &&
-otherProfile.location
-) {
-
-const myLocation =
-String(myProfile.location)
-.toLowerCase();
-
-const theirLocation =
-String(otherProfile.location)
-.toLowerCase();
-
-if(
-myLocation ===
-theirLocation
-) {
-
-score += 3;
-
-} else {
-
-const myCountry =
-myLocation
-.split(",")
-.pop()
-.trim();
-
-const theirCountry =
-theirLocation
-.split(",")
-.pop()
-.trim();
-
-if(
-myCountry &&
-theirCountry &&
-myCountry ===
-theirCountry
-) {
-
-score += 2;
-
-}
-
-}
-
-}
-
-
-/*
-CORE SCORE IS 100.
-Location can add only a tiny bonus.
-*/
-
-return Math.min(
-100,
-Math.max(
-0,
-score
-)
-);
-
-}
-
-
-/* ---------- SHARED INTERESTS ---------- */
-
-function getSharedInterests(
-myProfile,
-otherProfile
-) {
-
-const mine =
-parseInterests(
-myProfile.interests
-);
-
-const theirs =
-parseInterests(
-otherProfile.interests
-);
-
-return getSharedItems(
-mine,
-theirs
-);
-
-}
-
-
-/* ---------- COMPATIBILITY EXPLANATION ---------- */
-
-function getCompatibilityReasons(
-myProfile,
-otherProfile
-) {
-
-const reasons = [];
-
-const mine =
-parseCompatibilityProfile(
-myProfile
-);
-
-const theirs =
-parseCompatibilityProfile(
-otherProfile
-);
-
-
-/* Personality */
-
-if(
-mine.personality &&
-theirs.personality
-) {
-
-if(
-mine.personality.toLowerCase() ===
-theirs.personality.toLowerCase()
-) {
-
-reasons.push(
-"similar personality"
-);
-
-} else if(
-mine.personality.toLowerCase() ===
-"ambivert" ||
-theirs.personality.toLowerCase() ===
-"ambivert"
-) {
-
-reasons.push(
-"compatible social styles"
-);
-
-}
-
-}
-
-
-/* Values */
-
-const sharedValues =
-getSharedItems(
-mine.values,
-theirs.values
-);
-
-if(sharedValues.length) {
-
-reasons.push(
-"shared values: " +
-sharedValues
-.slice(0,2)
-.join(" and ")
-);
-
-}
-
-
-/* Lifestyle */
-
-const sharedLifestyle =
-getSharedItems(
-mine.lifestyle,
-theirs.lifestyle
-);
-
-if(sharedLifestyle.length) {
-
-reasons.push(
-"similar lifestyle: " +
-sharedLifestyle
-.slice(0,2)
-.join(" and ")
-);
-
-}
-
-
-/* Interests */
-
-const sharedInterests =
-getSharedInterests(
-myProfile,
-otherProfile
-);
-
-if(sharedInterests.length) {
-
-reasons.push(
-"shared interests: " +
-sharedInterests
-.slice(0,2)
-.join(" and ")
-);
-
-}
-
-
-/* Goal */
-
-if(
-myProfile.looking_for &&
-otherProfile.looking_for &&
-myProfile.looking_for ===
-otherProfile.looking_for
-) {
-
-reasons.push(
-"you're looking for the same type of connection"
-);
-
-}
-
-
-/* Location */
-
-if(
-myProfile.location &&
-otherProfile.location
-) {
-
-const myLocation =
-String(myProfile.location)
-.toLowerCase();
-
-const theirLocation =
-String(otherProfile.location)
-.toLowerCase();
-
-if(
-myLocation ===
-theirLocation
-) {
-
-reasons.push(
-"you're in the same city"
-);
-
-}
-
-}
-
-return reasons;
-
-}
-
-
-/* ---------- SHOW EXPLORE ---------- */
-
-function showExplore() {
-
-hideAllPages();
-
-document
-.getElementById("explorePage")
-.classList.add("active");
-
-window.scrollTo(0,0);
-
-loadMatches();
-
-}
-
-
-/* ---------- LOAD MATCHES ---------- */
-
-async function loadMatches() {
-
-const matchesList =
-document.getElementById(
-"matchesList"
-);
-
-const exploreMessage =
-document.getElementById(
-"exploreMessage"
-);
-
-if(!matchesList || !exploreMessage) {
-return;
-}
-
-matchesList.innerHTML =
-'<div class="explore-loading">Finding people for you... 💕</div>';
-
-exploreMessage.textContent =
-"";
-
-try {
-
-const {
-data:{user},
-error:userError
-} =
-await pairlyClient.auth.getUser();
-
-if(
-userError ||
-!user
-) {
-
-matchesList.innerHTML =
-"";
-
-exploreMessage.textContent =
-"Please log in again.";
-
-return;
-
-}
-
-
-/* GET CURRENT PROFILE */
-
-const {
-data:myProfile,
-error:myProfileError
-} =
-await pairlyClient
-.from("profiles")
-.select("*")
-.eq("id",user.id)
-.maybeSingle();
-
-if(
-myProfileError ||
-!myProfile
-) {
-
-matchesList.innerHTML =
-"";
-
-exploreMessage.textContent =
-"Please complete your profile first.";
-
-return;
-
-}
-
-
-/* CHECK COMPATIBILITY PROFILE */
-
-const myCompatibility =
-parseCompatibilityProfile(
-myProfile
-);
-
-if(
-!myCompatibility.personality ||
-myCompatibility.values.length < 2 ||
-myCompatibility.lifestyle.length < 2
-) {
-
-matchesList.innerHTML =
-"";
-
-exploreMessage.textContent =
-"Please complete your compatibility profile before exploring.";
-
-return;
-
-}
-
-
-/* GET OTHER PROFILES */
-
-const {
-data:profiles,
-error
-} =
-await pairlyClient
-.from("profiles")
-.select(
-"id,name,age,gender,location,interests,looking_for,profile_photo,compatibility_profile"
-)
-.neq(
-"id",
-user.id
-)
-.limit(50);
-
-if(error) {
-
-matchesList.innerHTML =
-"";
-
-exploreMessage.textContent =
-"We couldn't load matches right now.";
-
-console.log(
-"Explore profiles error:",
-error.message
-);
-
-return;
-
-}
-
-const passed =
-getPassedProfiles();
-
-discoveryProfiles =
-(profiles || [])
-.filter(function(profile){
-
-const compatibility =
-parseCompatibilityProfile(
-profile
-);
-
-return (
-!passed.includes(profile.id) &&
-compatibility.personality &&
-compatibility.values.length >= 2 &&
-compatibility.lifestyle.length >= 2
-);
-
-})
-.sort(function(a,b){
-
-return (
-calculateCompatibility(
-myProfile,
-b
-) -
-calculateCompatibility(
-myProfile,
-a
-)
-);
-
-});
-
-discoveryIndex =
-0;
-
-if(
-discoveryProfiles.length ===
-0
-) {
-
-renderNoMoreProfiles();
-
-return;
-
-}
-
-renderCurrentProfile(
-myProfile
-);
-
-} catch(error) {
-
-matchesList.innerHTML =
-"";
-
-exploreMessage.textContent =
-"Something went wrong while loading Explore.";
-
-console.log(
-"Explore error:",
-error.message
-);
-
-}
-
-}
-
-
-/* ---------- RENDER PROFILE ---------- */
-
-function renderCurrentProfile(
-myProfile
-) {
-
-const matchesList =
-document.getElementById(
-"matchesList"
-);
-
-const exploreMessage =
-document.getElementById(
-"exploreMessage"
-);
-
-exploreMessage.textContent =
-"";
-
-if(
-discoveryIndex >=
-discoveryProfiles.length
-) {
-
-renderNoMoreProfiles();
-
-return;
-
-}
-
-const profile =
-discoveryProfiles[
-discoveryIndex
-];
-
-const compatibility =
-calculateCompatibility(
-myProfile,
-profile
-);
-
-const shared =
-getSharedInterests(
-myProfile,
-profile
-);
-
-const reasons =
-getCompatibilityReasons(
-myProfile,
-profile
-);
-
-const otherCompatibility =
-parseCompatibilityProfile(
-profile
-);
-
-matchesList.innerHTML =
-"";
-
-
-/* CARD */
-
-const card =
-document.createElement(
-"div"
-);
-
-card.className =
-"discovery-card";
-
-
-/* PHOTO */
-
-const photo =
-document.createElement(
-"div"
-);
-
-photo.className =
-"discovery-photo";
-
-if(profile.profile_photo) {
-
-const img =
-document.createElement(
-"img"
-);
-
-img.src =
-profile.profile_photo;
-
-img.alt =
-profile.name ||
-"Pairly member";
-
-photo.appendChild(
-img
-);
-
-} else {
-
-const placeholder =
-document.createElement(
-"div"
-);
-
-placeholder.className =
-"photo-placeholder";
-
-placeholder.textContent =
-"💞";
-
-photo.appendChild(
-placeholder
-);
-
-}
-
-card.appendChild(
-photo
-);
-
-
-/* CONTENT */
-
-const content =
-document.createElement(
-"div"
-);
-
-content.className =
-"discovery-content";
-
-
-/* NAME ROW */
-
-const nameRow =
-document.createElement(
-"div"
-);
-
-nameRow.className =
-"discovery-name-row";
-
-const name =
-document.createElement(
-"div"
-);
-
-name.className =
-"discovery-name";
-
-name.textContent =
-profile.name ||
-"Pairly member";
-
-const compatibilityBadge =
-document.createElement(
-"div"
-);
-
-compatibilityBadge.className =
-"compatibility";
-
-compatibilityBadge.textContent =
-compatibility +
-"% Match";
-
-nameRow.appendChild(
-name
-);
-
-nameRow.appendChild(
-compatibilityBadge
-);
-
-content.appendChild(
-nameRow
-);
-
-
-/* AGE / GENDER */
-
-const info =
-document.createElement(
-"div"
-);
-
-info.className =
-"discovery-info";
-
-let infoText =
-"";
-
-if(profile.age) {
-
-infoText +=
-profile.age +
-" years old";
-
-}
-
-if(profile.gender) {
-
-if(infoText) {
-infoText +=
-" • ";
-}
-
-infoText +=
-profile.gender;
-
-}
-
-info.textContent =
-infoText;
-
-content.appendChild(
-info
-);
-
-
-/* LOCATION */
-
-if(profile.location) {
-
-const location =
-document.createElement(
-"div"
-);
-
-location.className =
-"discovery-location";
-
-location.textContent =
-"📍 " +
-profile.location;
-
-content.appendChild(
-location
-);
-
-}
-
-
-/* PERSONALITY */
-
-if(
-otherCompatibility.personality
-) {
-
-const personalitySection =
-document.createElement(
-"div"
-);
-
-personalitySection.className =
-"discovery-section";
-
-const label =
-document.createElement(
-"div"
-);
-
-label.className =
-"discovery-label";
-
-label.textContent =
-"Personality";
-
-personalitySection.appendChild(
-label
-);
-
-const chip =
-document.createElement(
-"span"
-);
-
-chip.className =
-"looking-chip";
-
-chip.textContent =
-otherCompatibility.personality;
-
-personalitySection.appendChild(
-chip
-);
-
-content.appendChild(
-personalitySection
-);
-
-}
-
-
-/* INTERESTS */
-
-if(profile.interests) {
-
-const interestSection =
-document.createElement(
-"div"
-);
-
-interestSection.className =
-"discovery-section";
-
-const label =
-document.createElement(
-"div"
-);
-
-label.className =
-"discovery-label";
-
-label.textContent =
-"Interests";
-
-interestSection.appendChild(
-label
-);
-
-const list =
-document.createElement(
-"div"
-);
-
-list.className =
-"interest-list";
-
-parseInterests(
-profile.interests
-)
-.slice(0,8)
-.forEach(function(item){
-
-const chip =
-document.createElement(
-"span"
-);
-
-chip.className =
-"interest-chip";
-
-chip.textContent =
-item;
-
-list.appendChild(
-chip
-);
-
-});
-
-interestSection.appendChild(
-list
-);
-
-content.appendChild(
-interestSection
-);
-
-}
-
-
-/* VALUES */
-
-if(
-otherCompatibility.values.length
-) {
-
-const valuesSection =
-document.createElement(
-"div"
-);
-
-valuesSection.className =
-"discovery-section";
-
-const label =
-document.createElement(
-"div"
-);
-
-label.className =
-"discovery-label";
-
-label.textContent =
-"Values";
-
-valuesSection.appendChild(
-label
-);
-
-const list =
-document.createElement(
-"div"
-);
-
-list.className =
-"interest-list";
-
-otherCompatibility.values
-.slice(0,6)
-.forEach(function(item){
-
-const chip =
-document.createElement(
-"span"
-);
-
-chip.className =
-"interest-chip";
-
-chip.textContent =
-item;
-
-list.appendChild(
-chip
-);
-
-});
-
-valuesSection.appendChild(
-list
-);
-
-content.appendChild(
-valuesSection
-);
-
-}
-
-
-/* LIFESTYLE */
-
-if(
-otherCompatibility.lifestyle.length
-) {
-
-const lifestyleSection =
-document.createElement(
-"div"
-);
-
-lifestyleSection.className =
-"discovery-section";
-
-const label =
-document.createElement(
-"div"
-);
-
-label.className =
-"discovery-label";
-
-label.textContent =
-"Lifestyle";
-
-lifestyleSection.appendChild(
-label
-);
-
-const list =
-document.createElement(
-"div"
-);
-
-list.className =
-"interest-list";
-
-otherCompatibility.lifestyle
-.slice(0,6)
-.forEach(function(item){
-
-const chip =
-document.createElement(
-"span"
-);
-
-chip.className =
-"looking-chip";
-
-chip.textContent =
-item;
-
-list.appendChild(
-chip
-);
-
-});
-
-lifestyleSection.appendChild(
-list
-);
-
-content.appendChild(
-lifestyleSection
-);
-
-}
-
-
-/* LOOKING FOR */
-
-if(profile.looking_for) {
-
-const lookingSection =
-document.createElement(
-"div"
-);
-
-lookingSection.className =
-"discovery-section";
-
-const label =
-document.createElement(
-"div"
-);
-
-label.className =
-"discovery-label";
-
-label.textContent =
-"Looking for";
-
-lookingSection.appendChild(
-label
-);
-
-const chip =
-document.createElement(
-"span"
-);
-
-chip.className =
-"looking-chip";
-
-chip.textContent =
-profile.looking_for;
-
-lookingSection.appendChild(
-chip
-);
-
-content.appendChild(
-lookingSection
-);
-
-}
-
-
-/* WHY MATCH */
-
-const note =
-document.createElement(
-"div"
-);
-
-note.className =
-"compatibility-note";
-
-if(reasons.length > 0) {
-
-note.textContent =
-"💕 " +
-reasons
-.slice(0,3)
-.join(" • ");
-
-} else if(shared.length > 0) {
-
-note.textContent =
-"💕 You both like " +
-shared.slice(0,3).join(", ") +
-(shared.length > 3
-? " and more."
-: ".");
-
-} else {
-
-note.textContent =
-"✨ Your compatibility score is based on your personality, values, lifestyle, interests and relationship goals.";
-
-}
-
-const breakdown =
-document.createElement(
-"div"
-);
-
-breakdown.className =
-"compatibility-breakdown";
-
-breakdown.textContent =
-"Pairly compatibility looks at the things that matter beyond appearance.";
-
-note.appendChild(
-document.createElement("br")
-);
-
-note.appendChild(
-breakdown
-);
-
-content.appendChild(
-note
-);
-
-card.appendChild(
-content
-);
-
-
-/* ACTIONS */
-
-const actions =
-document.createElement(
-"div"
-);
-
-actions.className =
-"discovery-actions";
-
-const passButton =
-document.createElement(
-"button"
-);
-
-passButton.type =
-"button";
-
-passButton.className =
-"pass-btn";
-
-passButton.textContent =
-"👋 Pass";
-
-passButton.onclick =
-function(){
-
-passCurrentProfile();
-
-};
-
-const likeButton =
-document.createElement(
-"button"
-);
-
-likeButton.type =
-"button";
-
-likeButton.className =
-"like-btn";
-
-likeButton.textContent =
-"❤️ Like";
-
-likeButton.onclick =
-function(){
-
-likeCurrentProfile();
-
-};
-
-actions.appendChild(
-passButton
-);
-
-actions.appendChild(
-likeButton
-);
-
-card.appendChild(
-actions
-);
-
-
-/* COUNTER */
-
-const counter =
-document.createElement(
-"div"
-);
-
-counter.className =
-"explore-counter";
-
-counter.textContent =
-"Profile " +
-(discoveryIndex + 1) +
-" of " +
-discoveryProfiles.length;
-
-matchesList.appendChild(
-card
-);
-
-matchesList.appendChild(
-counter
-);
-
-}
-
-
-/* ---------- PASS ---------- */
-
-function passCurrentProfile() {
-
-if(
-discoveryIndex >=
-discoveryProfiles.length
-) {
-
-return;
-
-}
-
-const profile =
-discoveryProfiles[
-discoveryIndex
-];
-
-savePassedProfile(
-profile.id
-);
-
-discoveryIndex++;
-
-loadCurrentAfterAction();
-
-}
+  me,
+  other
+){
 
+  if(!me || !other){
 
-/* ---------- LIKE ---------- */
+    return 0;
 
-async function likeCurrentProfile() {
+  }
 
-if(
-discoveryIndex >=
-discoveryProfiles.length
-) {
+  const myCompatibility =
+  me.compatibility_profile || {};
 
-return;
+  const theirCompatibility =
+  other.compatibility_profile || {};
 
-}
-
-const profile =
-discoveryProfiles[
-discoveryIndex
-];
-
-const matchesList =
-document.getElementById(
-"matchesList"
-);
-
-const exploreMessage =
-document.getElementById(
-"exploreMessage"
-);
-
-matchesList.style.opacity =
-"0.6";
-
-try {
-
-const {
-data:{user},
-error:userError
-} =
-await pairlyClient.auth.getUser();
-
-if(
-userError ||
-!user
-) {
-
-exploreMessage.textContent =
-"Please log in again.";
-
-matchesList.style.opacity =
-"1";
-
-return;
-
-}
-
-
-/* SAVE LIKE */
-
-const {
-error:likeError
-} =
-await pairlyClient
-.from("likes")
-.upsert(
-{
-user_id:user.id,
-liked_user_id:profile.id
-},
-{
-onConflict:
-"user_id,liked_user_id"
-}
-);
-
-if(likeError) {
-
-console.log(
-"Like error:",
-likeError.message
-);
-
-exploreMessage.textContent =
-"Couldn't save your like. Please try again.";
+  let score = 0;
 
-matchesList.style.opacity =
-"1";
+  let reasons = [];
 
-return;
-
-}
+  /* PERSONALITY - 20 */
 
+  const myPersonality =
+  String(
+    myCompatibility.personality || ""
+  )
+  .toLowerCase();
 
-/* CHECK MUTUAL LIKE */
-
-const {
-data:mutualLike,
-error:mutualError
-} =
-await pairlyClient
-.from("likes")
-.select("id")
-.eq(
-"user_id",
-profile.id
-)
-.eq(
-"liked_user_id",
-user.id
-)
-.maybeSingle();
-
-if(mutualError) {
-
-console.log(
-"Mutual like check:",
-mutualError.message
-);
+  const theirPersonality =
+  String(
+    theirCompatibility.personality || ""
+  )
+  .toLowerCase();
 
-}
+  if(
+    myPersonality &&
+    theirPersonality
+  ){
 
+    if(
+      myPersonality ===
+      theirPersonality
+    ){
 
-/* MATCH */
+      score += 20;
 
-if(mutualLike) {
+      reasons.push(
+        "You have similar personalities."
+      );
 
-showPairlyMatch(
-profile
-);
+    }
+    else if(
+      (
+        myPersonality === "ambivert" &&
+        (
+          theirPersonality === "introvert" ||
+          theirPersonality === "extrovert"
+        )
+      ) ||
+      (
+        theirPersonality === "ambivert" &&
+        (
+          myPersonality === "introvert" ||
+          myPersonality === "extrovert"
+        )
+      )
+    ){
 
-return;
+      score += 14;
 
-}
+      reasons.push(
+        "Your personalities may balance each other."
+      );
 
+    }
 
-/* NORMAL LIKE */
+  }
 
-discoveryIndex++;
 
-loadCurrentAfterAction();
+  /* VALUES - 25 */
 
-} catch(error) {
+  const valueScore =
+  overlapScore(
+    myCompatibility.values,
+    theirCompatibility.values,
+    25
+  );
 
-console.log(
-"Like error:",
-error.message
-);
+  score += valueScore;
 
-exploreMessage.textContent =
-"Something went wrong. Please try again.";
+  if(valueScore >= 13){
 
-matchesList.style.opacity =
-"1";
+    reasons.push(
+      "You share important values."
+    );
 
-}
+  }
 
-}
 
+  /* LIFESTYLE - 20 */
 
-/* ---------- NEXT PROFILE ---------- */
+  const lifestyleScore =
+  overlapScore(
+    myCompatibility.lifestyle,
+    theirCompatibility.lifestyle,
+    20
+  );
 
-function loadCurrentAfterAction() {
+  score += lifestyleScore;
 
-const matchesList =
-document.getElementById(
-"matchesList"
-);
+  if(lifestyleScore >= 10){
 
-matchesList.style.opacity =
-"1";
+    reasons.push(
+      "Your lifestyles have things in common."
+    );
 
-const savedProfile =
-localStorage.getItem(
-"pairlyProfile"
-);
+  }
 
-if(!savedProfile) {
 
-showHome();
+  /* INTERESTS - 25 */
 
-return;
+  const myInterests =
+  String(
+    me.interests || ""
+  )
+  .split(",")
+  .map(function(item){
 
-}
+    return item.trim();
 
-try {
+  })
+  .filter(Boolean);
 
-const myProfile =
-JSON.parse(
-savedProfile
-);
+  const theirInterests =
+  String(
+    other.interests || ""
+  )
+  .split(",")
+  .map(function(item){
 
-renderCurrentProfile(
-myProfile
-);
+    return item.trim();
 
-} catch(error) {
+  })
+  .filter(Boolean);
 
-showHome();
+  const interestScore =
+  overlapScore(
+    myInterests,
+    theirInterests,
+    25
+  );
 
-}
+  score += interestScore;
 
-}
+  if(interestScore >= 13){
 
+    reasons.push(
+      "You have shared interests."
+    );
 
-/* ---------- MUTUAL MATCH ---------- */
+  }
 
-function showPairlyMatch(
-profile
-) {
 
-const matchesList =
-document.getElementById(
-"matchesList"
-);
+  /* RELATIONSHIP GOAL - 10 */
 
-const exploreMessage =
-document.getElementById(
-"exploreMessage"
-);
+  const myGoal =
+  String(
+    me.looking_for || ""
+  )
+  .toLowerCase();
 
-exploreMessage.textContent =
-"";
+  const theirGoal =
+  String(
+    other.looking_for || ""
+  )
+  .toLowerCase();
 
-matchesList.innerHTML =
-"";
+  if(
+    myGoal &&
+    theirGoal &&
+    myGoal === theirGoal
+  ){
 
-const match =
-document.createElement(
-"div"
-);
+    score += 10;
 
-match.className =
-"match-success";
+    reasons.push(
+      "You are looking for the same kind of connection."
+    );
 
-const icon =
-document.createElement(
-"div"
-);
+  }
 
-icon.className =
-"match-success-icon";
 
-icon.textContent =
-"💞";
+  /* LOCATION BONUS */
 
-match.appendChild(
-icon
-);
+  if(
+    me.city &&
+    other.city &&
+    me.city.toLowerCase() ===
+    other.city.toLowerCase()
+  ){
 
-const title =
-document.createElement(
-"h2"
-);
+    score += 3;
 
-title.textContent =
-"It's a Pairly!";
+    reasons.push(
+      "You're in the same city."
+    );
 
-match.appendChild(
-title
-);
+  }
+  else if(
+    me.country &&
+    other.country &&
+    me.country.toLowerCase() ===
+    other.country.toLowerCase()
+  ){
 
-const text =
-document.createElement(
-"p"
-);
+    score += 2;
 
-text.textContent =
-"You and " +
-(profile.name ||
-"this person") +
-" liked each other. Something worth exploring just happened.";
-
-match.appendChild(
-text
-);
+    reasons.push(
+      "You're in the same country."
+    );
 
-const continueButton =
-document.createElement(
-"button"
-);
+  }
 
-continueButton.type =
-"button";
 
-continueButton.className =
-"form-btn";
+  score =
+  Math.max(
+    0,
+    Math.min(
+      100,
+      score
+    )
+  );
 
-continueButton.textContent =
-"Keep exploring 💕";
+  if(reasons.length === 0){
 
-continueButton.onclick =
-function(){
+    reasons.push(
+      "Pairly found some interesting similarities between you."
+    );
 
-discoveryIndex++;
+  }
 
-loadCurrentAfterAction();
+  return {
 
-};
+    score:score,
 
-match.appendChild(
-continueButton
-);
+    reasons:reasons
 
-matchesList.appendChild(
-match
-);
+  };
 
 }
-
-
-/* ---------- NO MORE ---------- */
-
-function renderNoMoreProfiles() {
-
-const matchesList =
-document.getElementById(
-"matchesList"
-);
-
-const exploreMessage =
-document.getElementById(
-"exploreMessage"
-);
-
-matchesList.innerHTML =
-"";
 
-exploreMessage.textContent =
-"";
-
-const empty =
-document.createElement(
-"div"
-);
 
-empty.className =
-"empty-explore";
+/* =====================================================
+   EXPLORE
+===================================================== */
 
-empty.innerHTML =
-"💞<br><br>" +
-"<strong>You've reached the end.</strong><br><br>" +
-"We don't have any more people to show you right now.<br>" +
-"Check back later as Pairly grows.";
+async function showExplore(){
 
-matchesList.appendChild(
-empty
-);
+  hideAllPages();
 
-}
+  document.getElementById(
+    "explorePage"
+  ).style.display =
+  "block";
 
+  const status =
+  document.getElementById(
+    "exploreStatus"
+  );
 
-/* ================================================= */
-/* ================= CREATE ACCOUNT ================= */
-/* ================================================= */
+  const grid =
+  document.getElementById(
+    "discoveryGrid"
+  );
 
-async function createAccount() {
+  status.style.display =
+  "block";
 
-const email =
-document.getElementById(
-"emailInput"
-).value.trim();
+  status.textContent =
+  "Finding people for you...";
 
-const password =
-document.getElementById(
-"passwordInput"
-).value;
+  grid.innerHTML = "";
 
-const message =
-document.getElementById(
-"message"
-);
+  if(!currentUser){
 
-message.textContent =
-"";
+    const {
+      data
+    } =
+    await pairlyClient.auth.getUser();
 
-if(!email || !password) {
+    currentUser =
+    data.user;
 
-message.textContent =
-"Please enter your email and password.";
+  }
 
-return;
+  if(!currentUser){
 
-}
+    showLogin();
 
-if(password.length < 6) {
+    return;
 
-message.textContent =
-"Password must be at least 6 characters.";
+  }
 
-return;
+  let me =
+  currentProfile;
 
-}
+  if(!me){
 
-message.textContent =
-"Creating your account...";
+    const stored =
+    JSON.parse(
+      localStorage.getItem(
+        "pairlyProfile"
+      ) || "null"
+    );
 
-try {
+    me =
+    stored;
 
-const result =
-await pairlyClient.auth.signUp({
+  }
 
-email:email,
+  if(!me){
 
-password:password,
+    const {
+      data
+    } =
+    await pairlyClient
+    .from("profiles")
+    .select("*")
+    .eq("id",currentUser.id)
+    .maybeSingle();
 
-options:{
-emailRedirectTo:
-window.location.href
-}
+    me =
+    data;
 
-});
+  }
 
-if(result.error) {
+  if(!me){
 
-message.textContent =
-"Error: " +
-result.error.message;
+    status.textContent =
+    "Please complete your profile first.";
 
-return;
+    return;
 
-}
+  }
 
-if(result.data.session) {
+  currentProfile =
+  me;
 
-message.textContent =
-"Account created successfully! 🎉";
+  localStorage.setItem(
+    "pairlyProfile",
+    JSON.stringify(me)
+  );
 
-setTimeout(
-function(){
+  if(
+    !me.compatibility_profile ||
+    !me.compatibility_profile.personality ||
+    !Array.isArray(
+      me.compatibility_profile.values
+    ) ||
+    !Array.isArray(
+      me.compatibility_profile.lifestyle
+    )
+  ){
 
-showProfile();
+    status.textContent =
+    "Please complete your compatibility profile first.";
 
-},
-1200
-);
+    return;
 
-} else {
+  }
 
-message.textContent =
-"Account created successfully! 🎉 " +
-"Please check your email and confirm your account.";
+  const {
+    data:profiles,
+    error
+  } =
+  await pairlyClient
+  .from("profiles")
+  .select("*")
+  .neq("id",currentUser.id);
 
-}
+  if(error){
 
-} catch(error) {
+    console.error(error);
 
-message.textContent =
-"Connection error: " +
-error.message;
+    status.textContent =
+    "Unable to load people right now.";
 
-}
+    return;
 
-}
+  }
 
+  if(!profiles || profiles.length === 0){
 
-/* ================= APPLE ================= */
+    status.style.display =
+    "block";
 
-async function loginWithApple() {
+    status.innerHTML =
+    '<div class="empty-state">' +
+    '<h2>No other Pairly members yet</h2>' +
+    '<p>As more people join Pairly, compatible profiles will appear here.</p>' +
+    '</div>';
 
-const message =
-document.getElementById(
-"message"
-);
+    return;
 
-message.textContent =
-"Apple login is not connected yet.";
+  }
 
-}
+  const completeProfiles =
+  profiles.filter(function(profile){
 
+    return(
+      profile.compatibility_profile &&
+      profile.compatibility_profile.personality &&
+      Array.isArray(
+        profile.compatibility_profile.values
+      ) &&
+      Array.isArray(
+        profile.compatibility_profile.lifestyle
+      )
+    );
 
-/* ================= LOGIN ================= */
+  });
 
-async function loginAccount() {
+  if(completeProfiles.length === 0){
 
-const email =
-document.getElementById(
-"loginEmailInput"
-).value.trim();
+    status.style.display =
+    "block";
 
-const password =
-document.getElementById(
-"loginPasswordInput"
-).value;
+    status.innerHTML =
+    '<div class="empty-state">' +
+    '<h2>No compatible profiles yet</h2>' +
+    '<p>More people will appear as they complete their Pairly profiles.</p>' +
+    '</div>';
 
-const message =
-document.getElementById(
-"loginMessage"
-);
+    return;
 
-message.textContent =
-"";
+  }
 
-if(!email || !password) {
+  const scored =
+  completeProfiles
+  .map(function(profile){
 
-message.textContent =
-"Please enter your email and password.";
+    return {
 
-return;
+      profile:profile,
 
-}
+      compatibility:
+      calculateCompatibility(
+        me,
+        profile
+      )
 
-message.textContent =
-"Logging you in...";
+    };
 
-try {
+  })
+  .sort(function(a,b){
 
-const {
-data,
-error
-} =
-await pairlyClient.auth
-.signInWithPassword({
+    return(
+      b.compatibility.score -
+      a.compatibility.score
+    );
 
-email:email,
+  });
 
-password:password
+  status.style.display =
+  "none";
 
-});
+  grid.innerHTML = "";
 
-if(error) {
+  scored.forEach(function(item){
 
-message.textContent =
-"Error: " +
-error.message;
+    createDiscoveryCard(
+      item.profile,
+      item.compatibility
+    );
 
-return;
+  });
 
 }
-
-const user =
-data.user;
-
-const {
-data:profile,
-error:profileError
-} =
-await pairlyClient
-.from("profiles")
-.select("*")
-.eq("id",user.id)
-.maybeSingle();
-
-if(profileError) {
-
-message.textContent =
-"Error checking your profile: " +
-profileError.message;
-
-return;
 
-}
 
-if(profile) {
+/* =====================================================
+   DISCOVERY CARD
+===================================================== */
 
-localStorage.setItem(
-"pairlyProfile",
-JSON.stringify(profile)
-);
+function createDiscoveryCard(
+  profile,
+  compatibility
+){
 
-const compatibility =
-parseCompatibilityProfile(
-profile
-);
+  const grid =
+  document.getElementById(
+    "discoveryGrid"
+  );
 
-message.textContent =
-"Welcome back! 💕";
+  const card =
+  document.createElement("div");
 
-setTimeout(
-function(){
+  card.className =
+  "discovery-card";
 
-if(
-compatibility.personality &&
-compatibility.values.length >= 2 &&
-compatibility.lifestyle.length >= 2
-) {
+  const photo =
+  profile.profile_photo
+  ? profile.profile_photo
+  : "";
 
-showWelcome(
-profile.name
-);
+  const values =
+  (
+    profile.compatibility_profile &&
+    Array.isArray(
+      profile.compatibility_profile.values
+    )
+  )
+  ? profile.compatibility_profile.values.join(", ")
+  : "Not specified";
 
-} else {
+  const lifestyle =
+  (
+    profile.compatibility_profile &&
+    Array.isArray(
+      profile.compatibility_profile.lifestyle
+    )
+  )
+  ? profile.compatibility_profile.lifestyle.join(", ")
+  : "Not specified";
 
-populateProfileForm(
-profile
-);
+  const personality =
+  profile.compatibility_profile
+  ? profile.compatibility_profile.personality
+  : "Not specified";
 
-showProfile();
+  const interests =
+  profile.interests ||
+  "Not specified";
 
-}
+  const location =
+  [profile.city,profile.country]
+  .filter(Boolean)
+  .join(", ");
 
-},
-800
-);
+  const firstName =
+  profile.name ||
+  "Pairly member";
 
-} else {
+  const photoHTML =
+  photo
+  ? '<img class="discovery-photo" src="' +
+    escapeHtml(photo) +
+    '" alt="Profile photo">'
+  : '<div class="discovery-photo"></div>';
 
-message.textContent =
-"Account confirmed! Let's set up your profile 💕";
+  card.innerHTML =
 
-setTimeout(
-function(){
+  '<div class="discovery-top">' +
 
-showProfile();
+    photoHTML +
 
-},
-800
-);
+    '<div class="discovery-name">' +
+      escapeHtml(firstName) +
+    '</div>' +
 
-}
+    '<div class="discovery-meta">' +
+      (
+        profile.age
+        ? escapeHtml(String(profile.age)) + " • "
+        : ""
+      ) +
+      escapeHtml(location) +
+    '</div>' +
 
-} catch(error) {
+    '<div class="compatibility-score">' +
+      escapeHtml(
+        String(
+          compatibility.score
+        )
+      ) +
+      '% compatible' +
+    '</div>' +
 
-message.textContent =
-"Connection error: " +
-error.message;
+  '</div>' +
 
-}
+  '<div class="discovery-body">' +
 
-}
+    '<div class="detail">' +
+      '<strong>Personality</strong>' +
+      '<span>' +
+        escapeHtml(personality) +
+      '</span>' +
+    '</div>' +
 
+    '<div class="detail">' +
+      '<strong>Interests</strong>' +
+      '<span>' +
+        escapeHtml(interests) +
+      '</span>' +
+    '</div>' +
 
-/* ================================================= */
-/* ================= PROFILE ======================== */
-/* ================================================= */
+    '<div class="detail">' +
+      '<strong>Values</strong>' +
+      '<span>' +
+        escapeHtml(values) +
+      '</span>' +
+    '</div>' +
 
-async function finishProfile() {
+    '<div class="detail">' +
+      '<strong>Lifestyle</strong>' +
+      '<span>' +
+        escapeHtml(lifestyle) +
+      '</span>' +
+    '</div>' +
 
-const name =
-document.getElementById(
-"nameInput"
-).value.trim();
+    '<div class="detail">' +
+      '<strong>Looking for</strong>' +
+      '<span>' +
+        escapeHtml(
+          profile.looking_for ||
+          "Not specified"
+        ) +
+      '</span>' +
+    '</div>' +
 
-const age =
-document.getElementById(
-"ageInput"
-).value;
+    '<div class="reason-box">' +
+      '<strong>Why Pairly showed them:</strong><br>' +
+      compatibility.reasons
+      .map(function(reason){
 
-const gender =
-document.getElementById(
-"genderInput"
-).value;
+        return escapeHtml(reason);
 
-const interests =
-document.getElementById(
-"interestsInput"
-).value.trim();
+      })
+      .join(" ") +
+    '</div>' +
 
-const lookingFor =
-document.getElementById(
-"lookingForInput"
-).value;
+  '</div>' +
 
-const personality =
-getPersonality();
+  '<div class="card-actions">' +
 
-const values =
-getCheckedValues(
-"values"
-);
+    '<button class="pass-btn">' +
+      'Pass' +
+    '</button>' +
 
-const lifestyle =
-getCheckedValues(
-"lifestyle"
-);
+    '<button class="like-btn">' +
+      '❤️ Like' +
+    '</button>' +
 
-const message =
-document.getElementById(
-"profileMessage"
-);
+  '</div>';
 
-message.textContent =
-"";
+  const buttons =
+  card.querySelectorAll("button");
 
-const countryInput =
-document.getElementById(
-"profileCountryInput"
-);
+  buttons[0].addEventListener(
+    "click",
+    function(){
 
-const cityInput =
-document.getElementById(
-"profileCityInput"
-);
+      passProfile(
+        profile.id,
+        card
+      );
 
-const country =
-selectedCountry ||
-countryInput.value.trim();
-
-const city =
-selectedCity ||
-cityInput.value.trim();
-
-const location =
-city &&
-country
-?
-city +
-", " +
-country
-:
-"";
-
-
-/* VALIDATION */
-
-if(
-!name ||
-!age ||
-!gender ||
-!country ||
-!city ||
-!interests ||
-!lookingFor ||
-!personality
-) {
-
-message.textContent =
-"Please complete all the fields.";
-
-return;
+    }
+  );
 
-}
+  buttons[1].addEventListener(
+    "click",
+    function(){
 
-if(
-values.length < 2
-) {
+      likeProfile(
+        profile.id,
+        profile.name,
+        card
+      );
 
-message.textContent =
-"Please choose at least 2 values.";
+    }
+  );
 
-return;
+  grid.appendChild(card);
 
 }
-
-if(
-values.length > 4
-) {
-
-message.textContent =
-"Please choose no more than 4 values.";
-
-return;
 
-}
 
-if(
-lifestyle.length < 2
-) {
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
-message.textContent =
-"Please choose at least 2 lifestyle choices.";
+function escapeHtml(value){
 
-return;
+  return String(value)
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
 
 }
-
-if(
-lifestyle.length > 4
-) {
-
-message.textContent =
-"Please choose no more than 4 lifestyle choices.";
-
-return;
 
-}
 
-if(
-Number(age) < 18
-) {
+/* =====================================================
+   PASS
+===================================================== */
 
-message.textContent =
-"You must be 18 or older to use Pairly.";
+function passProfile(
+  profileId,
+  card
+){
 
-return;
+  const key =
+  "pairlyPassed";
 
-}
+  const passed =
+  JSON.parse(
+    localStorage.getItem(key) ||
+    "[]"
+  );
 
-message.textContent =
-"Saving your profile...";
+  if(!passed.includes(profileId)){
 
-try {
+    passed.push(profileId);
 
-const {
-data:{user}
-} =
-await pairlyClient.auth.getUser();
+  }
 
-if(!user) {
+  localStorage.setItem(
+    key,
+    JSON.stringify(passed)
+  );
 
-message.textContent =
-"Please log in again.";
+  card.remove();
 
-return;
+  checkExploreEmpty();
 
 }
 
 
-/* COMPATIBILITY PROFILE */
+/* =====================================================
+   LIKE
+===================================================== */
 
-const compatibilityProfile = {
+async function likeProfile(
+  profileId,
+  profileName,
+  card
+){
 
-personality:
-personality,
+  if(!currentUser){
 
-values:
-values,
+    alert(
+      "Please log in again."
+    );
 
-lifestyle:
-lifestyle
+    return;
 
-};
+  }
 
+  const button =
+  card.querySelector(
+    ".like-btn"
+  );
 
-/* SAVE PROFILE */
+  if(button){
 
-const {
-error:profileError
-} =
-await pairlyClient
-.from("profiles")
-.upsert({
+    button.disabled = true;
 
-id:user.id,
+    button.textContent =
+    "Liking...";
 
-name:name,
+  }
 
-age:Number(age),
+  try{
 
-gender:gender,
+    const {
+      error
+    } =
+    await pairlyClient
+    .from("likes")
+    .upsert(
+      {
+        user_id:currentUser.id,
 
-location:location,
+        liked_user_id:profileId
 
-interests:interests,
+      },
+      {
+        onConflict:
+        "user_id,liked_user_id"
+      }
+    );
 
-looking_for:lookingFor,
+    if(error){
 
-compatibility_profile:
-compatibilityProfile
+      console.error(error);
 
-});
+      if(button){
 
-if(profileError) {
+        button.disabled = false;
 
-message.textContent =
-"Error saving profile: " +
-profileError.message;
+        button.textContent =
+        "❤️ Like";
 
-return;
-
-}
+      }
 
+      alert(
+        "Unable to like this profile."
+      );
 
-/* PHOTO */
+      return;
 
-const photoInput =
-document.getElementById(
-"profilePhotoInput"
-);
+    }
 
-const photoFile =
-photoInput &&
-photoInput.files[0];
+    const {
+      data:mutualLike
+    } =
+    await pairlyClient
+    .from("likes")
+    .select("id")
+    .eq(
+      "user_id",
+      profileId
+    )
+    .eq(
+      "liked_user_id",
+      currentUser.id
+    )
+    .maybeSingle();
 
-let photoUrl =
-"";
+    if(mutualLike){
 
-const existingProfile =
-localStorage.getItem(
-"pairlyProfile"
-);
+      showMatchPopup(
+        profileName
+      );
 
-if(existingProfile) {
+    }
+    else{
 
-try {
+      if(button){
 
-const oldProfile =
-JSON.parse(
-existingProfile
-);
+        button.textContent =
+        "Liked ✓";
 
-photoUrl =
-oldProfile.profile_photo ||
-"";
+        button.style.background =
+        "#2f9e5b";
 
-} catch(error) {
+      }
 
-photoUrl =
-"";
+    }
 
-}
+  }
+  catch(error){
 
-}
+    console.error(error);
 
-if(photoFile) {
+    if(button){
 
-if(
-photoFile.size >
-5 * 1024 * 1024
-) {
+      button.disabled = false;
 
-message.textContent =
-"Please choose an image smaller than 5MB.";
+      button.textContent =
+      "❤️ Like";
 
-return;
+    }
 
-}
+  }
 
-message.textContent =
-"Uploading your profile picture...";
-
-const fileExtension =
-photoFile.name
-.split(".")
-.pop();
-
-const filePath =
-user.id +
-"/profile." +
-fileExtension;
-
-const {
-error:uploadError
-} =
-await pairlyClient.storage
-.from("profile-photos")
-.upload(
-filePath,
-photoFile,
-{
-upsert:true,
-contentType:photoFile.type
 }
-);
-
-if(uploadError) {
 
-message.textContent =
-"Profile saved, but photo upload failed: " +
-uploadError.message;
 
-return;
-
-}
-
-const {
-data:publicUrlData
-} =
-pairlyClient.storage
-.from("profile-photos")
-.getPublicUrl(
-filePath
-);
+/* =====================================================
+   MATCH POPUP
+===================================================== */
 
-photoUrl =
-publicUrlData.publicUrl;
-
-const {
-error:photoError
-} =
-await pairlyClient
-.from("profiles")
-.update({
-profile_photo:photoUrl
-})
-.eq(
-"id",
-user.id
-);
+function showMatchPopup(
+  name
+){
 
-if(photoError) {
+  const overlay =
+  document.getElementById(
+    "matchOverlay"
+  );
 
-message.textContent =
-"Profile saved, but photo could not be saved.";
+  const text =
+  document.getElementById(
+    "matchText"
+  );
 
-return;
+  text.textContent =
+  "You and " +
+  (name || "this person") +
+  " both liked each other.";
 
-}
+  overlay.style.display =
+  "flex";
 
 }
-
-
-/* LOCAL PROFILE */
-
-const profile = {
-
-id:user.id,
-
-name:name,
-
-age:Number(age),
 
-gender:gender,
 
-location:location,
+function closeMatchPopup(){
 
-interests:interests,
+  document.getElementById(
+    "matchOverlay"
+  ).style.display =
+  "none";
 
-looking_for:lookingFor,
-
-compatibility_profile:
-compatibilityProfile,
-
-profile_photo:photoUrl
-
-};
-
-localStorage.setItem(
-"pairlyProfile",
-JSON.stringify(profile)
-);
-
-message.textContent =
-"Profile saved successfully! 🎉";
-
-setTimeout(
-function(){
-
-showWelcome(
-name
-);
-
-},
-800
-);
-
-} catch(error) {
-
-message.textContent =
-"Connection error: " +
-error.message;
-
-}
-
 }
 
 
-/* ================================================= */
-/* ================= MATCHING EXPERIENCE ============ */
-/* ================================================= */
+/* =====================================================
+   EMPTY EXPLORE CHECK
+===================================================== */
 
-function startMatchingExperience() {
+function checkExploreEmpty(){
 
-document.getElementById(
-"homePage"
-).style.display =
-"none";
+  const grid =
+  document.getElementById(
+    "discoveryGrid"
+  );
 
-document.getElementById(
-"signupPage"
-).classList.remove(
-"active"
-);
-
-document.getElementById(
-"loginPage"
-).classList.remove(
-"active"
-);
-
-document.getElementById(
-"profilePage"
-).classList.remove(
-"active"
-);
-
-document.getElementById(
-"welcomePage"
-).classList.remove(
-"active"
-);
-
-document.getElementById(
-"explorePage"
-).classList.remove(
-"active"
-);
-
-const matchingPage =
-document.getElementById(
-"matchingPage"
-);
-
-if(matchingPage) {
+  if(
+    grid &&
+    grid.children.length === 0
+  ){
 
-matchingPage.style.display =
-"flex";
+    const status =
+    document.getElementById(
+      "exploreStatus"
+    );
 
-}
-
-setTimeout(
-function(){
+    status.style.display =
+    "block";
 
-matchingPage.style.display =
-"none";
+    status.innerHTML =
+    '<div class="empty-state">' +
+    '<h2>You\'re all caught up</h2>' +
+    '<p>Check back later for more people on Pairly.</p>' +
+    '</div>';
 
-showSignup();
-
-},
-3000
-);
+  }
 
 }
 
 
-function startJoinExperience() {
+/* =====================================================
+   APPLE LOGIN PLACEHOLDER
+===================================================== */
 
-document.getElementById(
-"homePage"
-).style.display =
-"none";
+async function appleLogin(){
 
-const matchingPage =
-document.getElementById(
-"matchingPage"
-);
-
-if(matchingPage) {
+  alert(
+    "Apple login is not connected yet."
+  );
 
-matchingPage.style.display =
-"flex";
-
 }
-
-setTimeout(
-function(){
 
-matchingPage.style.display =
-"none";
 
-showSignup();
+/* =====================================================
+   LOGOUT
+===================================================== */
 
-},
-3000
-);
+async function logout(){
 
-}
+  try{
 
+    await pairlyClient.auth.signOut();
 
-/* ================================================= */
-/* ================= LOG OUT ======================== */
-/* ================================================= */
+  }
+  catch(error){
 
-function logoutPairly() {
+    console.error(error);
 
-pairlyClient.auth
-.signOut()
-.then(function({error}){
+  }
 
-if(error) {
+  currentUser = null;
 
-console.log(
-"Logout error:",
-error.message
-);
+  currentProfile = null;
 
-alert(
-"Logout failed: " +
-error.message
-);
+  localStorage.removeItem(
+    "pairlyProfile"
+  );
 
-return;
+  showHome();
 
 }
-
-localStorage.removeItem(
-"pairlyProfile"
-);
-
-showHome();
-
-})
-.catch(function(error){
-
-console.log(
-"Logout error:",
-error
-);
-
-alert(
-"Logout failed. Please try again."
-);
 
-});
 
-}
+/* =====================================================
+   AUTH SESSION CHECK
+===================================================== */
 
+async function initialisePairly(){
 
-/* ================================================= */
-/* ================= CHECK LOGIN ==================== */
-/* ================================================= */
+  try{
 
-async function checkExistingUser() {
+    const {
+      data
+    } =
+    await pairlyClient.auth.getSession();
 
-try {
+    if(
+      data &&
+      data.session &&
+      data.session.user
+    ){
 
-const {
-data:{session}
-} =
-await pairlyClient.auth.getSession();
+      currentUser =
+      data.session.user;
 
-if(!session) {
+      await checkExistingUser();
 
-showHome();
+      return;
 
-return;
+    }
 
-}
+  }
+  catch(error){
 
-const {
-data:profile,
-error:profileError
-} =
-await pairlyClient
-.from("profiles")
-.select("*")
-.eq(
-"id",
-session.user.id
-)
-.maybeSingle();
-
-if(profileError) {
-
-console.log(
-"Profile check:",
-profileError.message
-);
+    console.error(
+      "Session check error:",
+      error
+    );
 
-showProfile();
+  }
 
-return;
+  showHome();
 
 }
 
-if(profile) {
 
-localStorage.setItem(
-"pairlyProfile",
-JSON.stringify(profile)
-);
+/* =====================================================
+   AUTH STATE CHANGES
+===================================================== */
 
-const compatibility =
-parseCompatibilityProfile(
-profile
-);
+pairlyClient.auth.onAuthStateChange(
+  function(event,session){
 
-if(
-compatibility.personality &&
-compatibility.values.length >= 2 &&
-compatibility.lifestyle.length >= 2
-) {
-
-showWelcome(
-profile.name
-);
+    if(
+      session &&
+      session.user
+    ){
 
-} else {
+      currentUser =
+      session.user;
 
-/*
-Existing users who created profiles
-before the compatibility system will
-be asked to complete the new questions.
-*/
+    }
 
-populateProfileForm(
-profile
+  }
 );
 
-showProfile();
-
-}
 
-} else {
+/* =====================================================
+   START
+===================================================== */
 
-showProfile();
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
 
-}
+    populateCountries();
 
-} catch(error) {
+    initialisePairly();
 
-console.log(
-"Session check:",
-error.message
+  }
 );
-
-showHome();
-
-}
-
-}
-
-
-/* ================= START APP ================= */
-
-checkExistingUser();
 
 </script>
 
