@@ -2292,138 +2292,100 @@ async function uploadProfilePhoto(event) {
 
     async function finishProfile() {
 
-      const name =
-        document.getElementById("nameInput").value.trim();
+  const name =
+    document.getElementById("nameInput").value.trim();
 
-      const age =
-        document.getElementById("ageInput").value;
+  const age =
+    document.getElementById("ageInput").value;
 
-      const gender =
-        document.getElementById("genderInput").value;
+  const gender =
+    document.getElementById("genderInput").value;
 
-      const interests =
-        document.getElementById("interestsInput").value.trim();
+  const interests =
+    document.getElementById("interestsInput").value.trim();
 
-      const lookingFor =
-        document.getElementById("lookingForInput").value;
+  const lookingFor =
+    document.getElementById("lookingForInput").value;
 
-      const message =
-        document.getElementById("profileMessage");
+  const message =
+    document.getElementById("profileMessage");
 
+  message.textContent = "";
 
-      message.textContent = "";
+  /* GET LOCATION */
 
+  const countryInput =
+    document.getElementById("profileCountryInput");
 
-      /* GET LOCATION */
+  const cityInput =
+    document.getElementById("profileCityInput");
 
-      const countryInput =
-        document.getElementById("profileCountryInput");
+  const country =
+    selectedCountry ||
+    countryInput.value.trim();
 
-      const cityInput =
-        document.getElementById("profileCityInput");
+  const city =
+    selectedCity ||
+    cityInput.value.trim();
 
+  const location =
+    city && country
+      ? city + ", " + country
+      : "";
 
-      const country =
-        selectedCountry ||
-        countryInput.value.trim();
+  if (
+    !name ||
+    !age ||
+    !gender ||
+    !country ||
+    !city ||
+    !interests ||
+    !lookingFor
+  ) {
 
-      const city =
-        selectedCity ||
-        cityInput.value.trim();
+    message.textContent =
+      "Please complete all the fields.";
 
+    return;
 
-      const location =
-        city && country
-          ? city + ", " + country
-          : "";
+  }
 
+  if (Number(age) < 18) {
 
-      if (
-        !name ||
-        !age ||
-        !gender ||
-        !country ||
-        !city ||
-        !interests ||
-        !lookingFor
-      ) {
+    message.textContent =
+      "You must be 18 or older to use Pairly.";
 
-        message.textContent =
-          "Please complete all the fields.";
+    return;
 
-        return;
+  }
 
-      }
+  message.textContent =
+    "Saving your profile...";
 
+  try {
 
-      if (Number(age) < 18) {
+    const {
+      data: { user }
+    } =
+      await pairlyClient.auth.getUser();
 
-        message.textContent =
-          "You must be 18 or older to use Pairly.";
-
-        return;
-
-      }
-
+    if (!user) {
 
       message.textContent =
-        "Saving your profile...";
+        "Please log in again.";
 
+      return;
 
-      try {
+    }
 
-        const {
-          data: { user }
-        } =
-          await pairlyClient.auth.getUser();
+    /* SAVE PROFILE */
 
-
-        if (!user) {
-
-          message.textContent =
-            "Please log in again.";
-
-          return;
-
-        }
-
-
-        const {
-          error
-        } =
-          await pairlyClient
-            .from("profiles")
-            .upsert({
-
-              id: user.id,
-
-              name: name,
-
-              age: Number(age),
-
-              gender: gender,
-
-              location: location,
-
-              interests: interests,
-
-              looking_for: lookingFor
-
-            });
-
-
-        if (error) {
-
-          message.textContent =
-            "Error saving profile: " +
-            error.message;
-
-          return;
-
-        }
-
-
-        const profile = {
+    const {
+      error: profileError
+    } =
+      await pairlyClient
+        .from("profiles")
+        .upsert({
 
           id: user.id,
 
@@ -2439,35 +2401,144 @@ async function uploadProfilePhoto(event) {
 
           looking_for: lookingFor
 
-        };
+        });
 
+    if (profileError) {
 
-        localStorage.setItem(
-          "pairlyProfile",
-          JSON.stringify(profile)
-        );
+      message.textContent =
+        "Error saving profile: " +
+        profileError.message;
 
+      return;
+
+    }
+
+    /* UPLOAD PROFILE PHOTO */
+
+    const photoInput =
+      document.getElementById("profilePhotoInput");
+
+    const photoFile =
+      photoInput &&
+      photoInput.files[0];
+
+    let photoUrl = "";
+
+    if (photoFile) {
+
+      message.textContent =
+        "Uploading your profile picture...";
+
+      const fileExtension =
+        photoFile.name.split(".").pop();
+
+      const filePath =
+        user.id +
+        "/profile." +
+        fileExtension;
+
+      const {
+        error: uploadError
+      } =
+        await pairlyClient.storage
+          .from("profile-photos")
+          .upload(
+            filePath,
+            photoFile,
+            {
+              upsert: true,
+              contentType: photoFile.type
+            }
+          );
+
+      if (uploadError) {
 
         message.textContent =
-          "Profile saved successfully! 🎉";
+          "Profile saved, but photo upload failed: " +
+          uploadError.message;
 
+        return;
 
-        setTimeout(function() {
+      }
 
-          showWelcome(name);
+      const {
+        data: publicUrlData
+      } =
+        pairlyClient.storage
+          .from("profile-photos")
+          .getPublicUrl(filePath);
 
-        }, 800);
+      photoUrl =
+        publicUrlData.publicUrl;
 
+      /* SAVE PHOTO URL */
 
-      } catch (error) {
+      const {
+        error: photoError
+      } =
+        await pairlyClient
+          .from("profiles")
+          .update({
+            profile_photo: photoUrl
+          })
+          .eq("id", user.id);
+
+      if (photoError) {
 
         message.textContent =
-          "Connection error: " +
-          error.message;
+          "Profile saved, but photo could not be saved.";
+
+        return;
 
       }
 
     }
+
+    /* SAVE PROFILE LOCALLY */
+
+    const profile = {
+
+      id: user.id,
+
+      name: name,
+
+      age: Number(age),
+
+      gender: gender,
+
+      location: location,
+
+      interests: interests,
+
+      looking_for: lookingFor,
+
+      profile_photo: photoUrl
+
+    };
+
+    localStorage.setItem(
+      "pairlyProfile",
+      JSON.stringify(profile)
+    );
+
+    message.textContent =
+      "Profile saved successfully! 🎉";
+
+    setTimeout(function() {
+
+      showWelcome(name);
+
+    }, 800);
+
+  } catch (error) {
+
+    message.textContent =
+      "Connection error: " +
+      error.message;
+
+  }
+
+}
 /* ================= MATCHING EXPERIENCE ================= */
 
 function startMatchingExperience() {
