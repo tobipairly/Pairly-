@@ -1396,19 +1396,49 @@
     }
 
 
-    function showWelcome(name) {
+   function showWelcome(name) {
 
-      hideAllPages();
+  hideAllPages();
 
-      document.getElementById("welcomePage").classList.add("active");
+  document
+    .getElementById("welcomePage")
+    .classList.add("active");
 
-      document.getElementById("welcomeText").textContent =
-        "You're all set, " + name +
-        ". Your Pairly journey starts here. 💕";
+  document.getElementById("welcomeText").textContent =
+    "You're all set, " + name +
+    ". Your Pairly journey starts here. 💕";
 
-      window.scrollTo(0, 0);
+  /* LOAD PROFILE PHOTO */
+
+  const photoPreview =
+    document.getElementById("welcomePhotoPreview");
+
+  if (photoPreview) {
+
+    const savedProfile =
+      localStorage.getItem("pairlyProfile");
+
+    if (savedProfile) {
+
+      const profile =
+        JSON.parse(savedProfile);
+
+      if (profile.profile_photo) {
+
+        photoPreview.innerHTML =
+          '<img src="' +
+          profile.profile_photo +
+          '" alt="Profile photo">';
+
+      }
 
     }
+
+  }
+
+  window.scrollTo(0, 0);
+
+}
 
 
     function showWelcomeFromStorage() {
