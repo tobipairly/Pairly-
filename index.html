@@ -2894,162 +2894,90 @@ async function finishProfile(){
 
   if(!currentUser){
 
-    const {
-      data
-    } =
-    await pairlyClient.auth.getUser();
+    const { data } =
+      await pairlyClient.auth.getUser();
 
-    currentUser =
-    data.user;
+    currentUser = data.user;
   }
 
   if(!currentUser){
 
     showLogin();
-
     return;
   }
 
   const name =
-  document.getElementById(
-    "profileName"
-  ).value.trim();
+    document.getElementById("profileName").value.trim();
 
   const age =
-  document.getElementById(
-    "profileAge"
-  ).value;
+    document.getElementById("profileAge").value;
 
   const gender =
-  document.getElementById(
-    "profileGender"
-  ).value;
+    document.getElementById("profileGender").value;
 
   const country =
-  document.getElementById(
-    "profileCountry"
-  ).value;
+    document.getElementById("profileCountry").value;
 
   const city =
-  document.getElementById(
-    "profileCity"
-  ).value;
+    document.getElementById("profileCity").value;
 
   const interests =
-  document.getElementById(
-    "profileInterests"
-  ).value.trim();
+    document.getElementById("profileInterests").value.trim();
 
   const lookingFor =
-  document.getElementById(
-    "profileLookingFor"
-  ).value;
+    document.getElementById("profileLookingFor").value;
 
   const personality =
-  getPersonality();
+    getPersonality();
 
   const values =
-  getSelectedCheckboxes("values");
+    getSelectedCheckboxes("values");
 
   const lifestyle =
-  getSelectedCheckboxes("lifestyle");
+    getSelectedCheckboxes("lifestyle");
 
   if(!name){
-
-    showMessage(
-      "profileMessage",
-      "Please enter your name.",
-      "error"
-    );
-
+    showMessage("profileMessage","Please enter your name.","error");
     return;
   }
 
   if(!age || Number(age) < 18){
-
-    showMessage(
-      "profileMessage",
-      "You must be 18 or older to use Pairly.",
-      "error"
-    );
-
+    showMessage("profileMessage","You must be 18 or older to use Pairly.","error");
     return;
   }
 
   if(!gender){
-
-    showMessage(
-      "profileMessage",
-      "Please select your gender.",
-      "error"
-    );
-
+    showMessage("profileMessage","Please select your gender.","error");
     return;
   }
 
   if(!country || !city){
-
-    showMessage(
-      "profileMessage",
-      "Please select your country and city.",
-      "error"
-    );
-
+    showMessage("profileMessage","Please select your country and city.","error");
     return;
   }
 
   if(!interests){
-
-    showMessage(
-      "profileMessage",
-      "Please add at least one interest.",
-      "error"
-    );
-
+    showMessage("profileMessage","Please add at least one interest.","error");
     return;
   }
 
   if(!personality){
-
-    showMessage(
-      "profileMessage",
-      "Please choose your personality.",
-      "error"
-    );
-
+    showMessage("profileMessage","Please choose your personality.","error");
     return;
   }
 
   if(values.length === 0){
-
-    showMessage(
-      "profileMessage",
-      "Please choose at least one value.",
-      "error"
-    );
-
+    showMessage("profileMessage","Please choose at least one value.","error");
     return;
   }
 
   if(lifestyle.length === 0){
-
-    showMessage(
-      "profileMessage",
-      "Please choose at least one lifestyle option.",
-      "error"
-    );
-
+    showMessage("profileMessage","Please choose at least one lifestyle option.","error");
     return;
   }
 
   if(!lookingFor){
-
-    showMessage(
-      "profileMessage",
-      "Please choose what you're looking for.",
-      "error"
-    );
-
+    showMessage("profileMessage","Please choose what you're looking for.","error");
     return;
   }
 
@@ -3059,88 +2987,67 @@ async function finishProfile(){
     "success"
   );
 
-  const oldProfile =
-  currentProfile || {};
-
-  const compatibilityProfile = {
-
-    personality:personality,
-
-    values:values,
-
-    lifestyle:lifestyle
-
-  };
+  const oldProfile = currentProfile || {};
 
   const profileData = {
 
-    id:currentUser.id,
+    id: currentUser.id,
 
-    name:name,
+    name: name,
 
-    age:Number(age),
+    age: Number(age),
 
-    gender:gender,
+    gender: gender,
 
-    country:country,
+    country: country,
 
-    city:city,
+    city: city,
 
-    interests:interests,
+    interests: interests,
 
-    looking_for:lookingFor,
+    looking_for: lookingFor,
 
-    compatibility_profile:
-    compatibilityProfile,
+    compatibility_profile: {
+      personality: personality,
+      values: values,
+      lifestyle: lifestyle
+    },
 
     profile_photo:
-    oldProfile.profile_photo ||
-    null
-
+      oldProfile.profile_photo || null
   };
 
   try{
 
-    const {
-      data,
-      error
-    } =
-    await pairlyClient
-    .from("profiles")
-    .upsert(
-      profileData,
-      {
-        onConflict:"id"
-      }
-    )
-    .select()
-    .single();
+    const { error } =
+      await pairlyClient
+        .from("profiles")
+        .upsert(profileData, {
+          onConflict: "id"
+        });
 
     if(error){
 
-      console.error(error);
+      console.error("SAVE PROFILE ERROR:", error);
 
       showMessage(
         "profileMessage",
-        error.message,
+        "Could not save profile: " + error.message,
         "error"
       );
 
       return;
     }
 
-    currentProfile =
-    data;
+    currentProfile = profileData;
 
     localStorage.setItem(
       "pairlyProfile",
-      JSON.stringify(data)
+      JSON.stringify(profileData)
     );
 
     const fileInput =
-    document.getElementById(
-      "profilePhotoInput"
-    );
+      document.getElementById("profilePhotoInput");
 
     if(
       fileInput &&
@@ -3148,31 +3055,24 @@ async function finishProfile(){
       fileInput.files[0]
     ){
 
-      await uploadProfilePhoto(
-        {
-          target:fileInput
-        }
-      );
+      await uploadProfilePhoto({
+        target: fileInput
+      });
 
-      const {
-        data:updatedProfile
-      } =
-      await pairlyClient
-      .from("profiles")
-      .select("*")
-      .eq("id",currentUser.id)
-      .single();
+      const { data: savedProfile } =
+        await pairlyClient
+          .from("profiles")
+          .select("*")
+          .eq("id", currentUser.id)
+          .maybeSingle();
 
-      if(updatedProfile){
+      if(savedProfile){
 
-        currentProfile =
-        updatedProfile;
+        currentProfile = savedProfile;
 
         localStorage.setItem(
           "pairlyProfile",
-          JSON.stringify(
-            updatedProfile
-          )
+          JSON.stringify(savedProfile)
         );
 
       }
@@ -3184,11 +3084,11 @@ async function finishProfile(){
   }
   catch(error){
 
-    console.error(error);
+    console.error("PROFILE SAVE ERROR:", error);
 
     showMessage(
       "profileMessage",
-      "Something went wrong while saving your profile.",
+      "Something went wrong: " + error.message,
       "error"
     );
 
