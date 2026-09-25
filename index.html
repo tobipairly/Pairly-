@@ -477,36 +477,38 @@ footer {
 
 /* ================= EXPLORE ================= */
 
+/* ================= EXPLORE ================= */
+
 .explore-box {
-  max-width: 500px;
-  padding: 28px 20px;
+  max-width: 520px;
 }
 
 .explore-header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .explore-header h2 {
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 }
 
 .explore-header p {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 
-.discovery-card {
+.profile-discovery-card {
   background: white;
-  border-radius: 25px;
+  border-radius: 28px;
   overflow: hidden;
-  border: 1px solid #f0dce6;
-  box-shadow: 0 12px 35px rgba(36,23,33,0.08);
+  border: 1px solid #f1dce6;
+  box-shadow: 0 15px 40px rgba(36,23,33,0.10);
+  margin-top: 20px;
 }
 
 .discovery-photo {
   width: 100%;
-  height: 390px;
-  background: linear-gradient(135deg,#fff0f6,#f7efff);
+  height: 360px;
+  background: linear-gradient(135deg, #fff0f6, #f7efff);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -519,101 +521,76 @@ footer {
   object-fit: cover;
 }
 
-.photo-placeholder {
-  font-size: 80px;
-}
-
-.discovery-content {
-  padding: 22px;
-}
-
-.discovery-name-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.discovery-name {
-  font-size: 27px;
-  font-weight: bold;
-}
-
-.compatibility {
-  background: #ffe0eb;
-  color: #e94f87;
-  padding: 8px 11px;
-  border-radius: 18px;
-  font-weight: bold;
-  font-size: 13px;
-  white-space: nowrap;
+.discovery-placeholder {
+  font-size: 70px;
 }
 
 .discovery-info {
-  color: #6d5b68;
-  margin-top: 7px;
+  padding: 22px;
 }
 
-.discovery-location {
+.discovery-name {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.discovery-basic {
   color: #6d5b68;
+  margin-bottom: 12px;
+}
+
+.compatibility-box {
+  background: #fff0f6;
+  border-radius: 16px;
+  padding: 13px 15px;
+  margin: 15px 0;
+}
+
+.compatibility-title {
+  color: #e94f87;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.compatibility-score {
+  font-size: 25px;
+  font-weight: 800;
+  color: #241721;
+}
+
+.compatibility-reason {
+  color: #6d5b68;
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+.discovery-details {
+  color: #6d5b68;
+  line-height: 1.6;
   margin-top: 10px;
 }
 
-.discovery-section {
-  margin-top: 17px;
-}
-
-.discovery-label {
-  font-size: 12px;
-  color: #8b7884;
-  text-transform: uppercase;
-  font-weight: bold;
-  margin-bottom: 7px;
-}
-
-.interest-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
-.interest-chip {
-  background: #f7efff;
-  color: #66506d;
-  padding: 7px 10px;
-  border-radius: 15px;
-  font-size: 12px;
-}
-
-.looking-chip {
+.discovery-tag {
   display: inline-block;
-  background: #fff0f6;
+  background: #ffe0eb;
   color: #e94f87;
-  padding: 8px 12px;
+  padding: 7px 11px;
   border-radius: 16px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
-}
-
-.compatibility-note {
-  margin-top: 16px;
-  padding: 12px;
-  background: #fff7fb;
-  border-radius: 14px;
-  color: #6d5b68;
-  font-size: 13px;
-  line-height: 1.5;
+  margin-top: 12px;
 }
 
 .discovery-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-  padding: 18px 22px 22px;
+  padding: 0 22px 22px;
 }
 
-.pass-btn,
-.like-btn {
+.discovery-action {
   padding: 14px;
   border-radius: 25px;
   font-size: 16px;
@@ -621,8 +598,8 @@ footer {
 }
 
 .pass-btn {
-  background: #f2edf0;
-  color: #625660;
+  background: #f3edf1;
+  color: #6d5b68;
 }
 
 .like-btn {
@@ -630,67 +607,53 @@ footer {
   color: white;
 }
 
-.explore-counter {
+.discovery-counter {
   text-align: center;
-  margin: 14px 0;
   color: #8a7783;
   font-size: 13px;
+  margin-top: 14px;
 }
 
-.empty-explore {
+.pairly-match {
   text-align: center;
-  padding: 35px 15px;
-  color: #6d5b68;
-  line-height: 1.6;
-}
-
-.match-success {
-  text-align: center;
+  background: linear-gradient(135deg, #fff0f6, #f7efff);
+  border-radius: 24px;
   padding: 30px 20px;
+  margin-top: 20px;
 }
 
-.match-success-icon {
-  font-size: 70px;
+.pairly-match-icon {
+  font-size: 60px;
   margin-bottom: 12px;
-  animation: heartPulse 1.4s infinite;
 }
 
-.match-success h2 {
-  color: #e94f87;
-  margin-bottom: 10px;
+.pairly-match h3 {
+  font-size: 26px;
+  margin-bottom: 8px;
 }
 
-.match-success p {
+.pairly-match p {
   color: #6d5b68;
   line-height: 1.6;
-  margin-bottom: 20px;
 }
 
-@media (max-width:700px) {
+.explore-loading {
+  text-align: center;
+  padding: 30px 0;
+  color: #6d5b68;
+}
 
-  .hero h1 {
-    font-size: 38px;
-  }
-
-  .steps,
-  .plans {
-    grid-template-columns: 1fr;
-  }
-
-  section {
-    padding: 55px 6%;
-  }
+@media (max-width: 600px) {
 
   .discovery-photo {
-    height: 350px;
+    height: 330px;
+  }
+
+  .discovery-name {
+    font-size: 25px;
   }
 
 }
-
-</style>
-</head>
-
-<body>
 
 <!-- ================= HOME ================= -->
 
