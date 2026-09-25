@@ -836,7 +836,29 @@
         Tell us a little about yourself so Pairly can understand
         what kind of connection may suit you.
       </p>
+<div class="profile-photo-section">
 
+  <div class="profile-photo-preview" id="profilePhotoPreview">
+    <span>📷</span>
+  </div>
+
+  <label for="profilePhotoInput" class="photo-upload-btn">
+    Add profile picture
+  </label>
+
+  <input
+    type="file"
+    id="profilePhotoInput"
+    accept="image/*"
+    style="display:none;"
+    onchange="previewProfilePhoto(event)"
+  >
+
+  <p class="photo-note">
+    Add a clear photo so people can recognise you.
+  </p>
+
+</div>
       <input
         type="text"
         id="nameInput"
