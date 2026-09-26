@@ -730,7 +730,7 @@ textarea{
   font-weight:700;
 }
 
-  
+
 /* =========================
    MY PROFILE
 ========================= */
@@ -749,8 +749,8 @@ textarea{
 }
 
 .my-profile-hero{
-  background:linear-gradient(180deg,#f2eaff,#ffffff);
-  padding:30px 22px 25px;
+  background:linear-gradient(180deg,#f2eaff 0%,#faf8ff 70%,#ffffff 100%);
+  padding:34px 22px 28px;
   text-align:center;
 }
 
@@ -768,7 +768,7 @@ textarea{
   object-fit:cover;
   display:block;
   border:5px solid white;
-  box-shadow:0 8px 25px rgba(60,20,100,.15);
+  box-shadow:0 10px 30px rgba(60,20,100,.16);
   background:#eee4ff;
 }
 
@@ -778,15 +778,15 @@ textarea{
   margin:0;
   border-radius:50%;
   border:5px solid white;
-  box-shadow:0 8px 25px rgba(60,20,100,.15);
+  box-shadow:0 10px 30px rgba(60,20,100,.16);
 }
 
 .profile-camera-button{
   position:absolute;
-  right:2px;
-  bottom:4px;
-  width:43px;
-  height:43px;
+  right:0;
+  bottom:3px;
+  width:45px;
+  height:45px;
   border-radius:50%;
   border:4px solid white;
   background:#6c2bd9;
@@ -796,23 +796,30 @@ textarea{
   justify-content:center;
   font-size:18px;
   cursor:pointer;
-  box-shadow:0 5px 15px rgba(60,20,100,.2);
+  box-shadow:0 6px 18px rgba(60,20,100,.22);
 }
 
 .my-profile-card h1{
   font-size:30px;
   margin-bottom:7px;
+  line-height:1.2;
 }
 
 .my-profile-basic{
-  color:#666;
+  color:#555;
   font-size:15px;
+  font-weight:600;
 }
 
 .my-profile-location{
   color:#777;
   margin-top:7px;
   font-size:14px;
+}
+
+.profile-photo-label{
+  display:inline-block;
+  margin-top:13px;
 }
 
 .profile-completion{
@@ -859,12 +866,21 @@ textarea{
 }
 
 .my-profile-content{
-  padding:5px 20px 25px;
+  padding:8px 20px 28px;
+}
+
+.profile-section-heading{
+  margin:17px 2px 8px;
+  font-size:13px;
+  font-weight:800;
+  color:#999;
+  text-transform:uppercase;
+  letter-spacing:.6px;
 }
 
 .profile-info-section{
   text-align:left;
-  margin-top:15px;
+  margin-top:10px;
   padding:19px;
   background:#faf8ff;
   border-radius:17px;
@@ -873,7 +889,7 @@ textarea{
 
 .profile-info-section h3{
   font-size:14px;
-  margin-bottom:10px;
+  margin-bottom:11px;
   color:#6c2bd9;
 }
 
@@ -901,6 +917,12 @@ textarea{
   font-weight:600;
 }
 
+.profile-chip.personality{
+  background:#eee4ff;
+  color:#6c2bd9;
+  border-color:#ddd0f6;
+}
+
 .profile-empty{
   color:#999 !important;
 }
@@ -909,27 +931,41 @@ textarea{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
-  margin-top:20px;
+  margin-top:22px;
 }
 
 .profile-buttons button{
   width:100%;
 }
 
-.profile-photo-label{
-  display:inline-block;
-  margin-top:12px;
+.profile-summary{
+  background:#6c2bd9;
+  color:white;
+  padding:19px;
+  border-radius:17px;
+  margin-top:10px;
+}
+
+.profile-summary h3{
+  font-size:14px;
+  margin-bottom:7px;
+}
+
+.profile-summary p{
+  font-size:14px;
+  line-height:1.55;
+  opacity:.94;
 }
 
 @media(max-width:500px){
 
   .profile-container{
     width:94%;
-    margin-top:18px;
+    margin-top:15px;
   }
 
   .my-profile-hero{
-    padding:25px 15px 22px;
+    padding:27px 15px 24px;
   }
 
   .my-profile-photo-wrap,
@@ -939,12 +975,18 @@ textarea{
     height:145px;
   }
 
+  .profile-camera-button{
+    width:43px;
+    height:43px;
+    right:0;
+  }
+
   .my-profile-card h1{
     font-size:26px;
   }
 
   .my-profile-content{
-    padding:5px 15px 20px;
+    padding:7px 15px 22px;
   }
 
   .profile-info-section{
@@ -1251,10 +1293,6 @@ textarea{
   .header-btn{
     padding:9px 11px;
     font-size:13px;
-  }
-
-  .my-profile-card{
-    padding:25px 18px;
   }
 
 }
@@ -1729,21 +1767,23 @@ textarea{
       >
 
     </div>
-<div class="form-group">
 
-  <label>Short bio</label>
+    <div class="form-group">
 
-  <textarea
-    id="profileBio"
-    maxlength="180"
-    placeholder="Tell people a little about you..."
-  ></textarea>
+      <label>Short bio</label>
 
-  <div style="text-align:right;color:#999;font-size:12px;margin-top:5px;">
-    Keep it short — 180 characters max.
-  </div>
+      <textarea
+        id="profileBio"
+        maxlength="180"
+        placeholder="Tell people a little about you..."
+      ></textarea>
 
-</div>
+      <div style="text-align:right;color:#999;font-size:12px;margin-top:5px;">
+        Keep it short — 180 characters max.
+      </div>
+
+    </div>
+
     <div class="compatibility-section">
 
       <h3>What's your personality like?</h3>
@@ -2126,99 +2166,177 @@ textarea{
 
     <div class="my-profile-card">
 
-      <div class="my-profile-photo-wrap">
+      <div class="my-profile-hero">
 
-        <img
-          id="myProfilePhoto"
-          class="my-profile-photo"
-          style="display:none;"
-          alt="Profile photo"
-        >
+        <div class="my-profile-photo-wrap">
 
-        <div
-          id="myProfilePhotoPlaceholder"
-          class="photo-placeholder"
-        >
-          👤
+          <img
+            id="myProfilePhoto"
+            class="my-profile-photo"
+            style="display:none;"
+            alt="Profile photo"
+          >
+
+          <div
+            id="myProfilePhotoPlaceholder"
+            class="photo-placeholder"
+          >
+            👤
+          </div>
+
+          <label
+            class="profile-camera-button"
+            title="Change profile photo"
+          >
+            📷
+
+            <input
+              id="myProfilePhotoInput"
+              class="hidden-file"
+              type="file"
+              accept="image/*"
+              onchange="uploadProfilePhoto(event)"
+            >
+
+          </label>
+
+        </div>
+
+        <h1 id="myProfileName">
+          Your Name
+        </h1>
+
+        <p id="myProfileBasic" class="my-profile-basic">
+          Age • Gender
+        </p>
+
+        <p id="myProfileLocation" class="my-profile-location">
+          📍 Location
+        </p>
+
+        <label class="photo-button profile-photo-label">
+
+          Change photo
+
+          <input
+            id="myProfilePhotoInputSecondary"
+            class="hidden-file"
+            type="file"
+            accept="image/*"
+            onchange="uploadProfilePhoto(event)"
+          >
+
+        </label>
+
+        <div class="profile-completion">
+
+          <div class="profile-completion-top">
+
+            <strong>Profile completion</strong>
+
+            <span
+              id="profileCompletionPercent"
+              class="profile-completion-percent"
+            >
+              0%
+            </span>
+
+          </div>
+
+          <div class="profile-progress">
+
+            <div
+              id="profileProgressBar"
+              class="profile-progress-bar"
+            ></div>
+
+          </div>
+
         </div>
 
       </div>
 
-      <label class="photo-button" style="margin-bottom:18px;">
+      <div class="my-profile-content">
 
-        Change photo
+        <div class="profile-section-heading">
+          About you
+        </div>
 
-        <input
-          id="myProfilePhotoInput"
-          class="hidden-file"
-          type="file"
-          accept="image/*"
-          onchange="uploadProfilePhoto(event)"
-        >
+        <div class="profile-info-section">
 
-      </label>
+          <h3>Interests</h3>
 
-      <h1 id="myProfileName">
-        Your Name
-      </h1>
+          <div
+            id="myProfileInterests"
+            class="profile-chips"
+          ></div>
 
-      <p id="myProfileBasic" class="my-profile-basic">
-        Age • Gender
-      </p>
+        </div>
 
-      <p id="myProfileLocation" class="my-profile-location">
-        📍 Location
-      </p>
+        <div class="profile-info-section">
 
-      <div class="profile-info-section">
+          <h3>Personality</h3>
 
-        <h3>Interests</h3>
+          <div
+            id="myProfilePersonality"
+            class="profile-chips"
+          ></div>
 
-        <p id="myProfileInterests">—</p>
+        </div>
 
-      </div>
+        <div class="profile-info-section">
 
-      <div class="profile-info-section">
+          <h3>Values</h3>
 
-        <h3>Personality</h3>
+          <div
+            id="myProfileValues"
+            class="profile-chips"
+          ></div>
 
-        <p id="myProfilePersonality">—</p>
+        </div>
 
-      </div>
+        <div class="profile-info-section">
 
-      <div class="profile-info-section">
+          <h3>Lifestyle</h3>
 
-        <h3>Values</h3>
+          <div
+            id="myProfileLifestyle"
+            class="profile-chips"
+          ></div>
 
-        <p id="myProfileValues">—</p>
+        </div>
 
-      </div>
+        <div class="profile-section-heading">
+          Connection
+        </div>
 
-      <div class="profile-info-section">
+        <div class="profile-summary">
 
-        <h3>Lifestyle</h3>
+          <h3>What you're looking for</h3>
 
-        <p id="myProfileLifestyle">—</p>
+          <p id="myProfileLookingFor">
+            Not specified
+          </p>
 
-      </div>
+        </div>
 
-      <div class="profile-info-section">
+        <div class="profile-buttons">
 
-        <h3>Looking for</h3>
+          <button
+            class="primary-btn"
+            onclick="editMyProfile()"
+          >
+            ✏️ Edit Profile
+          </button>
 
-        <p id="myProfileLookingFor">—</p>
+          <button
+            class="secondary-btn"
+            onclick="showSettings()"
+          >
+            ⚙️ Settings
+          </button>
 
-      </div>
-
-      <div class="profile-buttons">
-
-        <button class="primary-btn" onclick="editMyProfile()">
-          Edit Profile
-        </button>
-
-        <button class="secondary-btn" onclick="showSettings()">
-          ⚙️ Settings
-        </button>
+        </div>
 
       </div>
 
@@ -2663,30 +2781,39 @@ async function signUp(){
   document.getElementById("signupPhone").value.trim();
 
   if(!email){
+
     showMessage(
       "signupMessage",
       "Please enter your email.",
       "error"
     );
+
     return;
+
   }
 
   if(!password || password.length < 6){
+
     showMessage(
       "signupMessage",
       "Password must be at least 6 characters.",
       "error"
     );
+
     return;
+
   }
 
   if(!phone){
+
     showMessage(
       "signupMessage",
       "Please enter your phone number.",
       "error"
     );
+
     return;
+
   }
 
   const fullPhone =
@@ -2731,6 +2858,7 @@ async function signUp(){
       );
 
       return;
+
     }
 
     if(data.user){
@@ -2862,6 +2990,7 @@ async function checkExistingUser(){
   if(!currentUser){
 
     showLogin();
+
     return;
 
   }
@@ -2880,7 +3009,7 @@ async function checkExistingUser(){
 
     console.error(error);
 
-    showProfile();
+    showProfile("explore");
 
     return;
 
@@ -2895,7 +3024,7 @@ async function checkExistingUser(){
       "pairlyProfile"
     );
 
-    showProfile();
+    showProfile("explore");
 
     return;
 
@@ -2922,7 +3051,7 @@ async function checkExistingUser(){
 
     loadProfileIntoForm(data);
 
-    showProfile();
+    showProfile("explore");
 
     return;
 
@@ -2937,12 +3066,22 @@ async function checkExistingUser(){
    PROFILE SETUP
 ===================================================== */
 
-function showProfile(){
+function showProfile(from){
 
   hideAllPages();
 
-  profileEditingFrom =
-  "explore";
+  if(from){
+
+    profileEditingFrom =
+    from;
+
+  }
+  else if(!profileEditingFrom){
+
+    profileEditingFrom =
+    "explore";
+
+  }
 
   document.getElementById(
     "profilePage"
@@ -2974,7 +3113,7 @@ function editMyProfile(){
   profileEditingFrom =
   "profile";
 
-  showProfile();
+  showProfile("profile");
 
 }
 
@@ -2984,7 +3123,7 @@ function editCompatibilityProfile(){
   profileEditingFrom =
   "welcome";
 
-  showProfile();
+  showProfile("welcome");
 
 }
 
@@ -3046,8 +3185,10 @@ function populateCountries(){
   });
 
   if(current){
+
     select.value =
     current;
+
   }
 
 }
@@ -3187,6 +3328,16 @@ function loadProfileIntoForm(profile){
   document.getElementById("profileLookingFor").value =
   profile.looking_for || "";
 
+  const bio =
+  document.getElementById("profileBio");
+
+  if(bio){
+
+    bio.value =
+    profile.bio || "";
+
+  }
+
   clearCompatibilityChoices();
 
   const compatibility =
@@ -3203,8 +3354,10 @@ function loadProfileIntoForm(profile){
   );
 
   if(personalityInput){
+
     personalityInput.checked =
     true;
+
   }
 
   const values =
@@ -3222,8 +3375,10 @@ function loadProfileIntoForm(profile){
     );
 
     if(input){
+
       input.checked =
       true;
+
     }
 
   });
@@ -3243,8 +3398,10 @@ function loadProfileIntoForm(profile){
     );
 
     if(input){
+
       input.checked =
       true;
+
     }
 
   });
@@ -3262,7 +3419,9 @@ function loadProfileIntoForm(profile){
   if(profile.profile_photo){
 
     preview.src =
-    addCacheBust(profile.profile_photo);
+    addCacheBust(
+      profile.profile_photo
+    );
 
     preview.style.display =
     "block";
@@ -3424,7 +3583,9 @@ async function uploadProfilePhoto(event){
     }
 
     if(!currentProfile){
+
       currentProfile = {};
+
     }
 
     currentProfile.profile_photo =
@@ -3435,9 +3596,13 @@ async function uploadProfilePhoto(event){
       JSON.stringify(currentProfile)
     );
 
-    refreshAllProfilePhotos(photoUrl);
+    refreshAllProfilePhotos(
+      photoUrl
+    );
 
-    alert("Profile picture updated.");
+    alert(
+      "Profile picture updated."
+    );
 
   }
   catch(error){
@@ -3583,34 +3748,52 @@ async function finishProfile(){
   }
 
   const name =
-  document.getElementById("profileName").value.trim();
+  document.getElementById(
+    "profileName"
+  ).value.trim();
 
   const age =
-  document.getElementById("profileAge").value;
+  document.getElementById(
+    "profileAge"
+  ).value;
 
   const gender =
-  document.getElementById("profileGender").value;
+  document.getElementById(
+    "profileGender"
+  ).value;
 
   const country =
-  document.getElementById("profileCountry").value;
+  document.getElementById(
+    "profileCountry"
+  ).value;
 
   const city =
-  document.getElementById("profileCity").value;
+  document.getElementById(
+    "profileCity"
+  ).value;
 
   const interests =
-  document.getElementById("profileInterests").value.trim();
+  document.getElementById(
+    "profileInterests"
+  ).value.trim();
 
   const lookingFor =
-  document.getElementById("profileLookingFor").value;
+  document.getElementById(
+    "profileLookingFor"
+  ).value;
 
   const personality =
   getPersonality();
 
   const values =
-  getSelectedCheckboxes("values");
+  getSelectedCheckboxes(
+    "values"
+  );
 
   const lifestyle =
-  getSelectedCheckboxes("lifestyle");
+  getSelectedCheckboxes(
+    "lifestyle"
+  );
 
   if(!name){
 
@@ -3729,6 +3912,14 @@ async function finishProfile(){
   const oldProfile =
   currentProfile || {};
 
+  /*
+    NOTE:
+    profileBio is intentionally not added to profileData.
+    The current database schema has not been confirmed to
+    contain a "bio" column, so adding it here could break
+    the working profile save.
+  */
+
   const profileData = {
 
     id:currentUser.id,
@@ -3832,7 +4023,9 @@ async function finishProfile(){
 
         localStorage.setItem(
           "pairlyProfile",
-          JSON.stringify(savedProfile)
+          JSON.stringify(
+            savedProfile
+          )
         );
 
       }
@@ -3972,7 +4165,7 @@ async function showMyProfile(){
 
   if(!stored){
 
-    showProfile();
+    showProfile("explore");
 
     return;
 
@@ -4003,37 +4196,39 @@ async function showMyProfile(){
     stored.city && stored.country ? ", " : ""
   }${stored.country || ""}`;
 
-  document.getElementById(
-    "myProfileInterests"
-  ).textContent =
-  stored.interests || "—";
+  renderProfileChips(
+    "myProfileInterests",
+    stored.interests
+  );
 
   const compatibility =
   stored.compatibility_profile || {};
 
-  document.getElementById(
-    "myProfilePersonality"
-  ).textContent =
-  compatibility.personality || "—";
+  renderProfileChips(
+    "myProfilePersonality",
+    compatibility.personality,
+    true
+  );
 
-  document.getElementById(
-    "myProfileValues"
-  ).textContent =
-  Array.isArray(compatibility.values)
-  ? compatibility.values.join(" • ")
-  : "—";
+  renderProfileChips(
+    "myProfileValues",
+    compatibility.values
+  );
 
-  document.getElementById(
-    "myProfileLifestyle"
-  ).textContent =
-  Array.isArray(compatibility.lifestyle)
-  ? compatibility.lifestyle.join(" • ")
-  : "—";
+  renderProfileChips(
+    "myProfileLifestyle",
+    compatibility.lifestyle
+  );
 
   document.getElementById(
     "myProfileLookingFor"
   ).textContent =
-  stored.looking_for || "—";
+  stored.looking_for ||
+  "Not specified";
+
+  updateProfileCompletion(
+    stored
+  );
 
   const photo =
   document.getElementById(
@@ -4069,7 +4264,188 @@ async function showMyProfile(){
 
   }
 
-  setActiveNav("profile");
+  setActiveNav(
+    "profile"
+  );
+
+}
+
+
+function renderProfileChips(
+  elementId,
+  value,
+  personality
+){
+
+  const container =
+  document.getElementById(
+    elementId
+  );
+
+  if(!container) return;
+
+  container.innerHTML =
+  "";
+
+  let values = [];
+
+  if(Array.isArray(value)){
+
+    values =
+    value.filter(Boolean);
+
+  }
+  else if(
+    typeof value === "string" &&
+    value.trim()
+  ){
+
+    if(elementId === "myProfileInterests"){
+
+      values =
+      value
+      .split(",")
+      .map(function(item){
+
+        return item.trim();
+
+      })
+      .filter(Boolean);
+
+    }
+    else{
+
+      values =
+      [value.trim()];
+
+    }
+
+  }
+
+  if(values.length === 0){
+
+    const empty =
+    document.createElement(
+      "span"
+    );
+
+    empty.className =
+    "profile-empty";
+
+    empty.textContent =
+    "Not specified";
+
+    container.appendChild(
+      empty
+    );
+
+    return;
+
+  }
+
+  values.forEach(function(value){
+
+    const chip =
+    document.createElement(
+      "span"
+    );
+
+    chip.className =
+    "profile-chip" +
+    (
+      personality
+      ? " personality"
+      : ""
+    );
+
+    chip.textContent =
+    value;
+
+    container.appendChild(
+      chip
+    );
+
+  });
+
+}
+
+
+function updateProfileCompletion(profile){
+
+  if(!profile) return;
+
+  const checks = [
+
+    Boolean(profile.profile_photo),
+
+    Boolean(profile.name),
+
+    Boolean(profile.age),
+
+    Boolean(profile.gender),
+
+    Boolean(profile.country),
+
+    Boolean(profile.city),
+
+    Boolean(profile.interests),
+
+    Boolean(
+      profile.compatibility_profile &&
+      profile.compatibility_profile.personality
+    ),
+
+    Boolean(
+      profile.compatibility_profile &&
+      Array.isArray(
+        profile.compatibility_profile.values
+      ) &&
+      profile.compatibility_profile.values.length
+    ),
+
+    Boolean(
+      profile.compatibility_profile &&
+      Array.isArray(
+        profile.compatibility_profile.lifestyle
+      ) &&
+      profile.compatibility_profile.lifestyle.length
+    ),
+
+    Boolean(profile.looking_for)
+
+  ];
+
+  const completed =
+  checks.filter(Boolean).length;
+
+  const percentage =
+  Math.round(
+    (completed / checks.length) * 100
+  );
+
+  const percent =
+  document.getElementById(
+    "profileCompletionPercent"
+  );
+
+  const bar =
+  document.getElementById(
+    "profileProgressBar"
+  );
+
+  if(percent){
+
+    percent.textContent =
+    percentage + "%";
+
+  }
+
+  if(bar){
+
+    bar.style.width =
+    percentage + "%";
+
+  }
 
 }
 
@@ -4085,7 +4461,7 @@ function showWelcomeFromStorage(){
 
   if(!stored){
 
-    showProfile();
+    showProfile("explore");
 
     return;
 
@@ -4140,7 +4516,9 @@ function overlapScore(
     a.length === 0 ||
     b.length === 0
   ){
+
     return 0;
+
   }
 
   const setB =
@@ -4152,7 +4530,9 @@ function overlapScore(
   a.forEach(function(item){
 
     if(setB.has(item)){
+
       overlap++;
+
     }
 
   });
@@ -4164,7 +4544,9 @@ function overlapScore(
   );
 
   if(smaller === 0){
+
     return 0;
+
   }
 
   return Math.round(
@@ -4181,10 +4563,12 @@ function calculateCompatibility(
 ){
 
   if(!me || !other){
+
     return {
       score:0,
       reasons:[]
     };
+
   }
 
   const myCompatibility =
@@ -4426,7 +4810,9 @@ async function showExplore(){
   ).style.display =
   "block";
 
-  setActiveNav("explore");
+  setActiveNav(
+    "explore"
+  );
 
   const status =
   document.getElementById(
@@ -4636,7 +5022,9 @@ async function showExplore(){
   new Set(
     (myLikes || [])
     .map(function(item){
+
       return item.liked_user_id;
+
     })
   );
 
@@ -5119,7 +5507,9 @@ async function showLikes(){
   ).style.display =
   "block";
 
-  setActiveNav("likes");
+  setActiveNav(
+    "likes"
+  );
 
   const status =
   document.getElementById(
@@ -5197,7 +5587,9 @@ async function showLikes(){
 
   const ids =
   likes.map(function(item){
+
     return item.liked_user_id;
+
   });
 
   const {
@@ -5252,7 +5644,9 @@ async function showMatches(){
   ).style.display =
   "block";
 
-  setActiveNav("matches");
+  setActiveNav(
+    "matches"
+  );
 
   const status =
   document.getElementById(
@@ -5330,7 +5724,9 @@ async function showMatches(){
 
   const myLikedIds =
   myLikes.map(function(item){
+
     return item.liked_user_id;
+
   });
 
   const {
@@ -5374,7 +5770,9 @@ async function showMatches(){
 
   const matchIds =
   otherLikes.map(function(item){
+
     return item.user_id;
+
   });
 
   const {
