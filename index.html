@@ -16,6 +16,10 @@
   padding:0;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:#faf8ff;
@@ -24,12 +28,18 @@ body{
 
 button,
 input,
-select{
+select,
+textarea{
   font:inherit;
 }
 
 button{
   cursor:pointer;
+}
+
+button:disabled{
+  cursor:not-allowed;
+  opacity:.7;
 }
 
 .page{
@@ -85,7 +95,7 @@ button{
 .hero{
   text-align:center;
   padding:90px 20px 70px;
-  background:linear-gradient(180deg,#faf8ff,#ffffff);
+  background:linear-gradient(180deg,#faf8ff,#fff);
 }
 
 .hero h1{
@@ -239,6 +249,7 @@ footer{
   display:none;
   min-height:100vh;
   background:#faf8ff;
+  padding-bottom:80px;
 }
 
 .app-header{
@@ -249,12 +260,21 @@ footer{
   align-items:center;
   justify-content:space-between;
   padding:0 6%;
+  position:sticky;
+  top:0;
+  z-index:50;
 }
 
 .app-logo{
   font-size:24px;
   font-weight:800;
   color:#6c2bd9;
+}
+
+.header-actions{
+  display:flex;
+  gap:8px;
+  align-items:center;
 }
 
 .header-btn{
@@ -296,7 +316,8 @@ footer{
 }
 
 input,
-select{
+select,
+textarea{
   width:100%;
   padding:13px;
   border:1px solid #ddd;
@@ -306,16 +327,13 @@ select{
 }
 
 input:focus,
-select:focus{
+select:focus,
+textarea:focus{
   border-color:#6c2bd9;
 }
 
 textarea{
-  width:100%;
   min-height:100px;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:10px;
   resize:vertical;
 }
 
@@ -377,26 +395,26 @@ textarea{
   margin-bottom:25px;
 }
 
-.photo-preview{
-  width:115px;
-  height:115px;
-  border-radius:50%;
-  object-fit:cover;
-  border:4px solid #eee4ff;
-  display:block;
-  margin:0 auto 12px;
-  background:#eee4ff;
-}
-
+.photo-preview,
 .photo-placeholder{
   width:115px;
   height:115px;
   border-radius:50%;
+  display:block;
+  margin:0 auto 12px;
+}
+
+.photo-preview{
+  object-fit:cover;
+  border:4px solid #eee4ff;
+  background:#eee4ff;
+}
+
+.photo-placeholder{
   background:#eee4ff;
   display:flex;
   align-items:center;
   justify-content:center;
-  margin:0 auto 12px;
   font-size:42px;
 }
 
@@ -432,13 +450,15 @@ textarea{
   margin-bottom:15px;
 }
 
-.choice-grid{
+.choice-grid,
+.checkbox-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:9px;
 }
 
-.choice{
+.choice,
+.checkbox-item{
   border:1px solid #ddd;
   border-radius:10px;
   padding:12px;
@@ -448,25 +468,7 @@ textarea{
   cursor:pointer;
 }
 
-.choice input{
-  width:auto;
-}
-
-.checkbox-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-}
-
-.checkbox-item{
-  border:1px solid #ddd;
-  border-radius:10px;
-  padding:11px;
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
-
+.choice input,
 .checkbox-item input{
   width:auto;
 }
@@ -523,6 +525,7 @@ textarea{
   align-items:center;
   justify-content:center;
   background:linear-gradient(135deg,#faf8ff,#eee4ff);
+  padding-bottom:0;
 }
 
 .matching-box{
@@ -626,6 +629,12 @@ textarea{
   border:1px solid #eee;
   border-radius:20px;
   overflow:hidden;
+  transition:.2s ease;
+}
+
+.discovery-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 35px rgba(60,20,100,.08);
 }
 
 .discovery-top{
@@ -722,6 +731,157 @@ textarea{
 }
 
 /* =========================
+   MY PROFILE
+========================= */
+
+.profile-container{
+  width:min(94%,650px);
+  margin:30px auto;
+}
+
+.my-profile-card{
+  background:white;
+  border:1px solid #eee;
+  border-radius:25px;
+  padding:30px 25px;
+  text-align:center;
+}
+
+.my-profile-photo-wrap{
+  margin-bottom:18px;
+}
+
+.my-profile-photo{
+  width:145px;
+  height:145px;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+  margin:0 auto;
+  border:5px solid #eee4ff;
+}
+
+.my-profile-card .photo-placeholder{
+  width:145px;
+  height:145px;
+  margin:0 auto;
+}
+
+.my-profile-card h1{
+  font-size:28px;
+  margin-bottom:6px;
+}
+
+.my-profile-basic{
+  color:#777;
+}
+
+.my-profile-location{
+  color:#777;
+  margin-top:6px;
+}
+
+.profile-info-section{
+  text-align:left;
+  margin-top:18px;
+  padding:17px;
+  background:#faf8ff;
+  border-radius:14px;
+}
+
+.profile-info-section h3{
+  font-size:14px;
+  margin-bottom:7px;
+  color:#6c2bd9;
+}
+
+.profile-info-section p{
+  color:#555;
+  line-height:1.5;
+}
+
+.profile-buttons{
+  display:grid;
+  gap:10px;
+  margin-top:22px;
+}
+
+.profile-buttons .primary-btn,
+.profile-buttons .secondary-btn{
+  width:100%;
+}
+
+/* =========================
+   LIKES / MATCHES
+========================= */
+
+.list-container{
+  width:min(94%,800px);
+  margin:30px auto;
+}
+
+.list-header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.list-header h1{
+  margin-bottom:7px;
+}
+
+.list-header p{
+  color:#777;
+}
+
+.simple-list{
+  display:grid;
+  gap:12px;
+}
+
+.person-list-card{
+  background:white;
+  border:1px solid #eee;
+  border-radius:18px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.person-list-photo{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#eee4ff;
+  flex-shrink:0;
+}
+
+.person-list-info{
+  flex:1;
+  min-width:0;
+}
+
+.person-list-info h3{
+  margin-bottom:5px;
+}
+
+.person-list-info p{
+  color:#777;
+  font-size:14px;
+  line-height:1.4;
+}
+
+.person-list-action{
+  border:0;
+  background:#f1eaff;
+  color:#6c2bd9;
+  padding:9px 12px;
+  border-radius:9px;
+  font-weight:700;
+}
+
+/* =========================
    MATCH POPUP
 ========================= */
 
@@ -769,6 +929,98 @@ textarea{
 }
 
 /* =========================
+   SETTINGS
+========================= */
+
+.settings-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(20,10,30,.55);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:900;
+  padding:0;
+}
+
+.settings-sheet{
+  background:white;
+  width:100%;
+  max-width:600px;
+  border-radius:25px 25px 0 0;
+  padding:25px;
+}
+
+.settings-sheet h2{
+  margin-bottom:8px;
+}
+
+.settings-sheet p{
+  color:#777;
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.settings-option{
+  width:100%;
+  padding:15px;
+  border:1px solid #eee;
+  background:#faf8ff;
+  border-radius:12px;
+  text-align:left;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.settings-option.danger{
+  color:#a10000;
+  background:#fff1f1;
+}
+
+/* =========================
+   BOTTOM NAVIGATION
+========================= */
+
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:70px;
+  background:white;
+  border-top:1px solid #eee;
+  display:flex;
+  justify-content:center;
+  gap:0;
+  z-index:100;
+  box-shadow:0 -5px 20px rgba(20,10,30,.05);
+}
+
+.bottom-nav button{
+  flex:1;
+  max-width:150px;
+  border:0;
+  background:white;
+  color:#777;
+  font-size:12px;
+  font-weight:700;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+}
+
+.bottom-nav button span{
+  font-size:20px;
+  line-height:1;
+}
+
+.bottom-nav button.active{
+  color:#6c2bd9;
+}
+
+/* =========================
    EMPTY STATE
 ========================= */
 
@@ -787,6 +1039,16 @@ textarea{
 .empty-state p{
   color:#777;
   line-height:1.6;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+  text-align:center;
+  padding:40px;
+  color:#777;
 }
 
 /* =========================
@@ -835,16 +1097,27 @@ textarea{
     grid-template-columns:1fr;
   }
 
+  .app-header{
+    padding:0 4%;
+  }
+
+  .header-btn{
+    padding:9px 11px;
+    font-size:13px;
+  }
+
+  .my-profile-card{
+    padding:25px 18px;
+  }
+
 }
 
 /* =========================
-   LOADING
+   HIDDEN
 ========================= */
 
-.loading{
-  text-align:center;
-  padding:40px;
-  color:#777;
+.hidden{
+  display:none !important;
 }
 
 </style>
@@ -853,7 +1126,7 @@ textarea{
 <body>
 
 <!-- =========================
-     HOME PAGE
+     HOME
 ========================= -->
 
 <div id="homePage" class="page">
@@ -884,17 +1157,11 @@ textarea{
 
     <div class="hero-buttons">
 
-      <button
-        class="primary-btn"
-        onclick="startMatchingExperience()"
-      >
+      <button class="primary-btn" onclick="startMatchingExperience()">
         Find your match
       </button>
 
-      <button
-        class="secondary-btn"
-        onclick="startJoinExperience()"
-      >
+      <button class="secondary-btn" onclick="startJoinExperience()">
         Join Pairly
       </button>
 
@@ -946,42 +1213,30 @@ textarea{
     <div class="pricing">
 
       <div class="price-card">
-
         <h3>Free</h3>
-
         <div class="price">₦0</div>
-
         <p>
           Create your profile and discover
           compatible people.
         </p>
-
       </div>
 
       <div class="price-card featured">
-
         <h3>Pairly Plus</h3>
-
         <div class="price">Coming soon</div>
-
         <p>
           More ways to discover and connect
           with people who fit you.
         </p>
-
       </div>
 
       <div class="price-card">
-
         <h3>Pairly Select</h3>
-
         <div class="price">Coming soon</div>
-
         <p>
           A more personalised Pairly experience
           for users who want more.
         </p>
-
       </div>
 
     </div>
@@ -1049,10 +1304,7 @@ textarea{
 
     <div class="app-logo">Pairly</div>
 
-    <button
-      class="header-btn"
-      onclick="showHome()"
-    >
+    <button class="header-btn" onclick="showHome()">
       Home
     </button>
 
@@ -1099,7 +1351,6 @@ textarea{
       <div class="phone-row">
 
         <select id="signupCountryCode">
-
           <option value="+234">🇳🇬 +234</option>
           <option value="+233">🇬🇭 +233</option>
           <option value="+27">🇿🇦 +27</option>
@@ -1107,7 +1358,6 @@ textarea{
           <option value="+44">🇬🇧 +44</option>
           <option value="+1">🇺🇸 +1</option>
           <option value="+61">🇦🇺 +61</option>
-
         </select>
 
         <input
@@ -1120,10 +1370,7 @@ textarea{
 
     </div>
 
-    <button
-      class="form-button"
-      onclick="signUp()"
-    >
+    <button class="form-button" onclick="signUp()">
       Create account
     </button>
 
@@ -1135,10 +1382,7 @@ textarea{
       Continue with Apple
     </button>
 
-    <div
-      class="small-link"
-      onclick="showLogin()"
-    >
+    <div class="small-link" onclick="showLogin()">
       Already have an account? Log in
     </div>
 
@@ -1157,10 +1401,7 @@ textarea{
 
     <div class="app-logo">Pairly</div>
 
-    <button
-      class="header-btn"
-      onclick="showHome()"
-    >
+    <button class="header-btn" onclick="showHome()">
       Home
     </button>
 
@@ -1200,17 +1441,11 @@ textarea{
 
     </div>
 
-    <button
-      class="form-button"
-      onclick="login()"
-    >
+    <button class="form-button" onclick="login()">
       Log in
     </button>
 
-    <div
-      class="small-link"
-      onclick="showSignup()"
-    >
+    <div class="small-link" onclick="showSignup()">
       Don't have an account? Create one
     </div>
 
@@ -1220,7 +1455,7 @@ textarea{
 
 
 <!-- =========================
-     PROFILE SETUP
+     PROFILE SETUP / EDIT
 ========================= -->
 
 <div id="profilePage" class="app-page">
@@ -1229,26 +1464,21 @@ textarea{
 
     <div class="app-logo">Pairly</div>
 
-    <button
-      class="header-btn"
-      onclick="logout()"
-    >
-      Log out
+    <button class="header-btn" onclick="cancelProfileEdit()">
+      Back
     </button>
 
   </div>
 
   <div class="form-container">
 
-    <h2>Build your profile</h2>
+    <h2 id="profileFormTitle">Build your profile</h2>
 
     <p class="form-subtitle">
       Help Pairly understand you better.
     </p>
 
     <div id="profileMessage" class="message"></div>
-
-    <!-- PHOTO -->
 
     <div class="photo-section">
 
@@ -1279,8 +1509,6 @@ textarea{
 
     </div>
 
-    <!-- NAME -->
-
     <div class="form-group">
 
       <label>Name</label>
@@ -1292,8 +1520,6 @@ textarea{
       >
 
     </div>
-
-    <!-- AGE -->
 
     <div class="form-group">
 
@@ -1309,8 +1535,6 @@ textarea{
 
     </div>
 
-    <!-- GENDER -->
-
     <div class="form-group">
 
       <label>Gender</label>
@@ -1325,8 +1549,6 @@ textarea{
       </select>
 
     </div>
-
-    <!-- LOCATION -->
 
     <div class="form-group">
 
@@ -1344,14 +1566,10 @@ textarea{
       <label>City</label>
 
       <select id="profileCity">
-
         <option value="">Select city</option>
-
       </select>
 
     </div>
-
-    <!-- INTERESTS -->
 
     <div class="form-group">
 
@@ -1365,9 +1583,6 @@ textarea{
 
     </div>
 
-
-    <!-- PERSONALITY -->
-
     <div class="compatibility-section">
 
       <h3>What's your personality like?</h3>
@@ -1377,47 +1592,28 @@ textarea{
       <div class="choice-grid">
 
         <label class="choice">
-          <input
-            type="radio"
-            name="personality"
-            value="Introvert"
-          >
+          <input type="radio" name="personality" value="Introvert">
           Introvert
         </label>
 
         <label class="choice">
-          <input
-            type="radio"
-            name="personality"
-            value="Ambivert"
-          >
+          <input type="radio" name="personality" value="Ambivert">
           Ambivert
         </label>
 
         <label class="choice">
-          <input
-            type="radio"
-            name="personality"
-            value="Extrovert"
-          >
+          <input type="radio" name="personality" value="Extrovert">
           Extrovert
         </label>
 
         <label class="choice">
-          <input
-            type="radio"
-            name="personality"
-            value="Adventurous"
-          >
+          <input type="radio" name="personality" value="Adventurous">
           Adventurous
         </label>
 
       </div>
 
     </div>
-
-
-    <!-- VALUES -->
 
     <div class="compatibility-section">
 
@@ -1471,9 +1667,6 @@ textarea{
 
     </div>
 
-
-    <!-- LIFESTYLE -->
-
     <div class="compatibility-section">
 
       <h3>What's your lifestyle like?</h3>
@@ -1526,9 +1719,6 @@ textarea{
 
     </div>
 
-
-    <!-- LOOKING FOR -->
-
     <div class="form-group" style="margin-top:25px;">
 
       <label>What are you looking for?</label>
@@ -1545,11 +1735,7 @@ textarea{
 
     </div>
 
-
-    <button
-      class="form-button"
-      onclick="finishProfile()"
-    >
+    <button class="form-button" onclick="finishProfile()">
       Save profile
     </button>
 
@@ -1568,10 +1754,7 @@ textarea{
 
     <div class="app-logo">Pairly</div>
 
-    <button
-      class="header-btn"
-      onclick="logout()"
-    >
+    <button class="header-btn" onclick="logout()">
       Log out
     </button>
 
@@ -1623,10 +1806,7 @@ textarea{
 
       <div class="welcome-actions">
 
-        <button
-          class="primary-btn"
-          onclick="showExplore()"
-        >
+        <button class="primary-btn" onclick="showExplore()">
           Explore Pairly
         </button>
 
@@ -1656,23 +1836,9 @@ textarea{
 
     <div class="app-logo">Pairly</div>
 
-    <div style="display:flex;gap:8px;">
-
-      <button
-        class="header-btn"
-        onclick="showMyProfile()"
-      >
-        Profile
-      </button>
-
-      <button
-        class="header-btn"
-        onclick="logout()"
-      >
-        Log out
-      </button>
-
-    </div>
+    <button class="header-btn" onclick="logout()">
+      Log out
+    </button>
 
   </div>
 
@@ -1688,22 +1854,100 @@ textarea{
 
     </div>
 
-    <div
-      id="exploreStatus"
-      class="explore-status"
-    >
+    <div id="exploreStatus" class="explore-status">
       Finding people for you...
     </div>
 
-    <div
-      id="discoveryGrid"
-      class="discovery-grid"
-    ></div>
+    <div id="discoveryGrid" class="discovery-grid"></div>
 
   </div>
 
+  <div id="exploreNav"></div>
+
 </div>
-<!-- MY PROFILE PAGE -->
+
+
+<!-- =========================
+     LIKES
+========================= -->
+
+<div id="likesPage" class="app-page">
+
+  <div class="app-header">
+
+    <div class="app-logo">Pairly</div>
+
+    <button class="header-btn" onclick="logout()">
+      Log out
+    </button>
+
+  </div>
+
+  <div class="list-container">
+
+    <div class="list-header">
+
+      <h1>Likes</h1>
+
+      <p>People you've shown interest in.</p>
+
+    </div>
+
+    <div id="likesStatus" class="explore-status">
+      Loading your likes...
+    </div>
+
+    <div id="likesList" class="simple-list"></div>
+
+  </div>
+
+  <div id="likesNav"></div>
+
+</div>
+
+
+<!-- =========================
+     MATCHES
+========================= -->
+
+<div id="matchesPage" class="app-page">
+
+  <div class="app-header">
+
+    <div class="app-logo">Pairly</div>
+
+    <button class="header-btn" onclick="logout()">
+      Log out
+    </button>
+
+  </div>
+
+  <div class="list-container">
+
+    <div class="list-header">
+
+      <h1>Your Matches 💞</h1>
+
+      <p>Mutual likes between you and other Pairly members.</p>
+
+    </div>
+
+    <div id="matchesStatus" class="explore-status">
+      Loading your matches...
+    </div>
+
+    <div id="matchesList" class="simple-list"></div>
+
+  </div>
+
+  <div id="matchesNav"></div>
+
+</div>
+
+
+<!-- =========================
+     MY PROFILE
+========================= -->
 
 <div id="myProfilePage" class="app-page">
 
@@ -1711,10 +1955,7 @@ textarea{
 
     <div class="app-logo">Pairly</div>
 
-    <button
-      class="header-btn"
-      onclick="showSettings()"
-    >
+    <button class="header-btn" onclick="showSettings()">
       ⚙️
     </button>
 
@@ -1742,15 +1983,29 @@ textarea{
 
       </div>
 
+      <label class="photo-button" style="margin-bottom:18px;">
+
+        Change photo
+
+        <input
+          id="myProfilePhotoInput"
+          class="hidden-file"
+          type="file"
+          accept="image/*"
+          onchange="uploadProfilePhoto(event)"
+        >
+
+      </label>
+
       <h1 id="myProfileName">
         Your Name
       </h1>
 
-      <p id="myProfileBasic">
+      <p id="myProfileBasic" class="my-profile-basic">
         Age • Gender
       </p>
 
-      <p id="myProfileLocation">
+      <p id="myProfileLocation" class="my-profile-location">
         📍 Location
       </p>
 
@@ -1758,9 +2013,7 @@ textarea{
 
         <h3>Interests</h3>
 
-        <p id="myProfileInterests">
-          —
-        </p>
+        <p id="myProfileInterests">—</p>
 
       </div>
 
@@ -1768,9 +2021,7 @@ textarea{
 
         <h3>Personality</h3>
 
-        <p id="myProfilePersonality">
-          —
-        </p>
+        <p id="myProfilePersonality">—</p>
 
       </div>
 
@@ -1778,9 +2029,7 @@ textarea{
 
         <h3>Values</h3>
 
-        <p id="myProfileValues">
-          —
-        </p>
+        <p id="myProfileValues">—</p>
 
       </div>
 
@@ -1788,9 +2037,7 @@ textarea{
 
         <h3>Lifestyle</h3>
 
-        <p id="myProfileLifestyle">
-          —
-        </p>
+        <p id="myProfileLifestyle">—</p>
 
       </div>
 
@@ -1798,48 +2045,36 @@ textarea{
 
         <h3>Looking for</h3>
 
-        <p id="myProfileLookingFor">
-          —
-        </p>
+        <p id="myProfileLookingFor">—</p>
 
       </div>
 
-      <button
-        class="primary-btn"
-        onclick="editMyProfile()"
-      >
-        Edit Profile
-      </button>
+      <div class="profile-buttons">
 
-      <button
-        class="secondary-btn"
-        onclick="showSettings()"
-      >
-        ⚙️ Settings
-      </button>
+        <button class="primary-btn" onclick="editMyProfile()">
+          Edit Profile
+        </button>
 
-      <button
-        class="header-btn"
-        onclick="logout()"
-        style="margin-top:10px;"
-      >
-        Log out
-      </button>
+        <button class="secondary-btn" onclick="showSettings()">
+          ⚙️ Settings
+        </button>
+
+      </div>
 
     </div>
 
   </div>
 
+  <div id="profileNav"></div>
+
 </div>
+
 
 <!-- =========================
      MATCH POPUP
 ========================= -->
 
-<div
-  id="matchOverlay"
-  class="match-overlay"
->
+<div id="matchOverlay" class="match-overlay">
 
   <div class="match-popup">
 
@@ -1853,6 +2088,54 @@ textarea{
 
     <button onclick="closeMatchPopup()">
       Continue exploring
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<div id="settingsOverlay" class="settings-overlay">
+
+  <div class="settings-sheet">
+
+    <h2>Settings</h2>
+
+    <p>
+      Manage your Pairly account.
+    </p>
+
+    <button
+      class="settings-option"
+      onclick="editMyProfile(); closeSettings();"
+    >
+      ✏️ Edit profile
+    </button>
+
+    <button
+      class="settings-option"
+      onclick="showExplore(); closeSettings();"
+    >
+      💜 Back to Explore
+    </button>
+
+    <button
+      class="settings-option danger"
+      onclick="logout(); closeSettings();"
+    >
+      Log out
+    </button>
+
+    <button
+      class="secondary-btn"
+      style="width:100%;margin-top:5px;"
+      onclick="closeSettings()"
+    >
+      Close
     </button>
 
   </div>
@@ -2048,6 +2331,7 @@ const locationData = {
 
 let currentUser = null;
 let currentProfile = null;
+let profileEditingFrom = "explore";
 
 
 /* =====================================================
@@ -2063,7 +2347,10 @@ function hideAllPages(){
     "loginPage",
     "profilePage",
     "welcomePage",
-    "explorePage"
+    "explorePage",
+    "likesPage",
+    "matchesPage",
+    "myProfilePage"
   ];
 
   pages.forEach(function(id){
@@ -2071,16 +2358,7 @@ function hideAllPages(){
     const page =
     document.getElementById(id);
 
-    if(!page) return;
-
-    if(id === "homePage"){
-      page.style.display = "none";
-    }
-    else if(id === "matchingPage"){
-      page.style.display = "none";
-    }
-    else{
-      page.classList.remove("active");
+    if(page){
       page.style.display = "none";
     }
 
@@ -2093,9 +2371,8 @@ function showHome(){
 
   hideAllPages();
 
-  document.getElementById(
-    "homePage"
-  ).style.display = "block";
+  document.getElementById("homePage").style.display =
+  "block";
 
 }
 
@@ -2104,9 +2381,8 @@ function showSignup(){
 
   hideAllPages();
 
-  document.getElementById(
-    "signupPage"
-  ).style.display = "block";
+  document.getElementById("signupPage").style.display =
+  "block";
 
 }
 
@@ -2115,9 +2391,8 @@ function showLogin(){
 
   hideAllPages();
 
-  document.getElementById(
-    "loginPage"
-  ).style.display = "block";
+  document.getElementById("loginPage").style.display =
+  "block";
 
 }
 
@@ -2133,20 +2408,13 @@ function startMatchingExperience(){
   const matchingPage =
   document.getElementById("matchingPage");
 
-  if(!matchingPage){
-
-    console.error(
-      "Pairly: matchingPage not found."
-    );
-
-    return;
-  }
-
-  matchingPage.style.display = "flex";
+  matchingPage.style.display =
+  "flex";
 
   setTimeout(function(){
 
-    matchingPage.style.display = "none";
+    matchingPage.style.display =
+    "none";
 
     showSignup();
 
@@ -2162,20 +2430,13 @@ function startJoinExperience(){
   const matchingPage =
   document.getElementById("matchingPage");
 
-  if(!matchingPage){
-
-    console.error(
-      "Pairly: matchingPage not found."
-    );
-
-    return;
-  }
-
-  matchingPage.style.display = "flex";
+  matchingPage.style.display =
+  "flex";
 
   setTimeout(function(){
 
-    matchingPage.style.display = "none";
+    matchingPage.style.display =
+    "none";
 
     showSignup();
 
@@ -2188,11 +2449,7 @@ function startJoinExperience(){
    MESSAGES
 ===================================================== */
 
-function showMessage(
-  id,
-  text,
-  type
-){
+function showMessage(id,text,type){
 
   const box =
   document.getElementById(id);
@@ -2202,7 +2459,8 @@ function showMessage(
   box.className =
   "message " + type;
 
-  box.textContent = text;
+  box.textContent =
+  text;
 
 }
 
@@ -2214,9 +2472,11 @@ function clearMessage(id){
 
   if(!box) return;
 
-  box.className = "message";
+  box.className =
+  "message";
 
-  box.textContent = "";
+  box.textContent =
+  "";
 
 }
 
@@ -2230,55 +2490,41 @@ async function signUp(){
   clearMessage("signupMessage");
 
   const email =
-  document.getElementById(
-    "signupEmail"
-  ).value.trim();
+  document.getElementById("signupEmail").value.trim();
 
   const password =
-  document.getElementById(
-    "signupPassword"
-  ).value;
+  document.getElementById("signupPassword").value;
 
   const countryCode =
-  document.getElementById(
-    "signupCountryCode"
-  ).value;
+  document.getElementById("signupCountryCode").value;
 
   const phone =
-  document.getElementById(
-    "signupPhone"
-  ).value.trim();
+  document.getElementById("signupPhone").value.trim();
 
   if(!email){
-
     showMessage(
       "signupMessage",
       "Please enter your email.",
       "error"
     );
-
     return;
   }
 
   if(!password || password.length < 6){
-
     showMessage(
       "signupMessage",
       "Password must be at least 6 characters.",
       "error"
     );
-
     return;
   }
 
   if(!phone){
-
     showMessage(
       "signupMessage",
       "Please enter your phone number.",
       "error"
     );
-
     return;
   }
 
@@ -2339,13 +2585,13 @@ async function signUp(){
   }
   catch(error){
 
+    console.error(error);
+
     showMessage(
       "signupMessage",
       "Something went wrong. Please try again.",
       "error"
     );
-
-    console.error(error);
 
   }
 
@@ -2361,14 +2607,10 @@ async function login(){
   clearMessage("loginMessage");
 
   const email =
-  document.getElementById(
-    "loginEmail"
-  ).value.trim();
+  document.getElementById("loginEmail").value.trim();
 
   const password =
-  document.getElementById(
-    "loginPassword"
-  ).value;
+  document.getElementById("loginPassword").value;
 
   if(!email || !password){
 
@@ -2379,6 +2621,7 @@ async function login(){
     );
 
     return;
+
   }
 
   showMessage(
@@ -2409,11 +2652,13 @@ async function login(){
       );
 
       return;
+
     }
 
     if(data.user){
 
-      currentUser = data.user;
+      currentUser =
+      data.user;
 
       await checkExistingUser();
 
@@ -2436,7 +2681,7 @@ async function login(){
 
 
 /* =====================================================
-   EXISTING USER CHECK
+   EXISTING USER
 ===================================================== */
 
 async function checkExistingUser(){
@@ -2450,13 +2695,14 @@ async function checkExistingUser(){
 
     currentUser =
     data.user;
+
   }
 
   if(!currentUser){
 
     showLogin();
-
     return;
+
   }
 
   const {
@@ -2476,11 +2722,13 @@ async function checkExistingUser(){
     showProfile();
 
     return;
+
   }
 
   if(!data){
 
-    currentProfile = null;
+    currentProfile =
+    null;
 
     localStorage.removeItem(
       "pairlyProfile"
@@ -2489,9 +2737,11 @@ async function checkExistingUser(){
     showProfile();
 
     return;
+
   }
 
-  currentProfile = data;
+  currentProfile =
+  data;
 
   localStorage.setItem(
     "pairlyProfile",
@@ -2514,6 +2764,7 @@ async function checkExistingUser(){
     showProfile();
 
     return;
+
   }
 
   showExplore();
@@ -2529,9 +2780,20 @@ function showProfile(){
 
   hideAllPages();
 
+  profileEditingFrom =
+  "explore";
+
   document.getElementById(
     "profilePage"
-  ).style.display = "block";
+  ).style.display =
+  "block";
+
+  document.getElementById(
+    "profileFormTitle"
+  ).textContent =
+  currentProfile
+  ? "Edit your profile"
+  : "Build your profile";
 
   populateCountries();
 
@@ -2542,6 +2804,51 @@ function showProfile(){
     );
 
   }
+
+}
+
+
+function editMyProfile(){
+
+  profileEditingFrom =
+  "profile";
+
+  showProfile();
+
+}
+
+
+function editCompatibilityProfile(){
+
+  profileEditingFrom =
+  "welcome";
+
+  showProfile();
+
+}
+
+
+function cancelProfileEdit(){
+
+  if(profileEditingFrom === "profile"){
+
+    showMyProfile();
+
+    return;
+
+  }
+
+  if(profileEditingFrom === "welcome"){
+
+    showWelcome(
+      currentProfile?.name || "there"
+    );
+
+    return;
+
+  }
+
+  showExplore();
 
 }
 
@@ -2567,18 +2874,19 @@ function populateCountries(){
     const option =
     document.createElement("option");
 
-    option.value = country;
+    option.value =
+    country;
 
-    option.textContent = country;
+    option.textContent =
+    country;
 
     select.appendChild(option);
 
   });
 
   if(current){
-
-    select.value = current;
-
+    select.value =
+    current;
   }
 
 }
@@ -2609,9 +2917,11 @@ function updateCities(){
     const option =
     document.createElement("option");
 
-    option.value = city;
+    option.value =
+    city;
 
-    option.textContent = city;
+    option.textContent =
+    city;
 
     citySelect.appendChild(option);
 
@@ -2622,13 +2932,11 @@ function updateCities(){
 
 function getSelectedCheckboxes(name){
 
-  return Array
-  .from(
+  return Array.from(
     document.querySelectorAll(
       'input[name="' + name + '"]:checked'
     )
-  )
-  .map(function(input){
+  ).map(function(input){
 
     return input.value;
 
@@ -2659,7 +2967,8 @@ function clearCompatibilityChoices(){
   )
   .forEach(function(input){
 
-    input.checked = false;
+    input.checked =
+    false;
 
   });
 
@@ -2669,7 +2978,8 @@ function clearCompatibilityChoices(){
   )
   .forEach(function(input){
 
-    input.checked = false;
+    input.checked =
+    false;
 
   });
 
@@ -2679,7 +2989,8 @@ function clearCompatibilityChoices(){
   )
   .forEach(function(input){
 
-    input.checked = false;
+    input.checked =
+    false;
 
   });
 
@@ -2690,43 +3001,29 @@ function loadProfileIntoForm(profile){
 
   if(!profile) return;
 
-  document.getElementById(
-    "profileName"
-  ).value =
+  document.getElementById("profileName").value =
   profile.name || "";
 
-  document.getElementById(
-    "profileAge"
-  ).value =
+  document.getElementById("profileAge").value =
   profile.age || "";
 
-  document.getElementById(
-    "profileGender"
-  ).value =
+  document.getElementById("profileGender").value =
   profile.gender || "";
 
   populateCountries();
 
-  document.getElementById(
-    "profileCountry"
-  ).value =
+  document.getElementById("profileCountry").value =
   profile.country || "";
 
   updateCities();
 
-  document.getElementById(
-    "profileCity"
-  ).value =
+  document.getElementById("profileCity").value =
   profile.city || "";
 
-  document.getElementById(
-    "profileInterests"
-  ).value =
+  document.getElementById("profileInterests").value =
   profile.interests || "";
 
-  document.getElementById(
-    "profileLookingFor"
-  ).value =
+  document.getElementById("profileLookingFor").value =
   profile.looking_for || "";
 
   clearCompatibilityChoices();
@@ -2745,15 +3042,12 @@ function loadProfileIntoForm(profile){
   );
 
   if(personalityInput){
-
-    personalityInput.checked = true;
-
+    personalityInput.checked =
+    true;
   }
 
   const values =
-  Array.isArray(
-    compatibility.values
-  )
+  Array.isArray(compatibility.values)
   ? compatibility.values
   : [];
 
@@ -2767,17 +3061,14 @@ function loadProfileIntoForm(profile){
     );
 
     if(input){
-
-      input.checked = true;
-
+      input.checked =
+      true;
     }
 
   });
 
   const lifestyle =
-  Array.isArray(
-    compatibility.lifestyle
-  )
+  Array.isArray(compatibility.lifestyle)
   ? compatibility.lifestyle
   : [];
 
@@ -2791,27 +3082,26 @@ function loadProfileIntoForm(profile){
     );
 
     if(input){
-
-      input.checked = true;
-
+      input.checked =
+      true;
     }
 
   });
 
+  const preview =
+  document.getElementById(
+    "profilePhotoPreview"
+  );
+
+  const placeholder =
+  document.getElementById(
+    "profilePhotoPlaceholder"
+  );
+
   if(profile.profile_photo){
 
-    const preview =
-    document.getElementById(
-      "profilePhotoPreview"
-    );
-
-    const placeholder =
-    document.getElementById(
-      "profilePhotoPlaceholder"
-    );
-
     preview.src =
-    profile.profile_photo;
+    addCacheBust(profile.profile_photo);
 
     preview.style.display =
     "block";
@@ -2820,12 +3110,21 @@ function loadProfileIntoForm(profile){
     "none";
 
   }
+  else{
+
+    preview.style.display =
+    "none";
+
+    placeholder.style.display =
+    "flex";
+
+  }
 
 }
 
 
 /* =====================================================
-   PROFILE PHOTO PREVIEW
+   PHOTO PREVIEW
 ===================================================== */
 
 function previewProfilePhoto(event){
@@ -2859,7 +3158,7 @@ function previewProfilePhoto(event){
 
 
 /* =====================================================
-   UPLOAD PROFILE PHOTO
+   PHOTO UPLOAD
 ===================================================== */
 
 async function uploadProfilePhoto(event){
@@ -2868,18 +3167,22 @@ async function uploadProfilePhoto(event){
   event.target.files &&
   event.target.files[0];
 
-  if(!file){
-
-    return;
-  }
+  if(!file) return;
 
   if(!currentUser){
 
-    alert(
-      "Please log in again."
-    );
+    alert("Please log in again.");
 
     return;
+
+  }
+
+  if(!file.type.startsWith("image/")){
+
+    alert("Please choose an image file.");
+
+    return;
+
   }
 
   try{
@@ -2920,6 +3223,7 @@ async function uploadProfilePhoto(event){
       );
 
       return;
+
     }
 
     const {
@@ -2941,7 +3245,10 @@ async function uploadProfilePhoto(event){
     .update({
       profile_photo:photoUrl
     })
-    .eq("id",currentUser.id);
+    .eq(
+      "id",
+      currentUser.id
+    );
 
     if(updateError){
 
@@ -2952,48 +3259,22 @@ async function uploadProfilePhoto(event){
       );
 
       return;
-    }
-
-    if(currentProfile){
-
-      currentProfile.profile_photo =
-      photoUrl;
 
     }
 
-    const stored =
-    JSON.parse(
-      localStorage.getItem(
-        "pairlyProfile"
-      ) || "{}"
-    );
+    if(!currentProfile){
+      currentProfile = {};
+    }
 
-    stored.profile_photo =
+    currentProfile.profile_photo =
     photoUrl;
 
     localStorage.setItem(
       "pairlyProfile",
-      JSON.stringify(stored)
+      JSON.stringify(currentProfile)
     );
 
-    const preview =
-    document.getElementById(
-      "welcomePhotoPreview"
-    );
-
-    const placeholder =
-    document.getElementById(
-      "welcomePhotoPlaceholder"
-    );
-
-    preview.src =
-    photoUrl;
-
-    preview.style.display =
-    "block";
-
-    placeholder.style.display =
-    "none";
+    refreshAllProfilePhotos(photoUrl);
 
     alert("Profile picture updated.");
 
@@ -3011,6 +3292,107 @@ async function uploadProfilePhoto(event){
 }
 
 
+function addCacheBust(url){
+
+  if(!url) return "";
+
+  return url +
+  (url.includes("?") ? "&" : "?") +
+  "v=" +
+  Date.now();
+
+}
+
+
+function refreshAllProfilePhotos(url){
+
+  const safeUrl =
+  addCacheBust(url);
+
+  const profilePreview =
+  document.getElementById(
+    "profilePhotoPreview"
+  );
+
+  const profilePlaceholder =
+  document.getElementById(
+    "profilePhotoPlaceholder"
+  );
+
+  if(profilePreview){
+
+    profilePreview.src =
+    safeUrl;
+
+    profilePreview.style.display =
+    "block";
+
+  }
+
+  if(profilePlaceholder){
+
+    profilePlaceholder.style.display =
+    "none";
+
+  }
+
+  const welcomePhoto =
+  document.getElementById(
+    "welcomePhotoPreview"
+  );
+
+  const welcomePlaceholder =
+  document.getElementById(
+    "welcomePhotoPlaceholder"
+  );
+
+  if(welcomePhoto){
+
+    welcomePhoto.src =
+    safeUrl;
+
+    welcomePhoto.style.display =
+    "block";
+
+  }
+
+  if(welcomePlaceholder){
+
+    welcomePlaceholder.style.display =
+    "none";
+
+  }
+
+  const myPhoto =
+  document.getElementById(
+    "myProfilePhoto"
+  );
+
+  const myPlaceholder =
+  document.getElementById(
+    "myProfilePhotoPlaceholder"
+  );
+
+  if(myPhoto){
+
+    myPhoto.src =
+    safeUrl;
+
+    myPhoto.style.display =
+    "block";
+
+  }
+
+  if(myPlaceholder){
+
+    myPlaceholder.style.display =
+    "none";
+
+  }
+
+}
+
+
 /* =====================================================
    SAVE PROFILE
 ===================================================== */
@@ -3021,91 +3403,160 @@ async function finishProfile(){
 
   if(!currentUser){
 
-    const { data } =
-      await pairlyClient.auth.getUser();
+    const {
+      data
+    } =
+    await pairlyClient.auth.getUser();
 
-    currentUser = data.user;
+    currentUser =
+    data.user;
+
   }
 
   if(!currentUser){
 
     showLogin();
+
     return;
+
   }
 
   const name =
-    document.getElementById("profileName").value.trim();
+  document.getElementById("profileName").value.trim();
 
   const age =
-    document.getElementById("profileAge").value;
+  document.getElementById("profileAge").value;
 
   const gender =
-    document.getElementById("profileGender").value;
+  document.getElementById("profileGender").value;
 
   const country =
-    document.getElementById("profileCountry").value;
+  document.getElementById("profileCountry").value;
 
   const city =
-    document.getElementById("profileCity").value;
+  document.getElementById("profileCity").value;
 
   const interests =
-    document.getElementById("profileInterests").value.trim();
+  document.getElementById("profileInterests").value.trim();
 
   const lookingFor =
-    document.getElementById("profileLookingFor").value;
+  document.getElementById("profileLookingFor").value;
 
   const personality =
-    getPersonality();
+  getPersonality();
 
   const values =
-    getSelectedCheckboxes("values");
+  getSelectedCheckboxes("values");
 
   const lifestyle =
-    getSelectedCheckboxes("lifestyle");
+  getSelectedCheckboxes("lifestyle");
 
   if(!name){
-    showMessage("profileMessage","Please enter your name.","error");
+
+    showMessage(
+      "profileMessage",
+      "Please enter your name.",
+      "error"
+    );
+
     return;
+
   }
 
   if(!age || Number(age) < 18){
-    showMessage("profileMessage","You must be 18 or older to use Pairly.","error");
+
+    showMessage(
+      "profileMessage",
+      "You must be 18 or older to use Pairly.",
+      "error"
+    );
+
     return;
+
   }
 
   if(!gender){
-    showMessage("profileMessage","Please select your gender.","error");
+
+    showMessage(
+      "profileMessage",
+      "Please select your gender.",
+      "error"
+    );
+
     return;
+
   }
 
   if(!country || !city){
-    showMessage("profileMessage","Please select your country and city.","error");
+
+    showMessage(
+      "profileMessage",
+      "Please select your country and city.",
+      "error"
+    );
+
     return;
+
   }
 
   if(!interests){
-    showMessage("profileMessage","Please add at least one interest.","error");
+
+    showMessage(
+      "profileMessage",
+      "Please add at least one interest.",
+      "error"
+    );
+
     return;
+
   }
 
   if(!personality){
-    showMessage("profileMessage","Please choose your personality.","error");
+
+    showMessage(
+      "profileMessage",
+      "Please choose your personality.",
+      "error"
+    );
+
     return;
+
   }
 
   if(values.length === 0){
-    showMessage("profileMessage","Please choose at least one value.","error");
+
+    showMessage(
+      "profileMessage",
+      "Please choose at least one value.",
+      "error"
+    );
+
     return;
+
   }
 
   if(lifestyle.length === 0){
-    showMessage("profileMessage","Please choose at least one lifestyle option.","error");
+
+    showMessage(
+      "profileMessage",
+      "Please choose at least one lifestyle option.",
+      "error"
+    );
+
     return;
+
   }
 
   if(!lookingFor){
-    showMessage("profileMessage","Please choose what you're looking for.","error");
+
+    showMessage(
+      "profileMessage",
+      "Please choose what you're looking for.",
+      "error"
+    );
+
     return;
+
   }
 
   showMessage(
@@ -3114,59 +3565,72 @@ async function finishProfile(){
     "success"
   );
 
-  const oldProfile = currentProfile || {};
+  const oldProfile =
+  currentProfile || {};
 
   const profileData = {
 
-    id: currentUser.id,
+    id:currentUser.id,
 
-    name: name,
+    name:name,
 
-    age: Number(age),
+    age:Number(age),
 
-    gender: gender,
+    gender:gender,
 
-    country: country,
+    country:country,
 
-    city: city,
+    city:city,
 
-    interests: interests,
+    interests:interests,
 
-    looking_for: lookingFor,
+    looking_for:lookingFor,
 
-    compatibility_profile: {
-      personality: personality,
-      values: values,
-      lifestyle: lifestyle
+    compatibility_profile:{
+      personality:personality,
+      values:values,
+      lifestyle:lifestyle
     },
 
     profile_photo:
-      oldProfile.profile_photo || null
+    oldProfile.profile_photo || null
+
   };
 
   try{
 
-    const { error } =
-      await pairlyClient
-        .from("profiles")
-        .upsert(profileData, {
-          onConflict: "id"
-        });
+    const {
+      error
+    } =
+    await pairlyClient
+    .from("profiles")
+    .upsert(
+      profileData,
+      {
+        onConflict:"id"
+      }
+    );
 
     if(error){
 
-      console.error("SAVE PROFILE ERROR:", error);
+      console.error(
+        "SAVE PROFILE ERROR:",
+        error
+      );
 
       showMessage(
         "profileMessage",
-        "Could not save profile: " + error.message,
+        "Could not save profile: " +
+        error.message,
         "error"
       );
 
       return;
+
     }
 
-    currentProfile = profileData;
+    currentProfile =
+    profileData;
 
     localStorage.setItem(
       "pairlyProfile",
@@ -3174,7 +3638,9 @@ async function finishProfile(){
     );
 
     const fileInput =
-      document.getElementById("profilePhotoInput");
+    document.getElementById(
+      "profilePhotoInput"
+    );
 
     if(
       fileInput &&
@@ -3183,19 +3649,25 @@ async function finishProfile(){
     ){
 
       await uploadProfilePhoto({
-        target: fileInput
+        target:fileInput
       });
 
-      const { data: savedProfile } =
-        await pairlyClient
-          .from("profiles")
-          .select("*")
-          .eq("id", currentUser.id)
-          .maybeSingle();
+      const {
+        data:savedProfile
+      } =
+      await pairlyClient
+      .from("profiles")
+      .select("*")
+      .eq(
+        "id",
+        currentUser.id
+      )
+      .maybeSingle();
 
       if(savedProfile){
 
-        currentProfile = savedProfile;
+        currentProfile =
+        savedProfile;
 
         localStorage.setItem(
           "pairlyProfile",
@@ -3211,11 +3683,15 @@ async function finishProfile(){
   }
   catch(error){
 
-    console.error("PROFILE SAVE ERROR:", error);
+    console.error(
+      "PROFILE SAVE ERROR:",
+      error
+    );
 
     showMessage(
       "profileMessage",
-      "Something went wrong: " + error.message,
+      "Something went wrong: " +
+      error.message,
       "error"
     );
 
@@ -3246,6 +3722,7 @@ function showWelcome(name){
   name || "there";
 
   const stored =
+  currentProfile ||
   JSON.parse(
     localStorage.getItem(
       "pairlyProfile"
@@ -3254,18 +3731,165 @@ function showWelcome(name){
 
   if(stored.profile_photo){
 
-    const photo =
-    document.getElementById(
-      "welcomePhotoPreview"
+    refreshAllProfilePhotos(
+      stored.profile_photo
     );
 
-    const placeholder =
-    document.getElementById(
-      "welcomePhotoPlaceholder"
+  }
+
+}
+
+
+/* =====================================================
+   MY PROFILE
+===================================================== */
+
+async function showMyProfile(){
+
+  hideAllPages();
+
+  const page =
+  document.getElementById(
+    "myProfilePage"
+  );
+
+  page.style.display =
+  "block";
+
+  if(!currentUser){
+
+    const {
+      data
+    } =
+    await pairlyClient.auth.getUser();
+
+    currentUser =
+    data.user;
+
+  }
+
+  if(!currentUser){
+
+    showLogin();
+
+    return;
+
+  }
+
+  let stored =
+  currentProfile;
+
+  if(!stored){
+
+    stored =
+    JSON.parse(
+      localStorage.getItem(
+        "pairlyProfile"
+      ) || "null"
     );
+
+  }
+
+  if(!stored){
+
+    const {
+      data
+    } =
+    await pairlyClient
+    .from("profiles")
+    .select("*")
+    .eq(
+      "id",
+      currentUser.id
+    )
+    .maybeSingle();
+
+    stored =
+    data;
+
+  }
+
+  if(!stored){
+
+    showProfile();
+
+    return;
+
+  }
+
+  currentProfile =
+  stored;
+
+  localStorage.setItem(
+    "pairlyProfile",
+    JSON.stringify(stored)
+  );
+
+  document.getElementById(
+    "myProfileName"
+  ).textContent =
+  `${stored.name || "Your Name"}, ${stored.age || ""}`;
+
+  document.getElementById(
+    "myProfileBasic"
+  ).textContent =
+  stored.gender || "Gender";
+
+  document.getElementById(
+    "myProfileLocation"
+  ).textContent =
+  `📍 ${stored.city || ""}${
+    stored.city && stored.country ? ", " : ""
+  }${stored.country || ""}`;
+
+  document.getElementById(
+    "myProfileInterests"
+  ).textContent =
+  stored.interests || "—";
+
+  const compatibility =
+  stored.compatibility_profile || {};
+
+  document.getElementById(
+    "myProfilePersonality"
+  ).textContent =
+  compatibility.personality || "—";
+
+  document.getElementById(
+    "myProfileValues"
+  ).textContent =
+  Array.isArray(compatibility.values)
+  ? compatibility.values.join(" • ")
+  : "—";
+
+  document.getElementById(
+    "myProfileLifestyle"
+  ).textContent =
+  Array.isArray(compatibility.lifestyle)
+  ? compatibility.lifestyle.join(" • ")
+  : "—";
+
+  document.getElementById(
+    "myProfileLookingFor"
+  ).textContent =
+  stored.looking_for || "—";
+
+  const photo =
+  document.getElementById(
+    "myProfilePhoto"
+  );
+
+  const placeholder =
+  document.getElementById(
+    "myProfilePhotoPlaceholder"
+  );
+
+  if(stored.profile_photo){
 
     photo.src =
-    stored.profile_photo;
+    addCacheBust(
+      stored.profile_photo
+    );
 
     photo.style.display =
     "block";
@@ -3274,105 +3898,20 @@ function showWelcome(name){
     "none";
 
   }
-
-}
-function showMyProfile(){
-
-  hideAllPages();
-
-  const page =
-    document.getElementById(
-      "myProfilePage"
-    );
-
-  page.style.display =
-    "block";
-
-  const stored =
-    JSON.parse(
-      localStorage.getItem(
-        "pairlyProfile"
-      ) || "{}"
-    );
-
-  currentProfile =
-    stored;
-
-  document.getElementById(
-    "myProfileName"
-  ).textContent =
-    `${stored.name || "Your Name"}, ${stored.age || ""}`;
-
-  document.getElementById(
-    "myProfileBasic"
-  ).textContent =
-    `${stored.gender || "Gender"}`;
-
-  document.getElementById(
-    "myProfileLocation"
-  ).textContent =
-    `📍 ${stored.city || ""}${stored.city && stored.country ? ", " : ""}${stored.country || ""}`;
-
-  document.getElementById(
-    "myProfileInterests"
-  ).textContent =
-    stored.interests || "—";
-
-  const compatibility =
-    stored.compatibility_profile || {};
-
-  document.getElementById(
-    "myProfilePersonality"
-  ).textContent =
-    compatibility.personality || "—";
-
-  document.getElementById(
-    "myProfileValues"
-  ).textContent =
-    compatibility.values?.join(" • ") || "—";
-
-  document.getElementById(
-    "myProfileLifestyle"
-  ).textContent =
-    compatibility.lifestyle?.join(" • ") || "—";
-
-  document.getElementById(
-    "myProfileLookingFor"
-  ).textContent =
-    stored.looking_for || "—";
-
-  const photo =
-    document.getElementById(
-      "myProfilePhoto"
-    );
-
-  const placeholder =
-    document.getElementById(
-      "myProfilePhotoPlaceholder"
-    );
-
-  if(stored.profile_photo){
-
-    photo.src =
-      stored.profile_photo;
+  else{
 
     photo.style.display =
-      "block";
+    "none";
 
     placeholder.style.display =
-      "none";
-
-  } else {
-
-    photo.style.display =
-      "none";
-
-    placeholder.style.display =
-      "flex";
+    "flex";
 
   }
 
+  setActiveNav("profile");
+
 }
+
 
 function showWelcomeFromStorage(){
 
@@ -3388,6 +3927,7 @@ function showWelcomeFromStorage(){
     showProfile();
 
     return;
+
   }
 
   currentProfile =
@@ -3401,26 +3941,13 @@ function showWelcomeFromStorage(){
 
 
 /* =====================================================
-   EDIT COMPATIBILITY
-===================================================== */
-
-function editCompatibilityProfile(){
-
-  showProfile();
-
-}
-
-
-/* =====================================================
-   COMPATIBILITY CALCULATION
+   COMPATIBILITY
 ===================================================== */
 
 function normaliseArray(value){
 
   if(!Array.isArray(value)){
-
     return [];
-
   }
 
   return value
@@ -3452,22 +3979,19 @@ function overlapScore(
     a.length === 0 ||
     b.length === 0
   ){
-
     return 0;
-
   }
 
   const setB =
   new Set(b);
 
-  let overlap = 0;
+  let overlap =
+  0;
 
   a.forEach(function(item){
 
     if(setB.has(item)){
-
       overlap++;
-
     }
 
   });
@@ -3479,9 +4003,7 @@ function overlapScore(
   );
 
   if(smaller === 0){
-
     return 0;
-
   }
 
   return Math.round(
@@ -3498,9 +4020,10 @@ function calculateCompatibility(
 ){
 
   if(!me || !other){
-
-    return 0;
-
+    return {
+      score:0,
+      reasons:[]
+    };
   }
 
   const myCompatibility =
@@ -3509,23 +4032,21 @@ function calculateCompatibility(
   const theirCompatibility =
   other.compatibility_profile || {};
 
-  let score = 0;
+  let score =
+  0;
 
-  let reasons = [];
-
-  /* PERSONALITY - 20 */
+  let reasons =
+  [];
 
   const myPersonality =
   String(
     myCompatibility.personality || ""
-  )
-  .toLowerCase();
+  ).toLowerCase();
 
   const theirPersonality =
   String(
     theirCompatibility.personality || ""
-  )
-  .toLowerCase();
+  ).toLowerCase();
 
   if(
     myPersonality &&
@@ -3571,9 +4092,6 @@ function calculateCompatibility(
 
   }
 
-
-  /* VALUES - 25 */
-
   const valueScore =
   overlapScore(
     myCompatibility.values,
@@ -3581,7 +4099,8 @@ function calculateCompatibility(
     25
   );
 
-  score += valueScore;
+  score +=
+  valueScore;
 
   if(valueScore >= 13){
 
@@ -3591,9 +4110,6 @@ function calculateCompatibility(
 
   }
 
-
-  /* LIFESTYLE - 20 */
-
   const lifestyleScore =
   overlapScore(
     myCompatibility.lifestyle,
@@ -3601,7 +4117,8 @@ function calculateCompatibility(
     20
   );
 
-  score += lifestyleScore;
+  score +=
+  lifestyleScore;
 
   if(lifestyleScore >= 10){
 
@@ -3610,9 +4127,6 @@ function calculateCompatibility(
     );
 
   }
-
-
-  /* INTERESTS - 25 */
 
   const myInterests =
   String(
@@ -3645,7 +4159,8 @@ function calculateCompatibility(
     25
   );
 
-  score += interestScore;
+  score +=
+  interestScore;
 
   if(interestScore >= 13){
 
@@ -3655,37 +4170,31 @@ function calculateCompatibility(
 
   }
 
-
-  /* RELATIONSHIP GOAL - 10 */
-
   const myGoal =
   String(
     me.looking_for || ""
-  )
-  .toLowerCase();
+  ).toLowerCase();
 
   const theirGoal =
   String(
     other.looking_for || ""
-  )
-  .toLowerCase();
+  ).toLowerCase();
 
   if(
     myGoal &&
     theirGoal &&
-    myGoal === theirGoal
+    myGoal ===
+    theirGoal
   ){
 
-    score += 10;
+    score +=
+    10;
 
     reasons.push(
       "You are looking for the same kind of connection."
     );
 
   }
-
-
-  /* LOCATION BONUS */
 
   if(
     me.city &&
@@ -3694,7 +4203,8 @@ function calculateCompatibility(
     other.city.toLowerCase()
   ){
 
-    score += 3;
+    score +=
+    3;
 
     reasons.push(
       "You're in the same city."
@@ -3708,14 +4218,14 @@ function calculateCompatibility(
     other.country.toLowerCase()
   ){
 
-    score += 2;
+    score +=
+    2;
 
     reasons.push(
       "You're in the same country."
     );
 
   }
-
 
   score =
   Math.max(
@@ -3735,11 +4245,8 @@ function calculateCompatibility(
   }
 
   return {
-
     score:score,
-
     reasons:reasons
-
   };
 
 }
@@ -3758,6 +4265,8 @@ async function showExplore(){
   ).style.display =
   "block";
 
+  setActiveNav("explore");
+
   const status =
   document.getElementById(
     "exploreStatus"
@@ -3774,7 +4283,8 @@ async function showExplore(){
   status.textContent =
   "Finding people for you...";
 
-  grid.innerHTML = "";
+  grid.innerHTML =
+  "";
 
   if(!currentUser){
 
@@ -3801,15 +4311,12 @@ async function showExplore(){
 
   if(!me){
 
-    const stored =
+    me =
     JSON.parse(
       localStorage.getItem(
         "pairlyProfile"
       ) || "null"
     );
-
-    me =
-    stored;
 
   }
 
@@ -3821,7 +4328,10 @@ async function showExplore(){
     await pairlyClient
     .from("profiles")
     .select("*")
-    .eq("id",currentUser.id)
+    .eq(
+      "id",
+      currentUser.id
+    )
     .maybeSingle();
 
     me =
@@ -3871,7 +4381,10 @@ async function showExplore(){
   await pairlyClient
   .from("profiles")
   .select("*")
-  .neq("id",currentUser.id);
+  .neq(
+    "id",
+    currentUser.id
+  );
 
   if(error){
 
@@ -3884,15 +4397,32 @@ async function showExplore(){
 
   }
 
-  if(!profiles || profiles.length === 0){
+  const passed =
+  JSON.parse(
+    localStorage.getItem(
+      "pairlyPassed"
+    ) || "[]"
+  );
+
+  const visibleProfiles =
+  (profiles || [])
+  .filter(function(profile){
+
+    return !passed.includes(
+      profile.id
+    );
+
+  });
+
+  if(visibleProfiles.length === 0){
 
     status.style.display =
     "block";
 
     status.innerHTML =
     '<div class="empty-state">' +
-    '<h2>No other Pairly members yet</h2>' +
-    '<p>As more people join Pairly, compatible profiles will appear here.</p>' +
+    '<h2>You’re all caught up</h2>' +
+    '<p>Check back later for more people on Pairly.</p>' +
     '</div>';
 
     return;
@@ -3900,7 +4430,7 @@ async function showExplore(){
   }
 
   const completeProfiles =
-  profiles.filter(function(profile){
+  visibleProfiles.filter(function(profile){
 
     return(
       profile.compatibility_profile &&
@@ -3929,6 +4459,25 @@ async function showExplore(){
     return;
 
   }
+
+  const {
+    data:myLikes
+  } =
+  await pairlyClient
+  .from("likes")
+  .select("liked_user_id")
+  .eq(
+    "user_id",
+    currentUser.id
+  );
+
+  const likedIds =
+  new Set(
+    (myLikes || [])
+    .map(function(item){
+      return item.liked_user_id;
+    })
+  );
 
   const scored =
   completeProfiles
@@ -3959,16 +4508,22 @@ async function showExplore(){
   status.style.display =
   "none";
 
-  grid.innerHTML = "";
+  grid.innerHTML =
+  "";
 
   scored.forEach(function(item){
 
     createDiscoveryCard(
       item.profile,
-      item.compatibility
+      item.compatibility,
+      likedIds.has(
+        item.profile.id
+      )
     );
 
   });
+
+  checkExploreEmpty();
 
 }
 
@@ -3979,7 +4534,8 @@ async function showExplore(){
 
 function createDiscoveryCard(
   profile,
-  compatibility
+  compatibility,
+  alreadyLiked
 ){
 
   const grid =
@@ -3994,9 +4550,8 @@ function createDiscoveryCard(
   "discovery-card";
 
   const photo =
-  profile.profile_photo
-  ? profile.profile_photo
-  : "";
+  profile.profile_photo ||
+  "";
 
   const values =
   (
@@ -4039,7 +4594,9 @@ function createDiscoveryCard(
   const photoHTML =
   photo
   ? '<img class="discovery-photo" src="' +
-    escapeHtml(photo) +
+    escapeHtml(
+      addCacheBust(photo)
+    ) +
     '" alt="Profile photo">'
   : '<div class="discovery-photo"></div>';
 
@@ -4056,7 +4613,10 @@ function createDiscoveryCard(
     '<div class="discovery-meta">' +
       (
         profile.age
-        ? escapeHtml(String(profile.age)) + " • "
+        ? escapeHtml(
+            String(profile.age)
+          ) +
+          " • "
         : ""
       ) +
       escapeHtml(location) +
@@ -4133,13 +4693,29 @@ function createDiscoveryCard(
     '</button>' +
 
     '<button class="like-btn">' +
-      '❤️ Like' +
+      (
+        alreadyLiked
+        ? "Liked ✓"
+        : "❤️ Like"
+      ) +
     '</button>' +
 
   '</div>';
 
   const buttons =
-  card.querySelectorAll("button");
+  card.querySelectorAll(
+    "button"
+  );
+
+  if(alreadyLiked){
+
+    buttons[1].disabled =
+    true;
+
+    buttons[1].style.background =
+    "#2f9e5b";
+
+  }
 
   buttons[0].addEventListener(
     "click",
@@ -4250,7 +4826,8 @@ async function likeProfile(
 
   if(button){
 
-    button.disabled = true;
+    button.disabled =
+    true;
 
     button.textContent =
     "Liking...";
@@ -4266,9 +4843,11 @@ async function likeProfile(
     .from("likes")
     .upsert(
       {
-        user_id:currentUser.id,
+        user_id:
+        currentUser.id,
 
-        liked_user_id:profileId
+        liked_user_id:
+        profileId
 
       },
       {
@@ -4283,7 +4862,8 @@ async function likeProfile(
 
       if(button){
 
-        button.disabled = false;
+        button.disabled =
+        false;
 
         button.textContent =
         "❤️ Like";
@@ -4316,6 +4896,16 @@ async function likeProfile(
 
     if(mutualLike){
 
+      if(button){
+
+        button.textContent =
+        "Matched 💞";
+
+        button.style.background =
+        "#2f9e5b";
+
+      }
+
       showMatchPopup(
         profileName
       );
@@ -4342,7 +4932,8 @@ async function likeProfile(
 
     if(button){
 
-      button.disabled = false;
+      button.disabled =
+      false;
 
       button.textContent =
       "❤️ Like";
@@ -4355,12 +4946,396 @@ async function likeProfile(
 
 
 /* =====================================================
+   LIKES PAGE
+===================================================== */
+
+async function showLikes(){
+
+  hideAllPages();
+
+  document.getElementById(
+    "likesPage"
+  ).style.display =
+  "block";
+
+  setActiveNav("likes");
+
+  const status =
+  document.getElementById(
+    "likesStatus"
+  );
+
+  const list =
+  document.getElementById(
+    "likesList"
+  );
+
+  status.style.display =
+  "block";
+
+  status.textContent =
+  "Loading your likes...";
+
+  list.innerHTML =
+  "";
+
+  if(!currentUser){
+
+    const {
+      data
+    } =
+    await pairlyClient.auth.getUser();
+
+    currentUser =
+    data.user;
+
+  }
+
+  if(!currentUser){
+
+    showLogin();
+
+    return;
+
+  }
+
+  const {
+    data:likes,
+    error
+  } =
+  await pairlyClient
+  .from("likes")
+  .select("liked_user_id")
+  .eq(
+    "user_id",
+    currentUser.id
+  );
+
+  if(error){
+
+    console.error(error);
+
+    status.textContent =
+    "Unable to load your likes.";
+
+    return;
+
+  }
+
+  if(!likes || likes.length === 0){
+
+    status.innerHTML =
+    '<div class="empty-state">' +
+    '<h2>No likes yet</h2>' +
+    '<p>When you like someone on Explore, they’ll appear here.</p>' +
+    '</div>';
+
+    return;
+
+  }
+
+  const ids =
+  likes.map(function(item){
+    return item.liked_user_id;
+  });
+
+  const {
+    data:profiles,
+    error:profilesError
+  } =
+  await pairlyClient
+  .from("profiles")
+  .select("*")
+  .in(
+    "id",
+    ids
+  );
+
+  if(profilesError){
+
+    console.error(profilesError);
+
+    status.textContent =
+    "Unable to load liked profiles.";
+
+    return;
+
+  }
+
+  status.style.display =
+  "none";
+
+  (profiles || []).forEach(function(profile){
+
+    renderPersonListCard(
+      profile,
+      list,
+      false
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   MATCHES PAGE
+===================================================== */
+
+async function showMatches(){
+
+  hideAllPages();
+
+  document.getElementById(
+    "matchesPage"
+  ).style.display =
+  "block";
+
+  setActiveNav("matches");
+
+  const status =
+  document.getElementById(
+    "matchesStatus"
+  );
+
+  const list =
+  document.getElementById(
+    "matchesList"
+  );
+
+  status.style.display =
+  "block";
+
+  status.textContent =
+  "Loading your matches...";
+
+  list.innerHTML =
+  "";
+
+  if(!currentUser){
+
+    const {
+      data
+    } =
+    await pairlyClient.auth.getUser();
+
+    currentUser =
+    data.user;
+
+  }
+
+  if(!currentUser){
+
+    showLogin();
+
+    return;
+
+  }
+
+  const {
+    data:myLikes,
+    error
+  } =
+  await pairlyClient
+  .from("likes")
+  .select("liked_user_id")
+  .eq(
+    "user_id",
+    currentUser.id
+  );
+
+  if(error){
+
+    console.error(error);
+
+    status.textContent =
+    "Unable to load matches.";
+
+    return;
+
+  }
+
+  if(!myLikes || myLikes.length === 0){
+
+    status.innerHTML =
+    '<div class="empty-state">' +
+    '<h2>No matches yet</h2>' +
+    '<p>Keep exploring and liking people who interest you.</p>' +
+    '</div>';
+
+    return;
+
+  }
+
+  const myLikedIds =
+  myLikes.map(function(item){
+    return item.liked_user_id;
+  });
+
+  const {
+    data:otherLikes,
+    error:otherError
+  } =
+  await pairlyClient
+  .from("likes")
+  .select("user_id,liked_user_id")
+  .in(
+    "user_id",
+    myLikedIds
+  )
+  .eq(
+    "liked_user_id",
+    currentUser.id
+  );
+
+  if(otherError){
+
+    console.error(otherError);
+
+    status.textContent =
+    "Unable to load matches.";
+
+    return;
+
+  }
+
+  if(!otherLikes || otherLikes.length === 0){
+
+    status.innerHTML =
+    '<div class="empty-state">' +
+    '<h2>No matches yet</h2>' +
+    '<p>A match happens when someone you like likes you back.</p>' +
+    '</div>';
+
+    return;
+
+  }
+
+  const matchIds =
+  otherLikes.map(function(item){
+    return item.user_id;
+  });
+
+  const {
+    data:profiles,
+    error:profilesError
+  } =
+  await pairlyClient
+  .from("profiles")
+  .select("*")
+  .in(
+    "id",
+    matchIds
+  );
+
+  if(profilesError){
+
+    console.error(profilesError);
+
+    status.textContent =
+    "Unable to load matched profiles.";
+
+    return;
+
+  }
+
+  status.style.display =
+  "none";
+
+  (profiles || []).forEach(function(profile){
+
+    renderPersonListCard(
+      profile,
+      list,
+      true
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   PERSON LIST CARD
+===================================================== */
+
+function renderPersonListCard(
+  profile,
+  container,
+  isMatch
+){
+
+  const card =
+  document.createElement("div");
+
+  card.className =
+  "person-list-card";
+
+  const photo =
+  profile.profile_photo
+  ? addCacheBust(
+      profile.profile_photo
+    )
+  : "";
+
+  card.innerHTML =
+
+  (
+    photo
+    ? '<img class="person-list-photo" src="' +
+      escapeHtml(photo) +
+      '" alt="Profile photo">'
+    : '<div class="person-list-photo"></div>'
+  ) +
+
+  '<div class="person-list-info">' +
+
+    '<h3>' +
+      escapeHtml(
+        profile.name ||
+        "Pairly member"
+      ) +
+    '</h3>' +
+
+    '<p>' +
+      (
+        profile.age
+        ? escapeHtml(
+            String(profile.age)
+          ) +
+          " • "
+        : ""
+      ) +
+      escapeHtml(
+        [
+          profile.city,
+          profile.country
+        ]
+        .filter(Boolean)
+        .join(", ")
+      ) +
+    '</p>' +
+
+  '</div>' +
+
+  '<button class="person-list-action">' +
+    (
+      isMatch
+      ? "💞 Matched"
+      : "Liked ✓"
+    ) +
+  '</button>';
+
+  container.appendChild(card);
+
+}
+
+
+/* =====================================================
    MATCH POPUP
 ===================================================== */
 
-function showMatchPopup(
-  name
-){
+function showMatchPopup(name){
 
   const overlay =
   document.getElementById(
@@ -4394,7 +5369,7 @@ function closeMatchPopup(){
 
 
 /* =====================================================
-   EMPTY EXPLORE CHECK
+   EMPTY EXPLORE
 ===================================================== */
 
 function checkExploreEmpty(){
@@ -4419,7 +5394,7 @@ function checkExploreEmpty(){
 
     status.innerHTML =
     '<div class="empty-state">' +
-    '<h2>You\'re all caught up</h2>' +
+    '<h2>You’re all caught up</h2>' +
     '<p>Check back later for more people on Pairly.</p>' +
     '</div>';
 
@@ -4429,7 +5404,108 @@ function checkExploreEmpty(){
 
 
 /* =====================================================
-   APPLE LOGIN PLACEHOLDER
+   NAVIGATION
+===================================================== */
+
+function navigationHTML(active){
+
+  return `
+
+    <nav class="bottom-nav">
+
+      <button
+        class="${active === "explore" ? "active" : ""}"
+        onclick="showExplore()"
+      >
+        <span>💜</span>
+        Explore
+      </button>
+
+      <button
+        class="${active === "likes" ? "active" : ""}"
+        onclick="showLikes()"
+      >
+        <span>❤️</span>
+        Likes
+      </button>
+
+      <button
+        class="${active === "matches" ? "active" : ""}"
+        onclick="showMatches()"
+      >
+        <span>💞</span>
+        Matches
+      </button>
+
+      <button
+        class="${active === "profile" ? "active" : ""}"
+        onclick="showMyProfile()"
+      >
+        <span>👤</span>
+        Profile
+      </button>
+
+    </nav>
+
+  `;
+
+}
+
+
+function setActiveNav(active){
+
+  const locations = [
+    ["exploreNav","explore"],
+    ["likesNav","likes"],
+    ["matchesNav","matches"],
+    ["profileNav","profile"]
+  ];
+
+  locations.forEach(function(item){
+
+    const target =
+    document.getElementById(
+      item[0]
+    );
+
+    if(target){
+
+      target.innerHTML =
+      navigationHTML(active);
+
+    }
+
+  });
+
+}
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+function showSettings(){
+
+  document.getElementById(
+    "settingsOverlay"
+  ).style.display =
+  "flex";
+
+}
+
+
+function closeSettings(){
+
+  document.getElementById(
+    "settingsOverlay"
+  ).style.display =
+  "none";
+
+}
+
+
+/* =====================================================
+   APPLE LOGIN
 ===================================================== */
 
 async function appleLogin(){
@@ -4458,9 +5534,11 @@ async function logout(){
 
   }
 
-  currentUser = null;
+  currentUser =
+  null;
 
-  currentProfile = null;
+  currentProfile =
+  null;
 
   localStorage.removeItem(
     "pairlyProfile"
@@ -4544,6 +5622,10 @@ document.addEventListener(
   function(){
 
     populateCountries();
+
+    setActiveNav(
+      "explore"
+    );
 
     initialisePairly();
 
