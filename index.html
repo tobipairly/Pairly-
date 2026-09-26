@@ -730,86 +730,233 @@ textarea{
   font-weight:700;
 }
 
+  
 /* =========================
    MY PROFILE
 ========================= */
 
 .profile-container{
-  width:min(94%,650px);
-  margin:30px auto;
+  width:min(94%,700px);
+  margin:25px auto 35px;
 }
 
 .my-profile-card{
   background:white;
   border:1px solid #eee;
-  border-radius:25px;
-  padding:30px 25px;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 10px 35px rgba(60,20,100,.06);
+}
+
+.my-profile-hero{
+  background:linear-gradient(180deg,#f2eaff,#ffffff);
+  padding:30px 22px 25px;
   text-align:center;
 }
 
 .my-profile-photo-wrap{
-  margin-bottom:18px;
+  position:relative;
+  width:160px;
+  height:160px;
+  margin:0 auto 18px;
 }
 
 .my-profile-photo{
-  width:145px;
-  height:145px;
+  width:160px;
+  height:160px;
   border-radius:50%;
   object-fit:cover;
   display:block;
-  margin:0 auto;
-  border:5px solid #eee4ff;
+  border:5px solid white;
+  box-shadow:0 8px 25px rgba(60,20,100,.15);
+  background:#eee4ff;
 }
 
 .my-profile-card .photo-placeholder{
-  width:145px;
-  height:145px;
-  margin:0 auto;
+  width:160px;
+  height:160px;
+  margin:0;
+  border-radius:50%;
+  border:5px solid white;
+  box-shadow:0 8px 25px rgba(60,20,100,.15);
+}
+
+.profile-camera-button{
+  position:absolute;
+  right:2px;
+  bottom:4px;
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  border:4px solid white;
+  background:#6c2bd9;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(60,20,100,.2);
 }
 
 .my-profile-card h1{
-  font-size:28px;
-  margin-bottom:6px;
+  font-size:30px;
+  margin-bottom:7px;
 }
 
 .my-profile-basic{
-  color:#777;
+  color:#666;
+  font-size:15px;
 }
 
 .my-profile-location{
   color:#777;
-  margin-top:6px;
+  margin-top:7px;
+  font-size:14px;
+}
+
+.profile-completion{
+  width:min(90%,420px);
+  margin:22px auto 0;
+  background:white;
+  border-radius:15px;
+  padding:13px 15px;
+  text-align:left;
+  border:1px solid #eee;
+}
+
+.profile-completion-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+}
+
+.profile-completion-top strong{
+  font-size:13px;
+}
+
+.profile-completion-percent{
+  color:#6c2bd9;
+  font-weight:800;
+  font-size:13px;
+}
+
+.profile-progress{
+  width:100%;
+  height:8px;
+  background:#eee4ff;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.profile-progress-bar{
+  height:100%;
+  width:0;
+  background:#6c2bd9;
+  border-radius:20px;
+  transition:width .4s ease;
+}
+
+.my-profile-content{
+  padding:5px 20px 25px;
 }
 
 .profile-info-section{
   text-align:left;
-  margin-top:18px;
-  padding:17px;
+  margin-top:15px;
+  padding:19px;
   background:#faf8ff;
-  border-radius:14px;
+  border-radius:17px;
+  border:1px solid #f0ecf7;
 }
 
 .profile-info-section h3{
   font-size:14px;
-  margin-bottom:7px;
+  margin-bottom:10px;
   color:#6c2bd9;
 }
 
 .profile-info-section p{
   color:#555;
-  line-height:1.5;
+  line-height:1.6;
+  font-size:15px;
+}
+
+.profile-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.profile-chip{
+  display:inline-flex;
+  align-items:center;
+  background:white;
+  border:1px solid #e4dcef;
+  color:#51475e;
+  padding:7px 11px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:600;
+}
+
+.profile-empty{
+  color:#999 !important;
 }
 
 .profile-buttons{
   display:grid;
+  grid-template-columns:1fr 1fr;
   gap:10px;
-  margin-top:22px;
+  margin-top:20px;
 }
 
-.profile-buttons .primary-btn,
-.profile-buttons .secondary-btn{
+.profile-buttons button{
   width:100%;
 }
+
+.profile-photo-label{
+  display:inline-block;
+  margin-top:12px;
+}
+
+@media(max-width:500px){
+
+  .profile-container{
+    width:94%;
+    margin-top:18px;
+  }
+
+  .my-profile-hero{
+    padding:25px 15px 22px;
+  }
+
+  .my-profile-photo-wrap,
+  .my-profile-photo,
+  .my-profile-card .photo-placeholder{
+    width:145px;
+    height:145px;
+  }
+
+  .my-profile-card h1{
+    font-size:26px;
+  }
+
+  .my-profile-content{
+    padding:5px 15px 20px;
+  }
+
+  .profile-info-section{
+    padding:16px;
+  }
+
+  .profile-buttons{
+    grid-template-columns:1fr;
+  }
+
+}
+
 
 /* =========================
    LIKES / MATCHES
