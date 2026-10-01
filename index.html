@@ -10,6 +10,28 @@
 
 <style>
 
+/* =====================================================
+   PAIRLY DESIGN SYSTEM
+===================================================== */
+
+:root{
+  --purple:#6c2bd9;
+  --purple-dark:#5520b2;
+  --purple-light:#eee4ff;
+  --purple-soft:#f7f3ff;
+  --bg:#faf8ff;
+  --card:#ffffff;
+  --text:#17131f;
+  --muted:#77717f;
+  --border:#ece8f1;
+  --green:#2f9e5b;
+  --red:#b42318;
+  --shadow:0 12px 40px rgba(65,35,105,.07);
+  --shadow-lg:0 24px 70px rgba(65,35,105,.13);
+  --radius:20px;
+  --transition:.2s ease;
+}
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -21,9 +43,18 @@ html{
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#faf8ff;
-  color:#17131f;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
 }
 
 button,
@@ -35,87 +66,193 @@ textarea{
 
 button{
   cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
 }
 
 button:disabled{
   cursor:not-allowed;
-  opacity:.7;
+  opacity:.65;
+}
+
+input,
+select,
+textarea{
+  appearance:none;
+  -webkit-appearance:none;
 }
 
 .page{
   min-height:100vh;
 }
 
-/* =========================
+.hidden{
+  display:none !important;
+}
+
+
+/* =====================================================
+   SHARED BUTTONS
+===================================================== */
+
+.primary-btn,
+.secondary-btn{
+  min-height:48px;
+  border-radius:13px;
+  padding:0 20px;
+  font-weight:800;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    background var(--transition);
+}
+
+.primary-btn{
+  background:var(--purple);
+  color:white;
+  border:1px solid var(--purple);
+  box-shadow:0 8px 20px rgba(108,43,217,.16);
+}
+
+.primary-btn:hover{
+  background:var(--purple-dark);
+  transform:translateY(-1px);
+  box-shadow:0 12px 25px rgba(108,43,217,.22);
+}
+
+.secondary-btn{
+  background:white;
+  color:var(--purple);
+  border:1px solid #ddd5e9;
+}
+
+.secondary-btn:hover{
+  background:var(--purple-soft);
+  border-color:#d3c5e7;
+}
+
+
+/* =====================================================
    HOME
-========================= */
+===================================================== */
 
 #homePage{
   display:block;
+  min-height:100vh;
 }
 
 .navbar{
-  height:72px;
+  height:74px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 7%;
-  background:white;
-  border-bottom:1px solid #eee;
+  background:rgba(255,255,255,.94);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:80;
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+}
+
+.logo,
+.app-logo{
+  color:var(--purple);
+  font-weight:900;
+  letter-spacing:-.7px;
 }
 
 .logo{
-  font-size:26px;
-  font-weight:800;
-  color:#6c2bd9;
+  font-size:27px;
 }
 
 .nav-buttons{
   display:flex;
-  gap:10px;
+  align-items:center;
+  gap:8px;
 }
 
 .nav-buttons button{
   border:0;
   background:none;
   padding:10px 14px;
-  font-weight:600;
+  font-weight:700;
+  border-radius:10px;
+  transition:var(--transition);
+}
+
+.nav-buttons button:hover{
+  background:var(--purple-soft);
 }
 
 .login-nav{
-  color:#6c2bd9;
+  color:var(--purple);
 }
 
 .signup-nav{
-  background:#6c2bd9 !important;
+  background:var(--purple) !important;
   color:white;
-  border-radius:10px;
+  border-radius:11px !important;
+  padding:11px 17px !important;
+}
+
+.signup-nav:hover{
+  background:var(--purple-dark) !important;
 }
 
 .hero{
   text-align:center;
-  padding:90px 20px 70px;
-  background:linear-gradient(180deg,#faf8ff,#fff);
+  padding:110px 20px 100px;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(108,43,217,.10),
+      transparent 42%
+    ),
+    linear-gradient(180deg,#faf8ff,#fff);
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 13px;
+  background:white;
+  border:1px solid #e5dcef;
+  border-radius:999px;
+  color:var(--purple);
+  font-size:13px;
+  font-weight:800;
+  margin-bottom:22px;
+  box-shadow:0 5px 18px rgba(70,35,110,.05);
+}
+
+.hero-badge-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--purple);
 }
 
 .hero h1{
-  font-size:clamp(42px,8vw,72px);
-  line-height:1;
-  max-width:800px;
+  font-size:clamp(46px,8vw,78px);
+  line-height:.98;
+  letter-spacing:-3px;
+  max-width:850px;
   margin:auto;
-  color:#17131f;
+  color:var(--text);
 }
 
 .hero h1 span{
-  color:#6c2bd9;
+  color:var(--purple);
 }
 
 .hero p{
-  max-width:600px;
-  margin:25px auto;
+  max-width:620px;
+  margin:28px auto 0;
   font-size:18px;
-  line-height:1.6;
-  color:#666;
+  line-height:1.7;
+  color:#69636f;
 }
 
 .hero-buttons{
@@ -123,152 +260,195 @@ button:disabled{
   justify-content:center;
   gap:12px;
   flex-wrap:wrap;
-  margin-top:30px;
+  margin-top:34px;
 }
 
-.primary-btn{
-  background:#6c2bd9;
-  color:white;
-  border:0;
-  border-radius:12px;
-  padding:15px 24px;
-  font-weight:700;
+.hero-buttons .primary-btn,
+.hero-buttons .secondary-btn{
+  min-width:150px;
 }
 
-.secondary-btn{
-  background:white;
-  color:#6c2bd9;
-  border:1px solid #ddd;
-  border-radius:12px;
-  padding:15px 24px;
-  font-weight:700;
+.hero-note{
+  margin-top:18px;
+  font-size:12px;
+  color:#9a94a0;
 }
 
 .section{
-  padding:70px 7%;
+  padding:90px 7%;
 }
 
 .section h2{
   text-align:center;
-  font-size:34px;
-  margin-bottom:40px;
+  font-size:clamp(28px,4vw,38px);
+  letter-spacing:-1px;
+  margin-bottom:42px;
 }
 
 .steps{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
-  max-width:1000px;
+  max-width:1050px;
   margin:auto;
 }
 
 .step-card{
   background:white;
-  padding:30px;
-  border-radius:18px;
-  border:1px solid #eee;
+  padding:32px;
+  border-radius:22px;
+  border:1px solid var(--border);
   text-align:center;
+  box-shadow:var(--shadow);
 }
 
 .step-number{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  background:#eee4ff;
-  color:#6c2bd9;
+  width:46px;
+  height:46px;
+  border-radius:15px;
+  background:var(--purple-light);
+  color:var(--purple);
   display:flex;
   align-items:center;
   justify-content:center;
-  margin:0 auto 18px;
-  font-weight:800;
+  margin:0 auto 19px;
+  font-weight:900;
 }
 
 .step-card h3{
   margin-bottom:10px;
+  font-size:18px;
 }
 
 .step-card p{
-  color:#777;
-  line-height:1.5;
+  color:var(--muted);
+  line-height:1.6;
+  font-size:14px;
 }
 
 .pricing{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
-  max-width:1000px;
+  max-width:1050px;
   margin:auto;
 }
 
 .price-card{
   background:white;
-  border:1px solid #eee;
-  border-radius:18px;
+  border:1px solid var(--border);
+  border-radius:22px;
   padding:30px;
+  box-shadow:var(--shadow);
 }
 
 .price-card.featured{
-  border:2px solid #6c2bd9;
+  border:1.5px solid var(--purple);
+  box-shadow:0 14px 45px rgba(108,43,217,.12);
+}
+
+.price-label{
+  display:inline-block;
+  font-size:11px;
+  font-weight:900;
+  color:var(--purple);
+  background:var(--purple-light);
+  padding:5px 8px;
+  border-radius:999px;
+  margin-bottom:12px;
 }
 
 .price{
-  font-size:30px;
-  font-weight:800;
+  font-size:28px;
+  font-weight:900;
   margin:15px 0;
 }
 
 .price-card p{
-  color:#777;
+  color:var(--muted);
   line-height:1.6;
+  font-size:14px;
 }
 
 .trust{
-  background:#f0eaff;
+  background:
+    linear-gradient(
+      135deg,
+      #f1eaff,
+      #faf8ff
+    );
   text-align:center;
 }
 
 .trust p{
-  max-width:700px;
+  max-width:720px;
   margin:auto;
   color:#625d69;
-  line-height:1.7;
+  line-height:1.8;
+}
+
+.trust-points{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:25px;
+}
+
+.trust-point{
+  background:white;
+  border:1px solid #e5dcef;
+  color:#574d61;
+  padding:9px 13px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
 }
 
 footer{
   text-align:center;
-  padding:30px;
-  color:#888;
+  padding:34px 20px;
+  color:#918b97;
   background:white;
+  border-top:1px solid var(--border);
+  font-size:13px;
 }
 
-/* =========================
+
+/* =====================================================
    APP PAGES
-========================= */
+===================================================== */
 
 .app-page{
   display:none;
   min-height:100vh;
-  background:#faf8ff;
-  padding-bottom:80px;
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(108,43,217,.06),
+      transparent 35%
+    ),
+    var(--bg);
+  padding-bottom:86px;
 }
 
 .app-header{
   height:70px;
-  background:white;
-  border-bottom:1px solid #eee;
+  background:rgba(255,255,255,.94);
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 6%;
   position:sticky;
   top:0;
-  z-index:50;
+  z-index:70;
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
 }
 
 .app-logo{
   font-size:24px;
-  font-weight:800;
-  color:#6c2bd9;
 }
 
 .header-actions{
@@ -278,31 +458,63 @@ footer{
 }
 
 .header-btn{
-  border:0;
-  background:#f1eaff;
-  color:#6c2bd9;
-  padding:10px 14px;
-  border-radius:9px;
-  font-weight:700;
+  border:1px solid #e1d9eb;
+  background:white;
+  color:var(--purple);
+  padding:9px 13px;
+  border-radius:10px;
+  font-weight:800;
+  transition:var(--transition);
 }
 
+.header-btn:hover{
+  background:var(--purple-soft);
+}
+
+
+/* =====================================================
+   FORMS
+===================================================== */
+
 .form-container{
-  width:min(94%,600px);
-  margin:40px auto;
+  width:min(94%,610px);
+  margin:38px auto;
   background:white;
-  padding:30px;
-  border-radius:20px;
-  border:1px solid #eee;
+  padding:32px;
+  border-radius:24px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+
+.form-top{
+  text-align:center;
+  margin-bottom:27px;
+}
+
+.form-icon{
+  width:48px;
+  height:48px;
+  margin:0 auto 15px;
+  border-radius:15px;
+  background:var(--purple-light);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--purple);
+  font-size:22px;
 }
 
 .form-container h2{
+  font-size:25px;
+  letter-spacing:-.5px;
   margin-bottom:8px;
 }
 
 .form-subtitle{
-  color:#777;
+  color:var(--muted);
   margin-bottom:25px;
-  line-height:1.5;
+  line-height:1.6;
+  font-size:14px;
 }
 
 .form-group{
@@ -311,74 +523,130 @@ footer{
 
 .form-group label{
   display:block;
-  font-weight:700;
+  font-weight:800;
   margin-bottom:8px;
+  font-size:14px;
 }
 
 input,
 select,
 textarea{
   width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:10px;
+  padding:13px 14px;
+  border:1px solid #ddd8e4;
+  border-radius:12px;
   outline:none;
   background:white;
+  color:var(--text);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+input::placeholder,
+textarea::placeholder{
+  color:#aaa4af;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
-  border-color:#6c2bd9;
+  border-color:var(--purple);
+  box-shadow:0 0 0 4px rgba(108,43,217,.08);
 }
 
 textarea{
-  min-height:100px;
+  min-height:105px;
   resize:vertical;
 }
 
 .form-button{
   width:100%;
-  background:#6c2bd9;
+  background:var(--purple);
   color:white;
   border:0;
   padding:15px;
-  border-radius:11px;
-  font-weight:800;
+  border-radius:12px;
+  font-weight:900;
   margin-top:10px;
+  transition:var(--transition);
+  box-shadow:0 8px 20px rgba(108,43,217,.15);
+}
+
+.form-button:hover{
+  background:var(--purple-dark);
+  transform:translateY(-1px);
+}
+
+.apple-button{
+  background:#111 !important;
+  box-shadow:none !important;
 }
 
 .small-link{
   text-align:center;
   margin-top:18px;
-  color:#6c2bd9;
+  color:var(--purple);
   cursor:pointer;
-  font-weight:600;
+  font-weight:700;
+  font-size:14px;
+}
+
+.small-link:hover{
+  text-decoration:underline;
+}
+
+.form-divider{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:20px 0 3px;
+  color:#aaa4af;
+  font-size:12px;
+}
+
+.form-divider::before,
+.form-divider::after{
+  content:"";
+  height:1px;
+  background:#eee8f2;
+  flex:1;
 }
 
 .message{
   margin:15px 0;
-  padding:12px;
-  border-radius:9px;
+  padding:13px 14px;
+  border-radius:11px;
   display:none;
-  font-size:14px;
+  font-size:13px;
+  line-height:1.5;
 }
 
 .message.error{
   display:block;
-  background:#ffe8e8;
-  color:#a10000;
+  background:#fff0ef;
+  color:#a3261c;
+  border:1px solid #ffd8d4;
 }
 
 .message.success{
   display:block;
-  background:#e8fff0;
+  background:#edfff4;
   color:#08752f;
+  border:1px solid #ccefd9;
 }
 
-/* =========================
+.message.info{
+  display:block;
+  background:#f2edff;
+  color:#5d2eb5;
+  border:1px solid #dfd2fb;
+}
+
+
+/* =====================================================
    PHONE
-========================= */
+===================================================== */
 
 .phone-row{
   display:grid;
@@ -386,68 +654,85 @@ textarea{
   gap:8px;
 }
 
-/* =========================
+
+/* =====================================================
    PROFILE PHOTO
-========================= */
+===================================================== */
 
 .photo-section{
   text-align:center;
-  margin-bottom:25px;
+  margin-bottom:27px;
 }
 
 .photo-preview,
 .photo-placeholder{
-  width:115px;
-  height:115px;
+  width:118px;
+  height:118px;
   border-radius:50%;
   display:block;
-  margin:0 auto 12px;
+  margin:0 auto 13px;
 }
 
 .photo-preview{
   object-fit:cover;
-  border:4px solid #eee4ff;
-  background:#eee4ff;
+  border:4px solid white;
+  outline:3px solid var(--purple-light);
+  background:var(--purple-light);
 }
 
 .photo-placeholder{
-  background:#eee4ff;
+  background:var(--purple-light);
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:42px;
+  border:4px solid white;
+  outline:3px solid var(--purple-light);
 }
 
 .photo-button{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
   padding:10px 15px;
-  border-radius:9px;
-  background:#f1eaff;
-  color:#6c2bd9;
-  font-weight:700;
+  border-radius:10px;
+  background:var(--purple-light);
+  color:var(--purple);
+  font-weight:800;
   cursor:pointer;
+  font-size:13px;
+  transition:var(--transition);
+}
+
+.photo-button:hover{
+  background:#e4d7fb;
 }
 
 .hidden-file{
   display:none;
 }
 
-/* =========================
-   COMPATIBILITY
-========================= */
+
+/* =====================================================
+   PROFILE SECTIONS
+===================================================== */
 
 .compatibility-section{
-  margin-top:30px;
+  margin-top:32px;
+  padding-top:26px;
+  border-top:1px solid #f0ecf3;
 }
 
 .compatibility-section h3{
   margin-bottom:7px;
+  font-size:16px;
 }
 
 .compatibility-section > p{
-  color:#777;
-  font-size:14px;
+  color:var(--muted);
+  font-size:13px;
   margin-bottom:15px;
+  line-height:1.5;
 }
 
 .choice-grid,
@@ -459,23 +744,41 @@ textarea{
 
 .choice,
 .checkbox-item{
-  border:1px solid #ddd;
-  border-radius:10px;
+  border:1px solid #e3dfe8;
+  border-radius:11px;
   padding:12px;
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:9px;
   cursor:pointer;
+  font-size:13px;
+  font-weight:650;
+  transition:var(--transition);
+}
+
+.choice:hover,
+.checkbox-item:hover{
+  border-color:#cdbde5;
+  background:var(--purple-soft);
+}
+
+.choice:has(input:checked),
+.checkbox-item:has(input:checked){
+  border-color:#cdb9ec;
+  background:#f4efff;
+  color:var(--purple);
 }
 
 .choice input,
 .checkbox-item input{
   width:auto;
+  accent-color:var(--purple);
 }
 
-/* =========================
+
+/* =====================================================
    WELCOME
-========================= */
+===================================================== */
 
 .welcome-container{
   width:min(94%,850px);
@@ -484,29 +787,41 @@ textarea{
 
 .welcome-card{
   background:white;
-  border:1px solid #eee;
-  border-radius:22px;
-  padding:35px;
+  border:1px solid var(--border);
+  border-radius:26px;
+  padding:40px;
   text-align:center;
+  box-shadow:var(--shadow);
 }
 
 .welcome-photo{
-  width:130px;
-  height:130px;
+  width:135px;
+  height:135px;
   object-fit:cover;
   border-radius:50%;
   display:block;
-  margin:0 auto 18px;
-  background:#eee4ff;
+  margin:0 auto 19px;
+  background:var(--purple-light);
+  border:5px solid white;
+  outline:3px solid var(--purple-light);
+}
+
+.welcome-card .photo-placeholder{
+  width:135px;
+  height:135px;
+  margin:0 auto 19px;
 }
 
 .welcome-card h1{
   margin-bottom:10px;
+  font-size:31px;
+  letter-spacing:-.8px;
 }
 
 .welcome-card p{
-  color:#777;
+  color:var(--muted);
   margin-bottom:25px;
+  line-height:1.6;
 }
 
 .welcome-actions{
@@ -516,25 +831,33 @@ textarea{
   flex-wrap:wrap;
 }
 
-/* =========================
+
+/* =====================================================
    MATCHING LOADER
-========================= */
+===================================================== */
 
 #matchingPage{
   display:none;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(135deg,#faf8ff,#eee4ff);
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(108,43,217,.13),
+      transparent 35%
+    ),
+    linear-gradient(135deg,#faf8ff,#eee4ff);
   padding-bottom:0;
 }
 
 .matching-box{
   width:min(90%,450px);
   text-align:center;
-  background:white;
-  padding:45px 25px;
-  border-radius:25px;
-  box-shadow:0 20px 60px rgba(60,20,100,.12);
+  background:rgba(255,255,255,.96);
+  padding:48px 28px;
+  border-radius:28px;
+  box-shadow:var(--shadow-lg);
+  border:1px solid rgba(255,255,255,.8);
 }
 
 .matching-heart{
@@ -544,16 +867,18 @@ textarea{
 
 @keyframes heartBeat{
   0%,100%{transform:scale(1)}
-  50%{transform:scale(1.15)}
+  50%{transform:scale(1.13)}
 }
 
 .matching-box h2{
   margin:18px 0 10px;
+  font-size:25px;
 }
 
 .matching-box p{
-  color:#777;
+  color:var(--muted);
   line-height:1.6;
+  font-size:14px;
 }
 
 .matching-loader{
@@ -564,9 +889,9 @@ textarea{
 }
 
 .matching-loader span{
-  width:10px;
-  height:10px;
-  background:#6c2bd9;
+  width:9px;
+  height:9px;
+  background:var(--purple);
   border-radius:50%;
   animation:loader 1.2s infinite;
 }
@@ -580,41 +905,51 @@ textarea{
 }
 
 @keyframes loader{
-  0%,100%{opacity:.25;transform:translateY(0)}
-  50%{opacity:1;transform:translateY(-7px)}
+  0%,100%{
+    opacity:.25;
+    transform:translateY(0)
+  }
+  50%{
+    opacity:1;
+    transform:translateY(-7px)
+  }
 }
 
 .matching-status{
-  color:#6c2bd9;
-  font-weight:700;
-  font-size:14px;
+  color:var(--purple);
+  font-weight:800;
+  font-size:13px;
 }
 
-/* =========================
+
+/* =====================================================
    EXPLORE
-========================= */
+===================================================== */
 
 .explore-container{
-  width:min(94%,1100px);
+  width:min(94%,1120px);
   margin:30px auto;
 }
 
 .explore-title{
   text-align:center;
-  margin-bottom:25px;
+  margin-bottom:28px;
 }
 
 .explore-title h1{
   margin-bottom:7px;
+  font-size:31px;
+  letter-spacing:-.8px;
 }
 
 .explore-title p{
-  color:#777;
+  color:var(--muted);
+  font-size:14px;
 }
 
 .explore-status{
   text-align:center;
-  color:#777;
+  color:var(--muted);
   padding:35px;
 }
 
@@ -626,83 +961,99 @@ textarea{
 
 .discovery-card{
   background:white;
-  border:1px solid #eee;
-  border-radius:20px;
+  border:1px solid var(--border);
+  border-radius:22px;
   overflow:hidden;
-  transition:.2s ease;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+  box-shadow:0 5px 22px rgba(65,35,105,.04);
 }
 
 .discovery-card:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 35px rgba(60,20,100,.08);
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
 }
 
 .discovery-top{
-  padding:22px;
+  padding:25px 22px 21px;
   text-align:center;
 }
 
 .discovery-photo{
-  width:105px;
-  height:105px;
+  width:108px;
+  height:108px;
   object-fit:cover;
   border-radius:50%;
-  background:#eee4ff;
+  background:var(--purple-light);
   display:block;
-  margin:0 auto 12px;
+  margin:0 auto 13px;
+  border:4px solid white;
+  outline:3px solid var(--purple-light);
 }
 
 .discovery-name{
   font-size:20px;
-  font-weight:800;
+  font-weight:900;
+  letter-spacing:-.3px;
 }
 
 .discovery-meta{
-  color:#777;
-  font-size:14px;
+  color:var(--muted);
+  font-size:13px;
   margin-top:5px;
 }
 
 .compatibility-score{
-  display:inline-block;
-  background:#eee4ff;
-  color:#6c2bd9;
-  padding:7px 12px;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background:var(--purple-light);
+  color:var(--purple);
+  padding:7px 11px;
   border-radius:20px;
-  font-weight:800;
-  font-size:13px;
-  margin-top:10px;
+  font-weight:900;
+  font-size:12px;
+  margin-top:11px;
 }
 
 .discovery-body{
   padding:20px;
-  border-top:1px solid #eee;
+  border-top:1px solid #f0ecf3;
 }
 
 .detail{
-  margin-bottom:12px;
+  margin-bottom:13px;
 }
 
 .detail strong{
   display:block;
-  font-size:13px;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+  color:#9a94a0;
   margin-bottom:4px;
 }
 
 .detail span{
-  color:#666;
-  font-size:14px;
+  color:#514b56;
+  font-size:13px;
   line-height:1.5;
 }
 
 .reason-box{
   background:#f7f4ff;
-  border-radius:10px;
-  padding:12px;
+  border-radius:12px;
+  padding:13px;
   color:#625d69;
-  font-size:13px;
-  line-height:1.5;
-  margin-top:12px;
+  font-size:12px;
+  line-height:1.55;
+  margin-top:15px;
+  border:1px solid #eee7fb;
+}
+
+.reason-box strong{
+  color:var(--purple);
 }
 
 .card-actions{
@@ -712,28 +1063,39 @@ textarea{
   padding:0 20px 20px;
 }
 
+.pass-btn,
+.like-btn{
+  min-height:44px;
+  padding:10px;
+  border-radius:11px;
+  font-weight:800;
+  transition:var(--transition);
+}
+
 .pass-btn{
-  border:1px solid #ddd;
+  border:1px solid #ded9e2;
   background:white;
   color:#666;
-  padding:12px;
-  border-radius:10px;
-  font-weight:700;
+}
+
+.pass-btn:hover{
+  background:#f8f7f9;
 }
 
 .like-btn{
-  border:0;
-  background:#6c2bd9;
+  border:1px solid var(--purple);
+  background:var(--purple);
   color:white;
-  padding:12px;
-  border-radius:10px;
-  font-weight:700;
+}
+
+.like-btn:hover{
+  background:var(--purple-dark);
 }
 
 
-/* =========================
+/* =====================================================
    MY PROFILE
-========================= */
+===================================================== */
 
 .profile-container{
   width:min(94%,700px);
@@ -742,15 +1104,26 @@ textarea{
 
 .my-profile-card{
   background:white;
-  border:1px solid #eee;
+  border:1px solid var(--border);
   border-radius:28px;
   overflow:hidden;
-  box-shadow:0 10px 35px rgba(60,20,100,.06);
+  box-shadow:var(--shadow);
 }
 
 .my-profile-hero{
-  background:linear-gradient(180deg,#f2eaff 0%,#faf8ff 70%,#ffffff 100%);
-  padding:34px 22px 28px;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(108,43,217,.12),
+      transparent 45%
+    ),
+    linear-gradient(
+      180deg,
+      #f2eaff 0%,
+      #faf8ff 70%,
+      #ffffff 100%
+    );
+  padding:36px 22px 28px;
   text-align:center;
 }
 
@@ -758,7 +1131,7 @@ textarea{
   position:relative;
   width:160px;
   height:160px;
-  margin:0 auto 18px;
+  margin:0 auto 19px;
 }
 
 .my-profile-photo{
@@ -768,8 +1141,8 @@ textarea{
   object-fit:cover;
   display:block;
   border:5px solid white;
-  box-shadow:0 10px 30px rgba(60,20,100,.16);
-  background:#eee4ff;
+  box-shadow:0 12px 30px rgba(60,20,100,.16);
+  background:var(--purple-light);
 }
 
 .my-profile-card .photo-placeholder{
@@ -778,48 +1151,49 @@ textarea{
   margin:0;
   border-radius:50%;
   border:5px solid white;
-  box-shadow:0 10px 30px rgba(60,20,100,.16);
+  box-shadow:0 12px 30px rgba(60,20,100,.16);
 }
 
 .profile-camera-button{
   position:absolute;
-  right:0;
-  bottom:3px;
-  width:45px;
-  height:45px;
+  right:-1px;
+  bottom:2px;
+  width:46px;
+  height:46px;
   border-radius:50%;
   border:4px solid white;
-  background:#6c2bd9;
+  background:var(--purple);
   color:white;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:18px;
   cursor:pointer;
-  box-shadow:0 6px 18px rgba(60,20,100,.22);
+  box-shadow:0 7px 18px rgba(60,20,100,.22);
 }
 
 .my-profile-card h1{
   font-size:30px;
   margin-bottom:7px;
   line-height:1.2;
+  letter-spacing:-.7px;
 }
 
 .my-profile-basic{
   color:#555;
   font-size:15px;
-  font-weight:600;
+  font-weight:700;
 }
 
 .my-profile-location{
   color:#777;
   margin-top:7px;
-  font-size:14px;
+  font-size:13px;
 }
 
 .profile-photo-label{
-  display:inline-block;
-  margin-top:13px;
+  display:inline-flex;
+  margin-top:14px;
 }
 
 .profile-completion{
@@ -827,9 +1201,10 @@ textarea{
   margin:22px auto 0;
   background:white;
   border-radius:15px;
-  padding:13px 15px;
+  padding:14px 15px;
   text-align:left;
-  border:1px solid #eee;
+  border:1px solid var(--border);
+  box-shadow:0 5px 20px rgba(65,35,105,.04);
 }
 
 .profile-completion-top{
@@ -840,19 +1215,19 @@ textarea{
 }
 
 .profile-completion-top strong{
-  font-size:13px;
+  font-size:12px;
 }
 
 .profile-completion-percent{
-  color:#6c2bd9;
-  font-weight:800;
-  font-size:13px;
+  color:var(--purple);
+  font-weight:900;
+  font-size:12px;
 }
 
 .profile-progress{
   width:100%;
   height:8px;
-  background:#eee4ff;
+  background:var(--purple-light);
   border-radius:20px;
   overflow:hidden;
 }
@@ -860,7 +1235,7 @@ textarea{
 .profile-progress-bar{
   height:100%;
   width:0;
-  background:#6c2bd9;
+  background:var(--purple);
   border-radius:20px;
   transition:width .4s ease;
 }
@@ -870,33 +1245,33 @@ textarea{
 }
 
 .profile-section-heading{
-  margin:17px 2px 8px;
-  font-size:13px;
-  font-weight:800;
-  color:#999;
+  margin:20px 2px 9px;
+  font-size:11px;
+  font-weight:900;
+  color:#aaa3ae;
   text-transform:uppercase;
-  letter-spacing:.6px;
+  letter-spacing:1px;
 }
 
 .profile-info-section{
   text-align:left;
   margin-top:10px;
-  padding:19px;
-  background:#faf8ff;
+  padding:18px;
+  background:#fcfbfd;
   border-radius:17px;
-  border:1px solid #f0ecf7;
+  border:1px solid #f0ecf3;
 }
 
 .profile-info-section h3{
-  font-size:14px;
+  font-size:13px;
   margin-bottom:11px;
-  color:#6c2bd9;
+  color:var(--purple);
 }
 
 .profile-info-section p{
   color:#555;
   line-height:1.6;
-  font-size:15px;
+  font-size:14px;
 }
 
 .profile-chips{
@@ -913,18 +1288,19 @@ textarea{
   color:#51475e;
   padding:7px 11px;
   border-radius:20px;
-  font-size:13px;
-  font-weight:600;
+  font-size:12px;
+  font-weight:700;
 }
 
 .profile-chip.personality{
-  background:#eee4ff;
-  color:#6c2bd9;
+  background:var(--purple-light);
+  color:var(--purple);
   border-color:#ddd0f6;
 }
 
 .profile-empty{
   color:#999 !important;
+  font-size:13px;
 }
 
 .profile-buttons{
@@ -939,15 +1315,16 @@ textarea{
 }
 
 .profile-summary{
-  background:#6c2bd9;
+  background:var(--purple);
   color:white;
   padding:19px;
   border-radius:17px;
   margin-top:10px;
+  box-shadow:0 10px 25px rgba(108,43,217,.14);
 }
 
 .profile-summary h3{
-  font-size:14px;
+  font-size:13px;
   margin-bottom:7px;
 }
 
@@ -957,7 +1334,417 @@ textarea{
   opacity:.94;
 }
 
+
+/* =====================================================
+   LIKES / MATCHES
+===================================================== */
+
+.list-container{
+  width:min(94%,800px);
+  margin:30px auto;
+}
+
+.list-header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.list-header h1{
+  margin-bottom:7px;
+  font-size:30px;
+  letter-spacing:-.7px;
+}
+
+.list-header p{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.simple-list{
+  display:grid;
+  gap:12px;
+}
+
+.person-list-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  box-shadow:0 4px 18px rgba(65,35,105,.03);
+}
+
+.person-list-photo{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  object-fit:cover;
+  background:var(--purple-light);
+  flex-shrink:0;
+  border:2px solid white;
+  outline:2px solid var(--purple-light);
+}
+
+.person-list-info{
+  flex:1;
+  min-width:0;
+}
+
+.person-list-info h3{
+  margin-bottom:5px;
+  font-size:16px;
+}
+
+.person-list-info p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.4;
+}
+
+.person-list-action{
+  border:0;
+  background:var(--purple-light);
+  color:var(--purple);
+  padding:9px 12px;
+  border-radius:9px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty-state{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:45px 25px;
+  text-align:center;
+  box-shadow:var(--shadow);
+}
+
+.empty-icon{
+  width:52px;
+  height:52px;
+  border-radius:17px;
+  background:var(--purple-light);
+  margin:0 auto 15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+}
+
+.empty-state h2{
+  margin-bottom:10px;
+  font-size:21px;
+}
+
+.empty-state p{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:14px;
+}
+
+
+/* =====================================================
+   MATCH POPUP
+===================================================== */
+
+.match-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(20,10,30,.66);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:1000;
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+}
+
+.match-popup{
+  background:white;
+  width:min(92%,430px);
+  padding:38px 30px;
+  border-radius:27px;
+  text-align:center;
+  box-shadow:var(--shadow-lg);
+}
+
+.match-popup .big-heart{
+  font-size:65px;
+  animation:heartBeat 1s infinite;
+}
+
+.match-popup h2{
+  margin:13px 0 9px;
+  font-size:25px;
+}
+
+.match-popup p{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:14px;
+}
+
+.match-popup button{
+  margin-top:21px;
+  width:100%;
+  padding:14px;
+  background:var(--purple);
+  color:white;
+  border:0;
+  border-radius:11px;
+  font-weight:900;
+}
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+.settings-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(20,10,30,.55);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:900;
+  padding:0;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+}
+
+.settings-sheet{
+  background:white;
+  width:100%;
+  max-width:600px;
+  border-radius:27px 27px 0 0;
+  padding:25px;
+  box-shadow:0 -20px 60px rgba(30,10,50,.14);
+}
+
+.settings-handle{
+  width:40px;
+  height:4px;
+  border-radius:20px;
+  background:#ddd7e1;
+  margin:0 auto 22px;
+}
+
+.settings-sheet h2{
+  margin-bottom:7px;
+  font-size:22px;
+}
+
+.settings-sheet p{
+  color:var(--muted);
+  line-height:1.5;
+  margin-bottom:20px;
+  font-size:13px;
+}
+
+.settings-option{
+  width:100%;
+  padding:15px;
+  border:1px solid var(--border);
+  background:#fcfbfd;
+  border-radius:12px;
+  text-align:left;
+  margin-bottom:10px;
+  font-weight:800;
+  color:var(--text);
+  transition:var(--transition);
+}
+
+.settings-option:hover{
+  background:var(--purple-soft);
+  border-color:#dfd2ef;
+}
+
+.settings-option.danger{
+  color:#a10000;
+  background:#fff3f2;
+  border-color:#ffe0dc;
+}
+
+
+/* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:72px;
+  background:rgba(255,255,255,.96);
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:center;
+  gap:0;
+  z-index:100;
+  box-shadow:0 -7px 25px rgba(20,10,30,.05);
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+}
+
+.bottom-nav button{
+  flex:1;
+  max-width:150px;
+  border:0;
+  background:transparent;
+  color:#8b858f;
+  font-size:11px;
+  font-weight:800;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  transition:var(--transition);
+}
+
+.bottom-nav button span{
+  font-size:19px;
+  line-height:1;
+  filter:grayscale(.7);
+}
+
+.bottom-nav button.active{
+  color:var(--purple);
+}
+
+.bottom-nav button.active span{
+  filter:none;
+  transform:scale(1.05);
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+  text-align:center;
+  padding:40px;
+  color:var(--muted);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:800px){
+
+  .steps,
+  .pricing{
+    grid-template-columns:1fr;
+    max-width:600px;
+  }
+
+  .discovery-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .navbar{
+    padding:0 4%;
+  }
+
+  .hero{
+    padding-top:80px;
+  }
+
+}
+
+@media(max-width:620px){
+
+  .discovery-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
 @media(max-width:500px){
+
+  .navbar{
+    height:68px;
+    padding:0 4%;
+  }
+
+  .logo{
+    font-size:24px;
+  }
+
+  .nav-buttons button{
+    padding:8px 9px;
+    font-size:12px;
+  }
+
+  .signup-nav{
+    padding:9px 11px !important;
+  }
+
+  .hero{
+    padding:72px 18px 70px;
+  }
+
+  .hero h1{
+    letter-spacing:-2.5px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .section{
+    padding:65px 5%;
+  }
+
+  .form-container{
+    padding:24px 19px;
+    margin:22px auto;
+    border-radius:20px;
+  }
+
+  .phone-row{
+    grid-template-columns:105px 1fr;
+  }
+
+  .choice-grid,
+  .checkbox-grid{
+    grid-template-columns:1fr;
+  }
+
+  .app-header{
+    padding:0 4%;
+  }
+
+  .header-btn{
+    padding:8px 10px;
+    font-size:12px;
+  }
+
+  .welcome-container{
+    margin:25px auto;
+  }
+
+  .welcome-card{
+    padding:30px 20px;
+  }
+
+  .welcome-card h1{
+    font-size:25px;
+  }
 
   .profile-container{
     width:94%;
@@ -965,7 +1752,7 @@ textarea{
   }
 
   .my-profile-hero{
-    padding:27px 15px 24px;
+    padding:28px 15px 24px;
   }
 
   .my-profile-photo-wrap,
@@ -997,312 +1784,35 @@ textarea{
     grid-template-columns:1fr;
   }
 
-}
-
-
-/* =========================
-   LIKES / MATCHES
-========================= */
-
-.list-container{
-  width:min(94%,800px);
-  margin:30px auto;
-}
-
-.list-header{
-  text-align:center;
-  margin-bottom:25px;
-}
-
-.list-header h1{
-  margin-bottom:7px;
-}
-
-.list-header p{
-  color:#777;
-}
-
-.simple-list{
-  display:grid;
-  gap:12px;
-}
-
-.person-list-card{
-  background:white;
-  border:1px solid #eee;
-  border-radius:18px;
-  padding:15px;
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.person-list-photo{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  object-fit:cover;
-  background:#eee4ff;
-  flex-shrink:0;
-}
-
-.person-list-info{
-  flex:1;
-  min-width:0;
-}
-
-.person-list-info h3{
-  margin-bottom:5px;
-}
-
-.person-list-info p{
-  color:#777;
-  font-size:14px;
-  line-height:1.4;
-}
-
-.person-list-action{
-  border:0;
-  background:#f1eaff;
-  color:#6c2bd9;
-  padding:9px 12px;
-  border-radius:9px;
-  font-weight:700;
-}
-
-/* =========================
-   MATCH POPUP
-========================= */
-
-.match-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(20,10,30,.65);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:1000;
-}
-
-.match-popup{
-  background:white;
-  width:min(92%,430px);
-  padding:35px;
-  border-radius:25px;
-  text-align:center;
-}
-
-.match-popup .big-heart{
-  font-size:65px;
-}
-
-.match-popup h2{
-  margin:12px 0;
-}
-
-.match-popup p{
-  color:#777;
-  line-height:1.5;
-}
-
-.match-popup button{
-  margin-top:20px;
-  width:100%;
-  padding:14px;
-  background:#6c2bd9;
-  color:white;
-  border:0;
-  border-radius:10px;
-  font-weight:800;
-}
-
-/* =========================
-   SETTINGS
-========================= */
-
-.settings-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(20,10,30,.55);
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-  z-index:900;
-  padding:0;
-}
-
-.settings-sheet{
-  background:white;
-  width:100%;
-  max-width:600px;
-  border-radius:25px 25px 0 0;
-  padding:25px;
-}
-
-.settings-sheet h2{
-  margin-bottom:8px;
-}
-
-.settings-sheet p{
-  color:#777;
-  line-height:1.5;
-  margin-bottom:20px;
-}
-
-.settings-option{
-  width:100%;
-  padding:15px;
-  border:1px solid #eee;
-  background:#faf8ff;
-  border-radius:12px;
-  text-align:left;
-  margin-bottom:10px;
-  font-weight:700;
-}
-
-.settings-option.danger{
-  color:#a10000;
-  background:#fff1f1;
-}
-
-/* =========================
-   BOTTOM NAVIGATION
-========================= */
-
-.bottom-nav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  height:70px;
-  background:white;
-  border-top:1px solid #eee;
-  display:flex;
-  justify-content:center;
-  gap:0;
-  z-index:100;
-  box-shadow:0 -5px 20px rgba(20,10,30,.05);
-}
-
-.bottom-nav button{
-  flex:1;
-  max-width:150px;
-  border:0;
-  background:white;
-  color:#777;
-  font-size:12px;
-  font-weight:700;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-}
-
-.bottom-nav button span{
-  font-size:20px;
-  line-height:1;
-}
-
-.bottom-nav button.active{
-  color:#6c2bd9;
-}
-
-/* =========================
-   EMPTY STATE
-========================= */
-
-.empty-state{
-  background:white;
-  border:1px solid #eee;
-  border-radius:20px;
-  padding:45px 25px;
-  text-align:center;
-}
-
-.empty-state h2{
-  margin-bottom:10px;
-}
-
-.empty-state p{
-  color:#777;
-  line-height:1.6;
-}
-
-/* =========================
-   LOADING
-========================= */
-
-.loading{
-  text-align:center;
-  padding:40px;
-  color:#777;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:800px){
-
-  .steps,
-  .pricing{
-    grid-template-columns:1fr;
+  .person-list-card{
+    gap:11px;
   }
 
-  .discovery-grid{
-    grid-template-columns:1fr;
+  .person-list-photo{
+    width:60px;
+    height:60px;
   }
 
-  .navbar{
-    padding:0 4%;
-  }
-
-  .hero{
-    padding-top:65px;
+  .person-list-action{
+    padding:8px 9px;
+    font-size:11px;
   }
 
 }
 
-@media(max-width:500px){
 
-  .navbar{
-    height:auto;
-    padding:15px 4%;
+/* =====================================================
+   ACCESSIBILITY / TOUCH
+===================================================== */
+
+@media(hover:none){
+
+  .primary-btn:hover,
+  .secondary-btn:hover,
+  .discovery-card:hover{
+    transform:none;
   }
 
-  .nav-buttons button{
-    padding:8px;
-    font-size:13px;
-  }
-
-  .form-container{
-    padding:22px;
-  }
-
-  .choice-grid,
-  .checkbox-grid{
-    grid-template-columns:1fr;
-  }
-
-  .app-header{
-    padding:0 4%;
-  }
-
-  .header-btn{
-    padding:9px 11px;
-    font-size:13px;
-  }
-
-}
-
-/* =========================
-   HIDDEN
-========================= */
-
-.hidden{
-  display:none !important;
 }
 
 </style>
@@ -1310,9 +1820,10 @@ textarea{
 
 <body>
 
-<!-- =========================
+
+<!-- =====================================================
      HOME
-========================= -->
+===================================================== -->
 
 <div id="homePage" class="page">
 
@@ -1321,13 +1832,24 @@ textarea{
     <div class="logo">Pairly</div>
 
     <div class="nav-buttons">
-      <button class="login-nav" onclick="showLogin()">Log in</button>
-      <button class="signup-nav" onclick="startJoinExperience()">Join Pairly</button>
+      <button class="login-nav" onclick="showLogin()">
+        Log in
+      </button>
+
+      <button class="signup-nav" onclick="startJoinExperience()">
+        Join Pairly
+      </button>
     </div>
 
   </nav>
 
+
   <section class="hero">
+
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Compatibility-first connections
+    </div>
 
     <h1>
       Meet someone<br>
@@ -1342,17 +1864,28 @@ textarea{
 
     <div class="hero-buttons">
 
-      <button class="primary-btn" onclick="startMatchingExperience()">
+      <button
+        class="primary-btn"
+        onclick="startMatchingExperience()"
+      >
         Find your match
       </button>
 
-      <button class="secondary-btn" onclick="startJoinExperience()">
+      <button
+        class="secondary-btn"
+        onclick="startJoinExperience()"
+      >
         Join Pairly
       </button>
 
     </div>
 
+    <div class="hero-note">
+      18+ • Built around compatibility
+    </div>
+
   </section>
+
 
   <section class="section">
 
@@ -1361,35 +1894,56 @@ textarea{
     <div class="steps">
 
       <div class="step-card">
-        <div class="step-number">1</div>
+
+        <div class="step-number">
+          1
+        </div>
+
         <h3>Create your profile</h3>
+
         <p>
           Tell Pairly about yourself, your interests,
           personality, lifestyle and what you're looking for.
         </p>
+
       </div>
 
+
       <div class="step-card">
-        <div class="step-number">2</div>
+
+        <div class="step-number">
+          2
+        </div>
+
         <h3>Discover compatible people</h3>
+
         <p>
           Pairly compares important parts of your profiles
           to help you discover people who may click with you.
         </p>
+
       </div>
 
+
       <div class="step-card">
-        <div class="step-number">3</div>
+
+        <div class="step-number">
+          3
+        </div>
+
         <h3>Connect naturally</h3>
+
         <p>
           Like people you're interested in and discover
           mutual connections.
         </p>
+
       </div>
 
     </div>
 
   </section>
+
 
   <section class="section">
 
@@ -1398,35 +1952,64 @@ textarea{
     <div class="pricing">
 
       <div class="price-card">
+
         <h3>Free</h3>
-        <div class="price">₦0</div>
+
+        <div class="price">
+          ₦0
+        </div>
+
         <p>
           Create your profile and discover
           compatible people.
         </p>
+
       </div>
 
+
       <div class="price-card featured">
+
+        <div class="price-label">
+          COMING SOON
+        </div>
+
         <h3>Pairly Plus</h3>
-        <div class="price">Coming soon</div>
+
+        <div class="price">
+          Coming soon
+        </div>
+
         <p>
           More ways to discover and connect
           with people who fit you.
         </p>
+
       </div>
 
+
       <div class="price-card">
+
+        <div class="price-label">
+          COMING SOON
+        </div>
+
         <h3>Pairly Select</h3>
-        <div class="price">Coming soon</div>
+
+        <div class="price">
+          Coming soon
+        </div>
+
         <p>
           A more personalised Pairly experience
           for users who want more.
         </p>
+
       </div>
 
     </div>
 
   </section>
+
 
   <section class="section trust">
 
@@ -1438,7 +2021,32 @@ textarea{
       all help shape the people you discover.
     </p>
 
+    <div class="trust-points">
+
+      <span class="trust-point">
+        Personality
+      </span>
+
+      <span class="trust-point">
+        Values
+      </span>
+
+      <span class="trust-point">
+        Lifestyle
+      </span>
+
+      <span class="trust-point">
+        Interests
+      </span>
+
+      <span class="trust-point">
+        Relationship goals
+      </span>
+
+    </div>
+
   </section>
+
 
   <footer>
     © 2026 Pairly. Meet someone who gets you.
@@ -1447,20 +2055,24 @@ textarea{
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      MATCHING PAGE
-========================= -->
+===================================================== -->
 
 <div id="matchingPage" class="app-page">
 
   <div class="matching-box">
 
-    <div class="matching-heart">💞</div>
+    <div class="matching-heart">
+      💞
+    </div>
 
-    <h2>Finding your match...</h2>
+    <h2>
+      Finding your match...
+    </h2>
 
     <p>
-      Pairly is looking for connections<br>
+      Pairly is looking for connections
       that could genuinely click with you.
     </p>
 
@@ -1479,75 +2091,130 @@ textarea{
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      SIGNUP
-========================= -->
+===================================================== -->
 
 <div id="signupPage" class="app-page">
 
   <div class="app-header">
 
-    <div class="app-logo">Pairly</div>
+    <div class="app-logo">
+      Pairly
+    </div>
 
-    <button class="header-btn" onclick="showHome()">
+    <button
+      class="header-btn"
+      onclick="showHome()"
+    >
       Home
     </button>
 
   </div>
 
+
   <div class="form-container">
 
-    <h2>Create your Pairly account</h2>
+    <div class="form-top">
 
-    <p class="form-subtitle">
-      Let's get you started.
-    </p>
+      <div class="form-icon">
+        💜
+      </div>
 
-    <div id="signupMessage" class="message"></div>
+      <h2>
+        Create your Pairly account
+      </h2>
+
+      <p class="form-subtitle">
+        Start building a profile that actually represents you.
+      </p>
+
+    </div>
+
+
+    <div
+      id="signupMessage"
+      class="message"
+    ></div>
+
 
     <div class="form-group">
 
-      <label>Email</label>
+      <label>
+        Email
+      </label>
 
       <input
         id="signupEmail"
         type="email"
+        autocomplete="email"
         placeholder="you@example.com"
       >
 
     </div>
 
+
     <div class="form-group">
 
-      <label>Password</label>
+      <label>
+        Password
+      </label>
 
       <input
         id="signupPassword"
         type="password"
+        autocomplete="new-password"
         placeholder="Create a password"
       >
 
     </div>
 
+
     <div class="form-group">
 
-      <label>Phone number</label>
+      <label>
+        Phone number
+      </label>
 
       <div class="phone-row">
 
         <select id="signupCountryCode">
-          <option value="+234">🇳🇬 +234</option>
-          <option value="+233">🇬🇭 +233</option>
-          <option value="+27">🇿🇦 +27</option>
-          <option value="+254">🇰🇪 +254</option>
-          <option value="+44">🇬🇧 +44</option>
-          <option value="+1">🇺🇸 +1</option>
-          <option value="+61">🇦🇺 +61</option>
+
+          <option value="+234">
+            🇳🇬 +234
+          </option>
+
+          <option value="+233">
+            🇬🇭 +233
+          </option>
+
+          <option value="+27">
+            🇿🇦 +27
+          </option>
+
+          <option value="+254">
+            🇰🇪 +254
+          </option>
+
+          <option value="+44">
+            🇬🇧 +44
+          </option>
+
+          <option value="+1">
+            🇺🇸 +1
+          </option>
+
+          <option value="+61">
+            🇦🇺 +61
+          </option>
+
         </select>
+
 
         <input
           id="signupPhone"
           type="tel"
+          autocomplete="tel"
           placeholder="Phone number"
         >
 
@@ -1555,19 +2222,33 @@ textarea{
 
     </div>
 
-    <button class="form-button" onclick="signUp()">
+
+    <button
+      id="signupButton"
+      class="form-button"
+      onclick="signUp()"
+    >
       Create account
     </button>
 
+
+    <div class="form-divider">
+      OR
+    </div>
+
+
     <button
-      class="form-button"
-      style="margin-top:10px;background:#111;"
+      class="form-button apple-button"
       onclick="appleLogin()"
     >
       Continue with Apple
     </button>
 
-    <div class="small-link" onclick="showLogin()">
+
+    <div
+      class="small-link"
+      onclick="showLogin()"
+    >
       Already have an account? Log in
     </div>
 
@@ -1576,61 +2257,107 @@ textarea{
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      LOGIN
-========================= -->
+===================================================== -->
 
 <div id="loginPage" class="app-page">
 
   <div class="app-header">
 
-    <div class="app-logo">Pairly</div>
+    <div class="app-logo">
+      Pairly
+    </div>
 
-    <button class="header-btn" onclick="showHome()">
+    <button
+      class="header-btn"
+      onclick="showHome()"
+    >
       Home
     </button>
 
   </div>
 
+
   <div class="form-container">
 
-    <h2>Welcome back</h2>
+    <div class="form-top">
 
-    <p class="form-subtitle">
-      Log in to continue your Pairly journey.
-    </p>
+      <div class="form-icon">
+        👋
+      </div>
 
-    <div id="loginMessage" class="message"></div>
+      <h2>
+        Welcome back
+      </h2>
+
+      <p class="form-subtitle">
+        Log in to continue your Pairly journey.
+      </p>
+
+    </div>
+
+
+    <div
+      id="loginMessage"
+      class="message"
+    ></div>
+
 
     <div class="form-group">
 
-      <label>Email</label>
+      <label>
+        Email
+      </label>
 
       <input
         id="loginEmail"
         type="email"
+        autocomplete="email"
         placeholder="you@example.com"
       >
 
     </div>
 
+
     <div class="form-group">
 
-      <label>Password</label>
+      <label>
+        Password
+      </label>
 
       <input
         id="loginPassword"
         type="password"
+        autocomplete="current-password"
         placeholder="Your password"
       >
 
     </div>
 
-    <button class="form-button" onclick="login()">
+
+    <div
+      class="small-link"
+      style="text-align:right;margin-top:-7px;margin-bottom:12px;"
+      onclick="showForgotPassword()"
+    >
+      Forgot password?
+    </div>
+
+
+    <button
+      id="loginButton"
+      class="form-button"
+      onclick="login()"
+    >
       Log in
     </button>
 
-    <div class="small-link" onclick="showSignup()">
+
+    <div
+      class="small-link"
+      onclick="showSignup()"
+    >
       Don't have an account? Create one
     </div>
 
@@ -1639,35 +2366,236 @@ textarea{
 </div>
 
 
-<!-- =========================
-     PROFILE SETUP / EDIT
-========================= -->
+<!-- =====================================================
+     FORGOT PASSWORD
+===================================================== -->
 
-<div id="profilePage" class="app-page">
+<div id="forgotPasswordPage" class="app-page">
 
   <div class="app-header">
 
-    <div class="app-logo">Pairly</div>
+    <div class="app-logo">
+      Pairly
+    </div>
 
-    <button class="header-btn" onclick="cancelProfileEdit()">
+    <button
+      class="header-btn"
+      onclick="showLogin()"
+    >
       Back
     </button>
 
   </div>
 
+
   <div class="form-container">
 
-    <h2 id="profileFormTitle">Build your profile</h2>
+    <div class="form-top">
 
-    <p class="form-subtitle">
-      Help Pairly understand you better.
-    </p>
+      <div class="form-icon">
+        🔐
+      </div>
 
-    <div id="profileMessage" class="message"></div>
+      <h2>
+        Forgot your password?
+      </h2>
+
+      <p class="form-subtitle">
+        Enter the email connected to your Pairly account
+        and we'll send you a password reset link.
+      </p>
+
+    </div>
+
+
+    <div
+      id="forgotPasswordMessage"
+      class="message"
+    ></div>
+
+
+    <div class="form-group">
+
+      <label>
+        Email
+      </label>
+
+      <input
+        id="forgotPasswordEmail"
+        type="email"
+        autocomplete="email"
+        placeholder="you@example.com"
+      >
+
+    </div>
+
+
+    <button
+      id="forgotPasswordButton"
+      class="form-button"
+      onclick="sendPasswordReset()"
+    >
+      Send reset link
+    </button>
+
+
+    <div
+      class="small-link"
+      onclick="showLogin()"
+    >
+      Remember your password? Log in
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     RESET PASSWORD
+===================================================== -->
+
+<div id="resetPasswordPage" class="app-page">
+
+  <div class="app-header">
+
+    <div class="app-logo">
+      Pairly
+    </div>
+
+    <button
+      class="header-btn"
+      onclick="showHome()"
+    >
+      Home
+    </button>
+
+  </div>
+
+
+  <div class="form-container">
+
+    <div class="form-top">
+
+      <div class="form-icon">
+        🔑
+      </div>
+
+      <h2>
+        Create a new password
+      </h2>
+
+      <p class="form-subtitle">
+        Choose a new password for your Pairly account.
+      </p>
+
+    </div>
+
+
+    <div
+      id="resetPasswordMessage"
+      class="message"
+    ></div>
+
+
+    <div class="form-group">
+
+      <label>
+        New password
+      </label>
+
+      <input
+        id="newPassword"
+        type="password"
+        autocomplete="new-password"
+        placeholder="At least 6 characters"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Confirm new password
+      </label>
+
+      <input
+        id="confirmNewPassword"
+        type="password"
+        autocomplete="new-password"
+        placeholder="Enter it again"
+      >
+
+    </div>
+
+
+    <button
+      id="resetPasswordButton"
+      class="form-button"
+      onclick="updatePassword()"
+    >
+      Update password
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     PROFILE SETUP / EDIT
+===================================================== -->
+
+<div id="profilePage" class="app-page">
+
+  <div class="app-header">
+
+    <div class="app-logo">
+      Pairly
+    </div>
+
+    <button
+      class="header-btn"
+      onclick="cancelProfileEdit()"
+    >
+      Back
+    </button>
+
+  </div>
+
+
+  <div class="form-container">
+
+    <div class="form-top">
+
+      <div class="form-icon">
+        👤
+      </div>
+
+      <h2 id="profileFormTitle">
+        Build your profile
+      </h2>
+
+      <p class="form-subtitle">
+        Help Pairly understand you better.
+      </p>
+
+    </div>
+
+
+    <div
+      id="profileMessage"
+      class="message"
+    ></div>
+
 
     <div class="photo-section">
 
-      <div id="profilePhotoPlaceholder" class="photo-placeholder">
+      <div
+        id="profilePhotoPlaceholder"
+        class="photo-placeholder"
+      >
         👤
       </div>
 
@@ -1686,7 +2614,7 @@ textarea{
           id="profilePhotoInput"
           class="hidden-file"
           type="file"
-          accept="image/*"
+          accept="image/jpeg,image/png,image/webp,image/gif"
           onchange="previewProfilePhoto(event)"
         >
 
@@ -1694,21 +2622,28 @@ textarea{
 
     </div>
 
+
     <div class="form-group">
 
-      <label>Name</label>
+      <label>
+        Name
+      </label>
 
       <input
         id="profileName"
         type="text"
+        maxlength="50"
         placeholder="Your name"
       >
 
     </div>
 
+
     <div class="form-group">
 
-      <label>Age</label>
+      <label>
+        Age
+      </label>
 
       <input
         id="profileAge"
@@ -1720,24 +2655,41 @@ textarea{
 
     </div>
 
+
     <div class="form-group">
 
-      <label>Gender</label>
+      <label>
+        Gender
+      </label>
 
       <select id="profileGender">
 
-        <option value="">Select</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Non-binary">Non-binary</option>
+        <option value="">
+          Select
+        </option>
+
+        <option value="Male">
+          Male
+        </option>
+
+        <option value="Female">
+          Female
+        </option>
+
+        <option value="Non-binary">
+          Non-binary
+        </option>
 
       </select>
 
     </div>
 
+
     <div class="form-group">
 
-      <label>Country</label>
+      <label>
+        Country
+      </label>
 
       <select
         id="profileCountry"
@@ -1746,31 +2698,45 @@ textarea{
 
     </div>
 
+
     <div class="form-group">
 
-      <label>City</label>
+      <label>
+        City
+      </label>
 
       <select id="profileCity">
-        <option value="">Select city</option>
+
+        <option value="">
+          Select city
+        </option>
+
       </select>
 
     </div>
 
+
     <div class="form-group">
 
-      <label>Interests</label>
+      <label>
+        Interests
+      </label>
 
       <input
         id="profileInterests"
         type="text"
+        maxlength="180"
         placeholder="Music, football, photography, gaming..."
       >
 
     </div>
 
+
     <div class="form-group">
 
-      <label>Short bio</label>
+      <label>
+        Short bio
+      </label>
 
       <textarea
         id="profileBio"
@@ -1778,37 +2744,65 @@ textarea{
         placeholder="Tell people a little about you..."
       ></textarea>
 
-      <div style="text-align:right;color:#999;font-size:12px;margin-top:5px;">
+      <div
+        style="
+          text-align:right;
+          color:#999;
+          font-size:11px;
+          margin-top:5px;
+        "
+      >
         Keep it short — 180 characters max.
       </div>
 
     </div>
 
+
     <div class="compatibility-section">
 
-      <h3>What's your personality like?</h3>
+      <h3>
+        What's your personality like?
+      </h3>
 
-      <p>Choose the option that feels most like you.</p>
+      <p>
+        Choose the option that feels most like you.
+      </p>
 
       <div class="choice-grid">
 
         <label class="choice">
-          <input type="radio" name="personality" value="Introvert">
+          <input
+            type="radio"
+            name="personality"
+            value="Introvert"
+          >
           Introvert
         </label>
 
         <label class="choice">
-          <input type="radio" name="personality" value="Ambivert">
+          <input
+            type="radio"
+            name="personality"
+            value="Ambivert"
+          >
           Ambivert
         </label>
 
         <label class="choice">
-          <input type="radio" name="personality" value="Extrovert">
+          <input
+            type="radio"
+            name="personality"
+            value="Extrovert"
+          >
           Extrovert
         </label>
 
         <label class="choice">
-          <input type="radio" name="personality" value="Adventurous">
+          <input
+            type="radio"
+            name="personality"
+            value="Adventurous"
+          >
           Adventurous
         </label>
 
@@ -1816,51 +2810,88 @@ textarea{
 
     </div>
 
+
     <div class="compatibility-section">
 
-      <h3>What matters to you?</h3>
+      <h3>
+        What matters to you?
+      </h3>
 
-      <p>Select the values that are important to you.</p>
+      <p>
+        Select the values that are important to you.
+      </p>
 
       <div class="checkbox-grid">
 
         <label class="checkbox-item">
-          <input type="checkbox" name="values" value="Honesty">
+          <input
+            type="checkbox"
+            name="values"
+            value="Honesty"
+          >
           Honesty
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="values" value="Loyalty">
+          <input
+            type="checkbox"
+            name="values"
+            value="Loyalty"
+          >
           Loyalty
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="values" value="Family">
+          <input
+            type="checkbox"
+            name="values"
+            value="Family"
+          >
           Family
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="values" value="Growth">
+          <input
+            type="checkbox"
+            name="values"
+            value="Growth"
+          >
           Growth
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="values" value="Ambition">
+          <input
+            type="checkbox"
+            name="values"
+            value="Ambition"
+          >
           Ambition
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="values" value="Kindness">
+          <input
+            type="checkbox"
+            name="values"
+            value="Kindness"
+          >
           Kindness
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="values" value="Independence">
+          <input
+            type="checkbox"
+            name="values"
+            value="Independence"
+          >
           Independence
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="values" value="Faith">
+          <input
+            type="checkbox"
+            name="values"
+            value="Faith"
+          >
           Faith
         </label>
 
@@ -1868,51 +2899,88 @@ textarea{
 
     </div>
 
+
     <div class="compatibility-section">
 
-      <h3>What's your lifestyle like?</h3>
+      <h3>
+        What's your lifestyle like?
+      </h3>
 
-      <p>Select the things that describe you.</p>
+      <p>
+        Select the things that describe you.
+      </p>
 
       <div class="checkbox-grid">
 
         <label class="checkbox-item">
-          <input type="checkbox" name="lifestyle" value="Social">
+          <input
+            type="checkbox"
+            name="lifestyle"
+            value="Social"
+          >
           Social
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="lifestyle" value="Homebody">
+          <input
+            type="checkbox"
+            name="lifestyle"
+            value="Homebody"
+          >
           Homebody
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="lifestyle" value="Fitness">
+          <input
+            type="checkbox"
+            name="lifestyle"
+            value="Fitness"
+          >
           Fitness
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="lifestyle" value="Travel">
+          <input
+            type="checkbox"
+            name="lifestyle"
+            value="Travel"
+          >
           Travel
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="lifestyle" value="Career-focused">
+          <input
+            type="checkbox"
+            name="lifestyle"
+            value="Career-focused"
+          >
           Career-focused
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="lifestyle" value="Relaxed">
+          <input
+            type="checkbox"
+            name="lifestyle"
+            value="Relaxed"
+          >
           Relaxed
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="lifestyle" value="Night owl">
+          <input
+            type="checkbox"
+            name="lifestyle"
+            value="Night owl"
+          >
           Night owl
         </label>
 
         <label class="checkbox-item">
-          <input type="checkbox" name="lifestyle" value="Early bird">
+          <input
+            type="checkbox"
+            name="lifestyle"
+            value="Early bird"
+          >
           Early bird
         </label>
 
@@ -1920,23 +2988,48 @@ textarea{
 
     </div>
 
-    <div class="form-group" style="margin-top:25px;">
 
-      <label>What are you looking for?</label>
+    <div
+      class="form-group"
+      style="margin-top:28px;"
+    >
+
+      <label>
+        What are you looking for?
+      </label>
 
       <select id="profileLookingFor">
 
-        <option value="">Select</option>
-        <option value="Relationship">A relationship</option>
-        <option value="Friendship">Friendship</option>
-        <option value="Something meaningful">Something meaningful</option>
-        <option value="Still figuring it out">Still figuring it out</option>
+        <option value="">
+          Select
+        </option>
+
+        <option value="Relationship">
+          A relationship
+        </option>
+
+        <option value="Friendship">
+          Friendship
+        </option>
+
+        <option value="Something meaningful">
+          Something meaningful
+        </option>
+
+        <option value="Still figuring it out">
+          Still figuring it out
+        </option>
 
       </select>
 
     </div>
 
-    <button class="form-button" onclick="finishProfile()">
+
+    <button
+      id="finishProfileButton"
+      class="form-button"
+      onclick="finishProfile()"
+    >
       Save profile
     </button>
 
@@ -1945,21 +3038,27 @@ textarea{
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      WELCOME
-========================= -->
+===================================================== -->
 
 <div id="welcomePage" class="app-page">
 
   <div class="app-header">
 
-    <div class="app-logo">Pairly</div>
+    <div class="app-logo">
+      Pairly
+    </div>
 
-    <button class="header-btn" onclick="logout()">
+    <button
+      class="header-btn"
+      onclick="logout()"
+    >
       Log out
     </button>
 
   </div>
+
 
   <div class="welcome-container">
 
@@ -1979,13 +3078,18 @@ textarea{
         👤
       </div>
 
+
       <h1>
-        Welcome to Pairly, <span id="welcomeName"></span> 👋
+        Welcome to Pairly,
+        <span id="welcomeName"></span>
+        👋
       </h1>
 
       <p>
-        Your profile is ready. Let's see who you might click with.
+        Your profile is ready.
+        Let's see who you might click with.
       </p>
+
 
       <div class="photo-section">
 
@@ -2005,9 +3109,13 @@ textarea{
 
       </div>
 
+
       <div class="welcome-actions">
 
-        <button class="primary-btn" onclick="showExplore()">
+        <button
+          class="primary-btn"
+          onclick="showExplore()"
+        >
           Explore Pairly
         </button>
 
@@ -2015,7 +3123,7 @@ textarea{
           class="secondary-btn"
           onclick="editCompatibilityProfile()"
         >
-          Edit compatibility profile
+          Edit profile
         </button>
 
       </div>
@@ -2027,27 +3135,36 @@ textarea{
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      EXPLORE
-========================= -->
+===================================================== -->
 
 <div id="explorePage" class="app-page">
 
   <div class="app-header">
 
-    <div class="app-logo">Pairly</div>
+    <div class="app-logo">
+      Pairly
+    </div>
 
-    <button class="header-btn" onclick="logout()">
-      Log out
+    <button
+      class="header-btn"
+      onclick="showSettings()"
+      aria-label="Settings"
+    >
+      ⚙️
     </button>
 
   </div>
+
 
   <div class="explore-container">
 
     <div class="explore-title">
 
-      <h1>Discover people</h1>
+      <h1>
+        Discover people
+      </h1>
 
       <p>
         People whose profiles may genuinely fit yours.
@@ -2055,112 +3172,166 @@ textarea{
 
     </div>
 
-    <div id="exploreStatus" class="explore-status">
+
+    <div
+      id="exploreStatus"
+      class="explore-status"
+    >
       Finding people for you...
     </div>
 
-    <div id="discoveryGrid" class="discovery-grid"></div>
+
+    <div
+      id="discoveryGrid"
+      class="discovery-grid"
+    ></div>
 
   </div>
+
 
   <div id="exploreNav"></div>
 
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      LIKES
-========================= -->
+===================================================== -->
 
 <div id="likesPage" class="app-page">
 
   <div class="app-header">
 
-    <div class="app-logo">Pairly</div>
+    <div class="app-logo">
+      Pairly
+    </div>
 
-    <button class="header-btn" onclick="logout()">
-      Log out
+    <button
+      class="header-btn"
+      onclick="showSettings()"
+    >
+      ⚙️
     </button>
 
   </div>
+
 
   <div class="list-container">
 
     <div class="list-header">
 
-      <h1>Likes</h1>
+      <h1>
+        Likes
+      </h1>
 
-      <p>People you've shown interest in.</p>
+      <p>
+        People you've shown interest in.
+      </p>
 
     </div>
 
-    <div id="likesStatus" class="explore-status">
+
+    <div
+      id="likesStatus"
+      class="explore-status"
+    >
       Loading your likes...
     </div>
 
-    <div id="likesList" class="simple-list"></div>
+
+    <div
+      id="likesList"
+      class="simple-list"
+    ></div>
 
   </div>
+
 
   <div id="likesNav"></div>
 
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      MATCHES
-========================= -->
+===================================================== -->
 
 <div id="matchesPage" class="app-page">
 
   <div class="app-header">
 
-    <div class="app-logo">Pairly</div>
+    <div class="app-logo">
+      Pairly
+    </div>
 
-    <button class="header-btn" onclick="logout()">
-      Log out
+    <button
+      class="header-btn"
+      onclick="showSettings()"
+    >
+      ⚙️
     </button>
 
   </div>
+
 
   <div class="list-container">
 
     <div class="list-header">
 
-      <h1>Your Matches 💞</h1>
+      <h1>
+        Your Matches 💞
+      </h1>
 
-      <p>Mutual likes between you and other Pairly members.</p>
+      <p>
+        Mutual likes between you and other Pairly members.
+      </p>
 
     </div>
 
-    <div id="matchesStatus" class="explore-status">
+
+    <div
+      id="matchesStatus"
+      class="explore-status"
+    >
       Loading your matches...
     </div>
 
-    <div id="matchesList" class="simple-list"></div>
+
+    <div
+      id="matchesList"
+      class="simple-list"
+    ></div>
 
   </div>
+
 
   <div id="matchesNav"></div>
 
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      MY PROFILE
-========================= -->
+===================================================== -->
 
 <div id="myProfilePage" class="app-page">
 
   <div class="app-header">
 
-    <div class="app-logo">Pairly</div>
+    <div class="app-logo">
+      Pairly
+    </div>
 
-    <button class="header-btn" onclick="showSettings()">
+    <button
+      class="header-btn"
+      onclick="showSettings()"
+      aria-label="Settings"
+    >
       ⚙️
     </button>
 
   </div>
+
 
   <div class="profile-container">
 
@@ -2184,10 +3355,12 @@ textarea{
             👤
           </div>
 
+
           <label
             class="profile-camera-button"
             title="Change profile photo"
           >
+
             📷
 
             <input
@@ -2202,19 +3375,31 @@ textarea{
 
         </div>
 
+
         <h1 id="myProfileName">
           Your Name
         </h1>
 
-        <p id="myProfileBasic" class="my-profile-basic">
+
+        <p
+          id="myProfileBasic"
+          class="my-profile-basic"
+        >
           Age • Gender
         </p>
 
-        <p id="myProfileLocation" class="my-profile-location">
+
+        <p
+          id="myProfileLocation"
+          class="my-profile-location"
+        >
           📍 Location
         </p>
 
-        <label class="photo-button profile-photo-label">
+
+        <label
+          class="photo-button profile-photo-label"
+        >
 
           Change photo
 
@@ -2228,11 +3413,14 @@ textarea{
 
         </label>
 
+
         <div class="profile-completion">
 
           <div class="profile-completion-top">
 
-            <strong>Profile completion</strong>
+            <strong>
+              Profile completion
+            </strong>
 
             <span
               id="profileCompletionPercent"
@@ -2242,6 +3430,7 @@ textarea{
             </span>
 
           </div>
+
 
           <div class="profile-progress">
 
@@ -2256,15 +3445,19 @@ textarea{
 
       </div>
 
+
       <div class="my-profile-content">
 
         <div class="profile-section-heading">
           About you
         </div>
 
+
         <div class="profile-info-section">
 
-          <h3>Interests</h3>
+          <h3>
+            Interests
+          </h3>
 
           <div
             id="myProfileInterests"
@@ -2273,9 +3466,12 @@ textarea{
 
         </div>
 
+
         <div class="profile-info-section">
 
-          <h3>Personality</h3>
+          <h3>
+            Personality
+          </h3>
 
           <div
             id="myProfilePersonality"
@@ -2284,9 +3480,12 @@ textarea{
 
         </div>
 
+
         <div class="profile-info-section">
 
-          <h3>Values</h3>
+          <h3>
+            Values
+          </h3>
 
           <div
             id="myProfileValues"
@@ -2295,9 +3494,12 @@ textarea{
 
         </div>
 
+
         <div class="profile-info-section">
 
-          <h3>Lifestyle</h3>
+          <h3>
+            Lifestyle
+          </h3>
 
           <div
             id="myProfileLifestyle"
@@ -2306,19 +3508,24 @@ textarea{
 
         </div>
 
+
         <div class="profile-section-heading">
           Connection
         </div>
 
+
         <div class="profile-summary">
 
-          <h3>What you're looking for</h3>
+          <h3>
+            What you're looking for
+          </h3>
 
           <p id="myProfileLookingFor">
             Not specified
           </p>
 
         </div>
+
 
         <div class="profile-buttons">
 
@@ -2344,22 +3551,30 @@ textarea{
 
   </div>
 
+
   <div id="profileNav"></div>
 
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      MATCH POPUP
-========================= -->
+===================================================== -->
 
-<div id="matchOverlay" class="match-overlay">
+<div
+  id="matchOverlay"
+  class="match-overlay"
+>
 
   <div class="match-popup">
 
-    <div class="big-heart">💞</div>
+    <div class="big-heart">
+      💞
+    </div>
 
-    <h2>It's a Pairly match!</h2>
+    <h2>
+      It's a Pairly match!
+    </h2>
 
     <p id="matchText">
       You both liked each other.
@@ -2374,19 +3589,27 @@ textarea{
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      SETTINGS
-========================= -->
+===================================================== -->
 
-<div id="settingsOverlay" class="settings-overlay">
+<div
+  id="settingsOverlay"
+  class="settings-overlay"
+>
 
   <div class="settings-sheet">
 
-    <h2>Settings</h2>
+    <div class="settings-handle"></div>
+
+    <h2>
+      Settings
+    </h2>
 
     <p>
       Manage your Pairly account.
     </p>
+
 
     <button
       class="settings-option"
@@ -2395,6 +3618,7 @@ textarea{
       ✏️ Edit profile
     </button>
 
+
     <button
       class="settings-option"
       onclick="showExplore(); closeSettings();"
@@ -2402,12 +3626,22 @@ textarea{
       💜 Back to Explore
     </button>
 
+
+    <button
+      class="settings-option"
+      onclick="showForgotPassword(); closeSettings();"
+    >
+      🔐 Change password
+    </button>
+
+
     <button
       class="settings-option danger"
       onclick="logout(); closeSettings();"
     >
       Log out
     </button>
+
 
     <button
       class="secondary-btn"
@@ -2611,6 +3845,8 @@ const locationData = {
 let currentUser = null;
 let currentProfile = null;
 let profileEditingFrom = "explore";
+let passwordRecoveryActive = false;
+let matchingTimer = null;
 
 
 /* =====================================================
@@ -2624,6 +3860,8 @@ function hideAllPages(){
     "matchingPage",
     "signupPage",
     "loginPage",
+    "forgotPasswordPage",
+    "resetPasswordPage",
     "profilePage",
     "welcomePage",
     "explorePage",
@@ -2650,8 +3888,9 @@ function showHome(){
 
   hideAllPages();
 
-  document.getElementById("homePage").style.display =
-  "block";
+  document.getElementById(
+    "homePage"
+  ).style.display = "block";
 
 }
 
@@ -2660,8 +3899,9 @@ function showSignup(){
 
   hideAllPages();
 
-  document.getElementById("signupPage").style.display =
-  "block";
+  document.getElementById(
+    "signupPage"
+  ).style.display = "block";
 
 }
 
@@ -2670,8 +3910,43 @@ function showLogin(){
 
   hideAllPages();
 
-  document.getElementById("loginPage").style.display =
-  "block";
+  document.getElementById(
+    "loginPage"
+  ).style.display = "block";
+
+}
+
+
+function showForgotPassword(){
+
+  hideAllPages();
+
+  clearMessage("forgotPasswordMessage");
+
+  const email =
+  document.getElementById(
+    "loginEmail"
+  );
+
+  const forgotEmail =
+  document.getElementById(
+    "forgotPasswordEmail"
+  );
+
+  if(
+    email &&
+    forgotEmail &&
+    email.value.trim()
+  ){
+
+    forgotEmail.value =
+    email.value.trim();
+
+  }
+
+  document.getElementById(
+    "forgotPasswordPage"
+  ).style.display = "block";
 
 }
 
@@ -2685,11 +3960,16 @@ function startMatchingExperience(){
   hideAllPages();
 
   const matchingPage =
-  document.getElementById("matchingPage");
+  document.getElementById(
+    "matchingPage"
+  );
 
   matchingPage.style.display =
   "flex";
 
+  clearTimeout(matchingTimer);
+
+  matchingTimer =
   setTimeout(function(){
 
     matchingPage.style.display =
@@ -2707,11 +3987,16 @@ function startJoinExperience(){
   hideAllPages();
 
   const matchingPage =
-  document.getElementById("matchingPage");
+  document.getElementById(
+    "matchingPage"
+  );
 
   matchingPage.style.display =
   "flex";
 
+  clearTimeout(matchingTimer);
+
+  matchingTimer =
   setTimeout(function(){
 
     matchingPage.style.display =
@@ -2728,7 +4013,11 @@ function startJoinExperience(){
    MESSAGES
 ===================================================== */
 
-function showMessage(id,text,type){
+function showMessage(
+  id,
+  text,
+  type
+){
 
   const box =
   document.getElementById(id);
@@ -2736,7 +4025,8 @@ function showMessage(id,text,type){
   if(!box) return;
 
   box.className =
-  "message " + type;
+  "message " +
+  (type || "info");
 
   box.textContent =
   text;
@@ -2761,6 +4051,49 @@ function clearMessage(id){
 
 
 /* =====================================================
+   BUTTON LOADING
+===================================================== */
+
+function setButtonLoading(
+  buttonId,
+  loading,
+  normalText,
+  loadingText
+){
+
+  const button =
+  document.getElementById(buttonId);
+
+  if(!button) return;
+
+  if(loading){
+
+    button.disabled =
+    true;
+
+    button.dataset.originalText =
+    normalText || button.textContent;
+
+    button.textContent =
+    loadingText || "Please wait...";
+
+  }
+  else{
+
+    button.disabled =
+    false;
+
+    button.textContent =
+    button.dataset.originalText ||
+    normalText ||
+    "Continue";
+
+  }
+
+}
+
+
+/* =====================================================
    SIGNUP
 ===================================================== */
 
@@ -2769,16 +4102,24 @@ async function signUp(){
   clearMessage("signupMessage");
 
   const email =
-  document.getElementById("signupEmail").value.trim();
+  document.getElementById(
+    "signupEmail"
+  ).value.trim();
 
   const password =
-  document.getElementById("signupPassword").value;
+  document.getElementById(
+    "signupPassword"
+  ).value;
 
   const countryCode =
-  document.getElementById("signupCountryCode").value;
+  document.getElementById(
+    "signupCountryCode"
+  ).value;
 
   const phone =
-  document.getElementById("signupPhone").value.trim();
+  document.getElementById(
+    "signupPhone"
+  ).value.trim();
 
   if(!email){
 
@@ -2819,10 +4160,17 @@ async function signUp(){
   const fullPhone =
   countryCode + phone;
 
+  setButtonLoading(
+    "signupButton",
+    true,
+    "Create account",
+    "Creating account..."
+  );
+
   showMessage(
     "signupMessage",
-    "Creating your account...",
-    "success"
+    "Creating your Pairly account...",
+    "info"
   );
 
   try{
@@ -2853,7 +4201,7 @@ async function signUp(){
 
       showMessage(
         "signupMessage",
-        error.message,
+        getFriendlyAuthError(error),
         "error"
       );
 
@@ -2883,6 +4231,16 @@ async function signUp(){
     );
 
   }
+  finally{
+
+    setButtonLoading(
+      "signupButton",
+      false,
+      "Create account",
+      "Create account"
+    );
+
+  }
 
 }
 
@@ -2896,10 +4254,14 @@ async function login(){
   clearMessage("loginMessage");
 
   const email =
-  document.getElementById("loginEmail").value.trim();
+  document.getElementById(
+    "loginEmail"
+  ).value.trim();
 
   const password =
-  document.getElementById("loginPassword").value;
+  document.getElementById(
+    "loginPassword"
+  ).value;
 
   if(!email || !password){
 
@@ -2913,10 +4275,17 @@ async function login(){
 
   }
 
+  setButtonLoading(
+    "loginButton",
+    true,
+    "Log in",
+    "Logging in..."
+  );
+
   showMessage(
     "loginMessage",
     "Logging you in...",
-    "success"
+    "info"
   );
 
   try{
@@ -2936,7 +4305,7 @@ async function login(){
 
       showMessage(
         "loginMessage",
-        error.message,
+        getFriendlyAuthError(error),
         "error"
       );
 
@@ -2965,6 +4334,283 @@ async function login(){
     );
 
   }
+  finally{
+
+    setButtonLoading(
+      "loginButton",
+      false,
+      "Log in",
+      "Log in"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   FORGOT PASSWORD
+===================================================== */
+
+async function sendPasswordReset(){
+
+  clearMessage(
+    "forgotPasswordMessage"
+  );
+
+  const email =
+  document.getElementById(
+    "forgotPasswordEmail"
+  ).value.trim();
+
+  if(!email){
+
+    showMessage(
+      "forgotPasswordMessage",
+      "Please enter your email address.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  setButtonLoading(
+    "forgotPasswordButton",
+    true,
+    "Send reset link",
+    "Sending..."
+  );
+
+  showMessage(
+    "forgotPasswordMessage",
+    "Sending your password reset link...",
+    "info"
+  );
+
+  try{
+
+    const {
+      error
+    } =
+    await pairlyClient.auth.resetPasswordForEmail(
+      email,
+      {
+        redirectTo:
+        "https://tobipairly.github.io/Pairly-/"
+      }
+    );
+
+    if(error){
+
+      console.error(error);
+
+      showMessage(
+        "forgotPasswordMessage",
+        getFriendlyAuthError(error),
+        "error"
+      );
+
+      return;
+
+    }
+
+    showMessage(
+      "forgotPasswordMessage",
+      "Check your email. We sent you a secure password reset link.",
+      "success"
+    );
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "forgotPasswordMessage",
+      "Unable to send the reset email right now. Please try again.",
+      "error"
+    );
+
+  }
+  finally{
+
+    setButtonLoading(
+      "forgotPasswordButton",
+      false,
+      "Send reset link",
+      "Send reset link"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   RESET PASSWORD
+===================================================== */
+
+async function updatePassword(){
+
+  clearMessage(
+    "resetPasswordMessage"
+  );
+
+  const newPassword =
+  document.getElementById(
+    "newPassword"
+  ).value;
+
+  const confirmPassword =
+  document.getElementById(
+    "confirmNewPassword"
+  ).value;
+
+  if(!newPassword || newPassword.length < 6){
+
+    showMessage(
+      "resetPasswordMessage",
+      "Your new password must be at least 6 characters.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  if(newPassword !== confirmPassword){
+
+    showMessage(
+      "resetPasswordMessage",
+      "The passwords do not match.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  setButtonLoading(
+    "resetPasswordButton",
+    true,
+    "Update password",
+    "Updating..."
+  );
+
+  try{
+
+    const {
+      error
+    } =
+    await pairlyClient.auth.updateUser({
+      password:newPassword
+    });
+
+    if(error){
+
+      console.error(error);
+
+      showMessage(
+        "resetPasswordMessage",
+        getFriendlyAuthError(error),
+        "error"
+      );
+
+      return;
+
+    }
+
+    passwordRecoveryActive =
+    false;
+
+    showMessage(
+      "resetPasswordMessage",
+      "Your password has been updated successfully.",
+      "success"
+    );
+
+    setTimeout(function(){
+
+      checkExistingUser();
+
+    },900);
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "resetPasswordMessage",
+      "Unable to update your password right now.",
+      "error"
+    );
+
+  }
+  finally{
+
+    setButtonLoading(
+      "resetPasswordButton",
+      false,
+      "Update password",
+      "Update password"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   AUTH ERROR MESSAGES
+===================================================== */
+
+function getFriendlyAuthError(error){
+
+  if(!error){
+    return "Something went wrong.";
+  }
+
+  const message =
+  String(
+    error.message || ""
+  ).toLowerCase();
+
+  if(
+    message.includes("invalid login credentials")
+  ){
+
+    return "Your email or password is incorrect.";
+
+  }
+
+  if(
+    message.includes("email not confirmed")
+  ){
+
+    return "Please confirm your email before logging in.";
+
+  }
+
+  if(
+    message.includes("user already registered")
+  ){
+
+    return "An account with this email already exists. Try logging in.";
+
+  }
+
+  if(
+    message.includes("password should be at least")
+  ){
+
+    return "Your password is too short.";
+
+  }
+
+  return error.message ||
+    "Something went wrong. Please try again.";
 
 }
 
@@ -3002,7 +4648,10 @@ async function checkExistingUser(){
   await pairlyClient
   .from("profiles")
   .select("*")
-  .eq("id",currentUser.id)
+  .eq(
+    "id",
+    currentUser.id
+  )
   .maybeSingle();
 
   if(error){
@@ -3095,6 +4744,10 @@ function showProfile(from){
   ? "Edit your profile"
   : "Build your profile";
 
+  clearMessage(
+    "profileMessage"
+  );
+
   populateCountries();
 
   if(currentProfile){
@@ -3104,6 +4757,63 @@ function showProfile(from){
     );
 
   }
+  else{
+
+    resetNewProfileForm();
+
+  }
+
+}
+
+
+function resetNewProfileForm(){
+
+  const fields = [
+    "profileName",
+    "profileAge",
+    "profileInterests",
+    "profileBio"
+  ];
+
+  fields.forEach(function(id){
+
+    const element =
+    document.getElementById(id);
+
+    if(element){
+      element.value = "";
+    }
+
+  });
+
+  document.getElementById(
+    "profileGender"
+  ).value = "";
+
+  document.getElementById(
+    "profileCountry"
+  ).value = "";
+
+  document.getElementById(
+    "profileCity"
+  ).innerHTML =
+  '<option value="">Select city</option>';
+
+  document.getElementById(
+    "profileLookingFor"
+  ).value = "";
+
+  clearCompatibilityChoices();
+
+  document.getElementById(
+    "profilePhotoPreview"
+  ).style.display =
+  "none";
+
+  document.getElementById(
+    "profilePhotoPlaceholder"
+  ).style.display =
+  "flex";
 
 }
 
@@ -3113,7 +4823,9 @@ function editMyProfile(){
   profileEditingFrom =
   "profile";
 
-  showProfile("profile");
+  showProfile(
+    "profile"
+  );
 
 }
 
@@ -3123,7 +4835,9 @@ function editCompatibilityProfile(){
   profileEditingFrom =
   "welcome";
 
-  showProfile("welcome");
+  showProfile(
+    "welcome"
+  );
 
 }
 
@@ -3141,7 +4855,8 @@ function cancelProfileEdit(){
   if(profileEditingFrom === "welcome"){
 
     showWelcome(
-      currentProfile?.name || "there"
+      currentProfile?.name ||
+      "there"
     );
 
     return;
@@ -3172,7 +4887,9 @@ function populateCountries(){
   .forEach(function(country){
 
     const option =
-    document.createElement("option");
+    document.createElement(
+      "option"
+    );
 
     option.value =
     country;
@@ -3180,7 +4897,9 @@ function populateCountries(){
     option.textContent =
     country;
 
-    select.appendChild(option);
+    select.appendChild(
+      option
+    );
 
   });
 
@@ -3217,7 +4936,9 @@ function updateCities(){
   cities.forEach(function(city){
 
     const option =
-    document.createElement("option");
+    document.createElement(
+      "option"
+    );
 
     option.value =
     city;
@@ -3225,7 +4946,9 @@ function updateCities(){
     option.textContent =
     city;
 
-    citySelect.appendChild(option);
+    citySelect.appendChild(
+      option
+    );
 
   });
 
@@ -3236,7 +4959,9 @@ function getSelectedCheckboxes(name){
 
   return Array.from(
     document.querySelectorAll(
-      'input[name="' + name + '"]:checked'
+      'input[name="' +
+      name +
+      '"]:checked'
     )
   ).map(function(input){
 
@@ -3303,33 +5028,49 @@ function loadProfileIntoForm(profile){
 
   if(!profile) return;
 
-  document.getElementById("profileName").value =
+  document.getElementById(
+    "profileName"
+  ).value =
   profile.name || "";
 
-  document.getElementById("profileAge").value =
+  document.getElementById(
+    "profileAge"
+  ).value =
   profile.age || "";
 
-  document.getElementById("profileGender").value =
+  document.getElementById(
+    "profileGender"
+  ).value =
   profile.gender || "";
 
   populateCountries();
 
-  document.getElementById("profileCountry").value =
+  document.getElementById(
+    "profileCountry"
+  ).value =
   profile.country || "";
 
   updateCities();
 
-  document.getElementById("profileCity").value =
+  document.getElementById(
+    "profileCity"
+  ).value =
   profile.city || "";
 
-  document.getElementById("profileInterests").value =
+  document.getElementById(
+    "profileInterests"
+  ).value =
   profile.interests || "";
 
-  document.getElementById("profileLookingFor").value =
+  document.getElementById(
+    "profileLookingFor"
+  ).value =
   profile.looking_for || "";
 
   const bio =
-  document.getElementById("profileBio");
+  document.getElementById(
+    "profileBio"
+  );
 
   if(bio){
 
@@ -3349,7 +5090,7 @@ function loadProfileIntoForm(profile){
   const personalityInput =
   document.querySelector(
     'input[name="personality"][value="' +
-    personality +
+    CSS.escape(personality) +
     '"]'
   );
 
@@ -3361,7 +5102,9 @@ function loadProfileIntoForm(profile){
   }
 
   const values =
-  Array.isArray(compatibility.values)
+  Array.isArray(
+    compatibility.values
+  )
   ? compatibility.values
   : [];
 
@@ -3370,7 +5113,7 @@ function loadProfileIntoForm(profile){
     const input =
     document.querySelector(
       'input[name="values"][value="' +
-      value +
+      CSS.escape(value) +
       '"]'
     );
 
@@ -3384,7 +5127,9 @@ function loadProfileIntoForm(profile){
   });
 
   const lifestyle =
-  Array.isArray(compatibility.lifestyle)
+  Array.isArray(
+    compatibility.lifestyle
+  )
   ? compatibility.lifestyle
   : [];
 
@@ -3393,7 +5138,7 @@ function loadProfileIntoForm(profile){
     const input =
     document.querySelector(
       'input[name="lifestyle"][value="' +
-      value +
+      CSS.escape(value) +
       '"]'
     );
 
@@ -3455,6 +5200,34 @@ function previewProfilePhoto(event){
 
   if(!file) return;
 
+  if(!file.type.startsWith("image/")){
+
+    showMessage(
+      "profileMessage",
+      "Please choose an image file.",
+      "error"
+    );
+
+    event.target.value = "";
+
+    return;
+
+  }
+
+  if(file.size > 8 * 1024 * 1024){
+
+    showMessage(
+      "profileMessage",
+      "Please choose an image smaller than 8MB.",
+      "error"
+    );
+
+    event.target.value = "";
+
+    return;
+
+  }
+
   const preview =
   document.getElementById(
     "profilePhotoPreview"
@@ -3491,7 +5264,9 @@ async function uploadProfilePhoto(event){
 
   if(!currentUser){
 
-    alert("Please log in again.");
+    alert(
+      "Please log in again."
+    );
 
     return;
 
@@ -3499,7 +5274,19 @@ async function uploadProfilePhoto(event){
 
   if(!file.type.startsWith("image/")){
 
-    alert("Please choose an image file.");
+    alert(
+      "Please choose an image file."
+    );
+
+    return;
+
+  }
+
+  if(file.size > 8 * 1024 * 1024){
+
+    alert(
+      "Please choose an image smaller than 8MB."
+    );
 
     return;
 
@@ -3535,7 +5322,9 @@ async function uploadProfilePhoto(event){
 
     if(uploadError){
 
-      console.error(uploadError);
+      console.error(
+        uploadError
+      );
 
       alert(
         "Photo upload failed: " +
@@ -3552,7 +5341,9 @@ async function uploadProfilePhoto(event){
     pairlyClient
     .storage
     .from("profile-photos")
-    .getPublicUrl(filePath);
+    .getPublicUrl(
+      filePath
+    );
 
     const photoUrl =
     data.publicUrl;
@@ -3572,10 +5363,12 @@ async function uploadProfilePhoto(event){
 
     if(updateError){
 
-      console.error(updateError);
+      console.error(
+        updateError
+      );
 
       alert(
-        "Photo uploaded but profile could not be updated."
+        "Photo uploaded but your profile could not be updated."
       );
 
       return;
@@ -3593,16 +5386,24 @@ async function uploadProfilePhoto(event){
 
     localStorage.setItem(
       "pairlyProfile",
-      JSON.stringify(currentProfile)
+      JSON.stringify(
+        currentProfile
+      )
     );
 
     refreshAllProfilePhotos(
       photoUrl
     );
 
-    alert(
-      "Profile picture updated."
-    );
+    if(
+      document.getElementById(
+        "myProfilePage"
+      ).style.display !== "none"
+    ){
+
+      showMyProfile();
+
+    }
 
   }
   catch(error){
@@ -3623,7 +5424,11 @@ function addCacheBust(url){
   if(!url) return "";
 
   return url +
-  (url.includes("?") ? "&" : "?") +
+  (
+    url.includes("?")
+    ? "&"
+    : "?"
+  ) +
   "v=" +
   Date.now();
 
@@ -3725,7 +5530,9 @@ function refreshAllProfilePhotos(url){
 
 async function finishProfile(){
 
-  clearMessage("profileMessage");
+  clearMessage(
+    "profileMessage"
+  );
 
   if(!currentUser){
 
@@ -3903,49 +5710,69 @@ async function finishProfile(){
 
   }
 
+  setButtonLoading(
+    "finishProfileButton",
+    true,
+    "Save profile",
+    "Saving profile..."
+  );
+
   showMessage(
     "profileMessage",
     "Saving your profile...",
-    "success"
+    "info"
   );
 
   const oldProfile =
   currentProfile || {};
 
   /*
-    NOTE:
-    profileBio is intentionally not added to profileData.
-    The current database schema has not been confirmed to
-    contain a "bio" column, so adding it here could break
-    the working profile save.
+    The bio field is intentionally not sent to Supabase.
+    This preserves the current database schema because the
+    existing schema has not been confirmed to contain a bio
+    column.
   */
 
   const profileData = {
 
-    id:currentUser.id,
+    id:
+    currentUser.id,
 
-    name:name,
+    name:
+    name,
 
-    age:Number(age),
+    age:
+    Number(age),
 
-    gender:gender,
+    gender:
+    gender,
 
-    country:country,
+    country:
+    country,
 
-    city:city,
+    city:
+    city,
 
-    interests:interests,
+    interests:
+    interests,
 
-    looking_for:lookingFor,
+    looking_for:
+    lookingFor,
 
     compatibility_profile:{
-      personality:personality,
-      values:values,
-      lifestyle:lifestyle
+      personality:
+      personality,
+
+      values:
+      values,
+
+      lifestyle:
+      lifestyle
     },
 
     profile_photo:
-    oldProfile.profile_photo || null
+    oldProfile.profile_photo ||
+    null
 
   };
 
@@ -3986,8 +5813,11 @@ async function finishProfile(){
 
     localStorage.setItem(
       "pairlyProfile",
-      JSON.stringify(profileData)
+      JSON.stringify(
+        profileData
+      )
     );
+
 
     const fileInput =
     document.getElementById(
@@ -4032,7 +5862,9 @@ async function finishProfile(){
 
     }
 
-    showWelcome(name);
+    showWelcome(
+      name
+    );
 
   }
   catch(error){
@@ -4047,6 +5879,16 @@ async function finishProfile(){
       "Something went wrong: " +
       error.message,
       "error"
+    );
+
+  }
+  finally{
+
+    setButtonLoading(
+      "finishProfileButton",
+      false,
+      "Save profile",
+      "Save profile"
     );
 
   }
@@ -4176,13 +6018,15 @@ async function showMyProfile(){
 
   localStorage.setItem(
     "pairlyProfile",
-    JSON.stringify(stored)
+    JSON.stringify(
+      stored
+    )
   );
 
   document.getElementById(
     "myProfileName"
   ).textContent =
-  `${stored.name || "Your Name"}, ${stored.age || ""}`;
+  `${stored.name || "Your Name"}${stored.age ? ", " + stored.age : ""}`;
 
   document.getElementById(
     "myProfileBasic"
@@ -4193,16 +6037,21 @@ async function showMyProfile(){
     "myProfileLocation"
   ).textContent =
   `📍 ${stored.city || ""}${
-    stored.city && stored.country ? ", " : ""
+    stored.city && stored.country
+    ? ", "
+    : ""
   }${stored.country || ""}`;
+
 
   renderProfileChips(
     "myProfileInterests",
     stored.interests
   );
 
+
   const compatibility =
   stored.compatibility_profile || {};
+
 
   renderProfileChips(
     "myProfilePersonality",
@@ -4210,15 +6059,18 @@ async function showMyProfile(){
     true
   );
 
+
   renderProfileChips(
     "myProfileValues",
     compatibility.values
   );
 
+
   renderProfileChips(
     "myProfileLifestyle",
     compatibility.lifestyle
   );
+
 
   document.getElementById(
     "myProfileLookingFor"
@@ -4226,9 +6078,11 @@ async function showMyProfile(){
   stored.looking_for ||
   "Not specified";
 
+
   updateProfileCompletion(
     stored
   );
+
 
   const photo =
   document.getElementById(
@@ -4300,7 +6154,10 @@ function renderProfileChips(
     value.trim()
   ){
 
-    if(elementId === "myProfileInterests"){
+    if(
+      elementId ===
+      "myProfileInterests"
+    ){
 
       values =
       value
@@ -4376,19 +6233,33 @@ function updateProfileCompletion(profile){
 
   const checks = [
 
-    Boolean(profile.profile_photo),
+    Boolean(
+      profile.profile_photo
+    ),
 
-    Boolean(profile.name),
+    Boolean(
+      profile.name
+    ),
 
-    Boolean(profile.age),
+    Boolean(
+      profile.age
+    ),
 
-    Boolean(profile.gender),
+    Boolean(
+      profile.gender
+    ),
 
-    Boolean(profile.country),
+    Boolean(
+      profile.country
+    ),
 
-    Boolean(profile.city),
+    Boolean(
+      profile.city
+    ),
 
-    Boolean(profile.interests),
+    Boolean(
+      profile.interests
+    ),
 
     Boolean(
       profile.compatibility_profile &&
@@ -4411,7 +6282,9 @@ function updateProfileCompletion(profile){
       profile.compatibility_profile.lifestyle.length
     ),
 
-    Boolean(profile.looking_for)
+    Boolean(
+      profile.looking_for
+    )
 
   ];
 
@@ -4420,7 +6293,10 @@ function updateProfileCompletion(profile){
 
   const percentage =
   Math.round(
-    (completed / checks.length) * 100
+    (
+      completed /
+      checks.length
+    ) * 100
   );
 
   const percent =
@@ -4461,7 +6337,9 @@ function showWelcomeFromStorage(){
 
   if(!stored){
 
-    showProfile("explore");
+    showProfile(
+      "explore"
+    );
 
     return;
 
@@ -4550,7 +6428,10 @@ function overlapScore(
   }
 
   return Math.round(
-    (overlap / smaller) *
+    (
+      overlap /
+      smaller
+    ) *
     maxPoints
   );
 
@@ -4583,6 +6464,7 @@ function calculateCompatibility(
   let reasons =
   [];
 
+
   const myPersonality =
   String(
     myCompatibility.personality || ""
@@ -4592,6 +6474,7 @@ function calculateCompatibility(
   String(
     theirCompatibility.personality || ""
   ).toLowerCase();
+
 
   if(
     myPersonality &&
@@ -4637,6 +6520,7 @@ function calculateCompatibility(
 
   }
 
+
   const valueScore =
   overlapScore(
     myCompatibility.values,
@@ -4654,6 +6538,7 @@ function calculateCompatibility(
     );
 
   }
+
 
   const lifestyleScore =
   overlapScore(
@@ -4673,6 +6558,7 @@ function calculateCompatibility(
 
   }
 
+
   const myInterests =
   String(
     me.interests || ""
@@ -4685,6 +6571,7 @@ function calculateCompatibility(
   })
   .filter(Boolean);
 
+
   const theirInterests =
   String(
     other.interests || ""
@@ -4696,6 +6583,7 @@ function calculateCompatibility(
 
   })
   .filter(Boolean);
+
 
   const interestScore =
   overlapScore(
@@ -4715,6 +6603,7 @@ function calculateCompatibility(
 
   }
 
+
   const myGoal =
   String(
     me.looking_for || ""
@@ -4724,6 +6613,7 @@ function calculateCompatibility(
   String(
     other.looking_for || ""
   ).toLowerCase();
+
 
   if(
     myGoal &&
@@ -4740,6 +6630,7 @@ function calculateCompatibility(
     );
 
   }
+
 
   if(
     me.city &&
@@ -4772,6 +6663,7 @@ function calculateCompatibility(
 
   }
 
+
   score =
   Math.max(
     0,
@@ -4781,6 +6673,7 @@ function calculateCompatibility(
     )
   );
 
+
   if(reasons.length === 0){
 
     reasons.push(
@@ -4788,6 +6681,7 @@ function calculateCompatibility(
     );
 
   }
+
 
   return {
     score:score,
@@ -4888,8 +6782,12 @@ async function showExplore(){
 
   if(!me){
 
-    status.textContent =
-    "Please complete your profile first.";
+    status.innerHTML =
+    '<div class="empty-state">' +
+      '<div class="empty-icon">👤</div>' +
+      '<h2>Complete your profile first</h2>' +
+      '<p>Tell Pairly a little about yourself before discovering people.</p>' +
+    '</div>';
 
     return;
 
@@ -4903,6 +6801,7 @@ async function showExplore(){
     JSON.stringify(me)
   );
 
+
   if(
     !me.compatibility_profile ||
     !me.compatibility_profile.personality ||
@@ -4914,12 +6813,17 @@ async function showExplore(){
     )
   ){
 
-    status.textContent =
-    "Please complete your compatibility profile first.";
+    status.innerHTML =
+    '<div class="empty-state">' +
+      '<div class="empty-icon">💜</div>' +
+      '<h2>Finish your compatibility profile</h2>' +
+      '<p>Add your personality, values and lifestyle so Pairly can find better connections.</p>' +
+    '</div>';
 
     return;
 
   }
+
 
   const {
     data:profiles,
@@ -4933,16 +6837,22 @@ async function showExplore(){
     currentUser.id
   );
 
+
   if(error){
 
     console.error(error);
 
-    status.textContent =
-    "Unable to load people right now.";
+    status.innerHTML =
+    '<div class="empty-state">' +
+      '<div class="empty-icon">⚠️</div>' +
+      '<h2>Something went wrong</h2>' +
+      '<p>Unable to load people right now. Please try again.</p>' +
+    '</div>';
 
     return;
 
   }
+
 
   const passed =
   JSON.parse(
@@ -4950,6 +6860,7 @@ async function showExplore(){
       "pairlyPassed"
     ) || "[]"
   );
+
 
   const visibleProfiles =
   (profiles || [])
@@ -4961,20 +6872,22 @@ async function showExplore(){
 
   });
 
-  if(visibleProfiles.length === 0){
 
-    status.style.display =
-    "block";
+  if(
+    visibleProfiles.length === 0
+  ){
 
     status.innerHTML =
     '<div class="empty-state">' +
-    '<h2>You’re all caught up</h2>' +
-    '<p>Check back later for more people on Pairly.</p>' +
+      '<div class="empty-icon">✨</div>' +
+      '<h2>You’re all caught up</h2>' +
+      '<p>Check back later for more people on Pairly.</p>' +
     '</div>';
 
     return;
 
   }
+
 
   const completeProfiles =
   visibleProfiles.filter(function(profile){
@@ -4992,20 +6905,22 @@ async function showExplore(){
 
   });
 
-  if(completeProfiles.length === 0){
 
-    status.style.display =
-    "block";
+  if(
+    completeProfiles.length === 0
+  ){
 
     status.innerHTML =
     '<div class="empty-state">' +
-    '<h2>No compatible profiles yet</h2>' +
-    '<p>More people will appear as they complete their Pairly profiles.</p>' +
+      '<div class="empty-icon">💜</div>' +
+      '<h2>No compatible profiles yet</h2>' +
+      '<p>More people will appear as they complete their Pairly profiles.</p>' +
     '</div>';
 
     return;
 
   }
+
 
   const {
     data:myLikes
@@ -5018,6 +6933,7 @@ async function showExplore(){
     currentUser.id
   );
 
+
   const likedIds =
   new Set(
     (myLikes || [])
@@ -5027,6 +6943,7 @@ async function showExplore(){
 
     })
   );
+
 
   const scored =
   completeProfiles
@@ -5054,11 +6971,13 @@ async function showExplore(){
 
   });
 
+
   status.style.display =
   "none";
 
   grid.innerHTML =
   "";
+
 
   scored.forEach(function(item){
 
@@ -5071,6 +6990,7 @@ async function showExplore(){
     );
 
   });
+
 
   checkExploreEmpty();
 
@@ -5093,14 +7013,18 @@ function createDiscoveryCard(
   );
 
   const card =
-  document.createElement("div");
+  document.createElement(
+    "div"
+  );
 
   card.className =
   "discovery-card";
 
+
   const photo =
   profile.profile_photo ||
   "";
+
 
   const values =
   (
@@ -5112,6 +7036,7 @@ function createDiscoveryCard(
   ? profile.compatibility_profile.values.join(", ")
   : "Not specified";
 
+
   const lifestyle =
   (
     profile.compatibility_profile &&
@@ -5122,23 +7047,31 @@ function createDiscoveryCard(
   ? profile.compatibility_profile.lifestyle.join(", ")
   : "Not specified";
 
+
   const personality =
   profile.compatibility_profile
   ? profile.compatibility_profile.personality
   : "Not specified";
 
+
   const interests =
   profile.interests ||
   "Not specified";
 
+
   const location =
-  [profile.city,profile.country]
+  [
+    profile.city,
+    profile.country
+  ]
   .filter(Boolean)
   .join(", ");
+
 
   const firstName =
   profile.name ||
   "Pairly member";
+
 
   const photoHTML =
   photo
@@ -5148,6 +7081,7 @@ function createDiscoveryCard(
     ) +
     '" alt="Profile photo">'
   : '<div class="discovery-photo"></div>';
+
 
   card.innerHTML =
 
@@ -5172,6 +7106,7 @@ function createDiscoveryCard(
     '</div>' +
 
     '<div class="compatibility-score">' +
+      '💜 ' +
       escapeHtml(
         String(
           compatibility.score
@@ -5181,6 +7116,7 @@ function createDiscoveryCard(
     '</div>' +
 
   '</div>' +
+
 
   '<div class="discovery-body">' +
 
@@ -5235,6 +7171,7 @@ function createDiscoveryCard(
 
   '</div>' +
 
+
   '<div class="card-actions">' +
 
     '<button class="pass-btn">' +
@@ -5251,10 +7188,12 @@ function createDiscoveryCard(
 
   '</div>';
 
+
   const buttons =
   card.querySelectorAll(
     "button"
   );
+
 
   if(alreadyLiked){
 
@@ -5264,7 +7203,11 @@ function createDiscoveryCard(
     buttons[1].style.background =
     "#2f9e5b";
 
+    buttons[1].style.borderColor =
+    "#2f9e5b";
+
   }
+
 
   buttons[0].addEventListener(
     "click",
@@ -5277,6 +7220,7 @@ function createDiscoveryCard(
 
     }
   );
+
 
   buttons[1].addEventListener(
     "click",
@@ -5291,7 +7235,10 @@ function createDiscoveryCard(
     }
   );
 
-  grid.appendChild(card);
+
+  grid.appendChild(
+    card
+  );
 
 }
 
@@ -5303,11 +7250,26 @@ function createDiscoveryCard(
 function escapeHtml(value){
 
   return String(value)
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
@@ -5326,24 +7288,47 @@ function passProfile(
 
   const passed =
   JSON.parse(
-    localStorage.getItem(key) ||
-    "[]"
+    localStorage.getItem(
+      key
+    ) || "[]"
   );
 
-  if(!passed.includes(profileId)){
 
-    passed.push(profileId);
+  if(
+    !passed.includes(
+      profileId
+    )
+  ){
+
+    passed.push(
+      profileId
+    );
 
   }
 
+
   localStorage.setItem(
     key,
-    JSON.stringify(passed)
+    JSON.stringify(
+      passed
+    )
   );
 
-  card.remove();
 
-  checkExploreEmpty();
+  card.style.opacity =
+  ".35";
+
+  card.style.transform =
+  "scale(.98)";
+
+
+  setTimeout(function(){
+
+    card.remove();
+
+    checkExploreEmpty();
+
+  },150);
 
 }
 
@@ -5368,10 +7353,12 @@ async function likeProfile(
 
   }
 
+
   const button =
   card.querySelector(
     ".like-btn"
   );
+
 
   if(button){
 
@@ -5382,6 +7369,7 @@ async function likeProfile(
     "Liking...";
 
   }
+
 
   try{
 
@@ -5405,6 +7393,7 @@ async function likeProfile(
       }
     );
 
+
     if(error){
 
       console.error(error);
@@ -5427,6 +7416,7 @@ async function likeProfile(
 
     }
 
+
     const {
       data:mutualLike
     } =
@@ -5443,6 +7433,7 @@ async function likeProfile(
     )
     .maybeSingle();
 
+
     if(mutualLike){
 
       if(button){
@@ -5451,6 +7442,9 @@ async function likeProfile(
         "Matched 💞";
 
         button.style.background =
+        "#2f9e5b";
+
+        button.style.borderColor =
         "#2f9e5b";
 
       }
@@ -5468,6 +7462,9 @@ async function likeProfile(
         "Liked ✓";
 
         button.style.background =
+        "#2f9e5b";
+
+        button.style.borderColor =
         "#2f9e5b";
 
       }
@@ -5511,6 +7508,7 @@ async function showLikes(){
     "likes"
   );
 
+
   const status =
   document.getElementById(
     "likesStatus"
@@ -5521,6 +7519,7 @@ async function showLikes(){
     "likesList"
   );
 
+
   status.style.display =
   "block";
 
@@ -5529,6 +7528,7 @@ async function showLikes(){
 
   list.innerHTML =
   "";
+
 
   if(!currentUser){
 
@@ -5542,6 +7542,7 @@ async function showLikes(){
 
   }
 
+
   if(!currentUser){
 
     showLogin();
@@ -5549,6 +7550,7 @@ async function showLikes(){
     return;
 
   }
+
 
   const {
     data:likes,
@@ -5562,6 +7564,7 @@ async function showLikes(){
     currentUser.id
   );
 
+
   if(error){
 
     console.error(error);
@@ -5573,17 +7576,23 @@ async function showLikes(){
 
   }
 
-  if(!likes || likes.length === 0){
+
+  if(
+    !likes ||
+    likes.length === 0
+  ){
 
     status.innerHTML =
     '<div class="empty-state">' +
-    '<h2>No likes yet</h2>' +
-    '<p>When you like someone on Explore, they’ll appear here.</p>' +
+      '<div class="empty-icon">❤️</div>' +
+      '<h2>No likes yet</h2>' +
+      '<p>When you like someone on Explore, they’ll appear here.</p>' +
     '</div>';
 
     return;
 
   }
+
 
   const ids =
   likes.map(function(item){
@@ -5591,6 +7600,7 @@ async function showLikes(){
     return item.liked_user_id;
 
   });
+
 
   const {
     data:profiles,
@@ -5604,9 +7614,12 @@ async function showLikes(){
     ids
   );
 
+
   if(profilesError){
 
-    console.error(profilesError);
+    console.error(
+      profilesError
+    );
 
     status.textContent =
     "Unable to load liked profiles.";
@@ -5615,10 +7628,13 @@ async function showLikes(){
 
   }
 
+
   status.style.display =
   "none";
 
-  (profiles || []).forEach(function(profile){
+
+  (profiles || [])
+  .forEach(function(profile){
 
     renderPersonListCard(
       profile,
@@ -5648,6 +7664,7 @@ async function showMatches(){
     "matches"
   );
 
+
   const status =
   document.getElementById(
     "matchesStatus"
@@ -5658,6 +7675,7 @@ async function showMatches(){
     "matchesList"
   );
 
+
   status.style.display =
   "block";
 
@@ -5666,6 +7684,7 @@ async function showMatches(){
 
   list.innerHTML =
   "";
+
 
   if(!currentUser){
 
@@ -5679,6 +7698,7 @@ async function showMatches(){
 
   }
 
+
   if(!currentUser){
 
     showLogin();
@@ -5686,6 +7706,7 @@ async function showMatches(){
     return;
 
   }
+
 
   const {
     data:myLikes,
@@ -5699,6 +7720,7 @@ async function showMatches(){
     currentUser.id
   );
 
+
   if(error){
 
     console.error(error);
@@ -5710,17 +7732,23 @@ async function showMatches(){
 
   }
 
-  if(!myLikes || myLikes.length === 0){
+
+  if(
+    !myLikes ||
+    myLikes.length === 0
+  ){
 
     status.innerHTML =
     '<div class="empty-state">' +
-    '<h2>No matches yet</h2>' +
-    '<p>Keep exploring and liking people who interest you.</p>' +
+      '<div class="empty-icon">💞</div>' +
+      '<h2>No matches yet</h2>' +
+      '<p>Keep exploring and liking people who interest you.</p>' +
     '</div>';
 
     return;
 
   }
+
 
   const myLikedIds =
   myLikes.map(function(item){
@@ -5729,13 +7757,16 @@ async function showMatches(){
 
   });
 
+
   const {
     data:otherLikes,
     error:otherError
   } =
   await pairlyClient
   .from("likes")
-  .select("user_id,liked_user_id")
+  .select(
+    "user_id,liked_user_id"
+  )
   .in(
     "user_id",
     myLikedIds
@@ -5745,9 +7776,12 @@ async function showMatches(){
     currentUser.id
   );
 
+
   if(otherError){
 
-    console.error(otherError);
+    console.error(
+      otherError
+    );
 
     status.textContent =
     "Unable to load matches.";
@@ -5756,17 +7790,23 @@ async function showMatches(){
 
   }
 
-  if(!otherLikes || otherLikes.length === 0){
+
+  if(
+    !otherLikes ||
+    otherLikes.length === 0
+  ){
 
     status.innerHTML =
     '<div class="empty-state">' +
-    '<h2>No matches yet</h2>' +
-    '<p>A match happens when someone you like likes you back.</p>' +
+      '<div class="empty-icon">💞</div>' +
+      '<h2>No matches yet</h2>' +
+      '<p>A match happens when someone you like likes you back.</p>' +
     '</div>';
 
     return;
 
   }
+
 
   const matchIds =
   otherLikes.map(function(item){
@@ -5774,6 +7814,7 @@ async function showMatches(){
     return item.user_id;
 
   });
+
 
   const {
     data:profiles,
@@ -5787,9 +7828,12 @@ async function showMatches(){
     matchIds
   );
 
+
   if(profilesError){
 
-    console.error(profilesError);
+    console.error(
+      profilesError
+    );
 
     status.textContent =
     "Unable to load matched profiles.";
@@ -5798,10 +7842,13 @@ async function showMatches(){
 
   }
 
+
   status.style.display =
   "none";
 
-  (profiles || []).forEach(function(profile){
+
+  (profiles || [])
+  .forEach(function(profile){
 
     renderPersonListCard(
       profile,
@@ -5825,10 +7872,13 @@ function renderPersonListCard(
 ){
 
   const card =
-  document.createElement("div");
+  document.createElement(
+    "div"
+  );
 
   card.className =
   "person-list-card";
+
 
   const photo =
   profile.profile_photo
@@ -5836,6 +7886,7 @@ function renderPersonListCard(
       profile.profile_photo
     )
   : "";
+
 
   card.innerHTML =
 
@@ -5846,6 +7897,7 @@ function renderPersonListCard(
       '" alt="Profile photo">'
     : '<div class="person-list-photo"></div>'
   ) +
+
 
   '<div class="person-list-info">' +
 
@@ -5877,6 +7929,7 @@ function renderPersonListCard(
 
   '</div>' +
 
+
   '<button class="person-list-action">' +
     (
       isMatch
@@ -5885,7 +7938,10 @@ function renderPersonListCard(
     ) +
   '</button>';
 
-  container.appendChild(card);
+
+  container.appendChild(
+    card
+  );
 
 }
 
@@ -5908,7 +7964,10 @@ function showMatchPopup(name){
 
   text.textContent =
   "You and " +
-  (name || "this person") +
+  (
+    name ||
+    "this person"
+  ) +
   " both liked each other.";
 
   overlay.style.display =
@@ -5953,8 +8012,9 @@ function checkExploreEmpty(){
 
     status.innerHTML =
     '<div class="empty-state">' +
-    '<h2>You’re all caught up</h2>' +
-    '<p>Check back later for more people on Pairly.</p>' +
+      '<div class="empty-icon">✨</div>' +
+      '<h2>You’re all caught up</h2>' +
+      '<p>Check back later for more people on Pairly.</p>' +
     '</div>';
 
   }
@@ -5973,31 +8033,50 @@ function navigationHTML(active){
     <nav class="bottom-nav">
 
       <button
-        class="${active === "explore" ? "active" : ""}"
+        class="${
+          active === "explore"
+          ? "active"
+          : ""
+        }"
         onclick="showExplore()"
       >
         <span>💜</span>
         Explore
       </button>
 
+
       <button
-        class="${active === "likes" ? "active" : ""}"
+        class="${
+          active === "likes"
+          ? "active"
+          : ""
+        }"
         onclick="showLikes()"
       >
         <span>❤️</span>
         Likes
       </button>
 
+
       <button
-        class="${active === "matches" ? "active" : ""}"
+        class="${
+          active === "matches"
+          ? "active"
+          : ""
+        }"
         onclick="showMatches()"
       >
         <span>💞</span>
         Matches
       </button>
 
+
       <button
-        class="${active === "profile" ? "active" : ""}"
+        class="${
+          active === "profile"
+          ? "active"
+          : ""
+        }"
         onclick="showMyProfile()"
       >
         <span>👤</span>
@@ -6014,27 +8093,49 @@ function navigationHTML(active){
 function setActiveNav(active){
 
   const locations = [
-    ["exploreNav","explore"],
-    ["likesNav","likes"],
-    ["matchesNav","matches"],
-    ["profileNav","profile"]
+
+    [
+      "exploreNav",
+      "explore"
+    ],
+
+    [
+      "likesNav",
+      "likes"
+    ],
+
+    [
+      "matchesNav",
+      "matches"
+    ],
+
+    [
+      "profileNav",
+      "profile"
+    ]
+
   ];
 
-  locations.forEach(function(item){
 
-    const target =
-    document.getElementById(
-      item[0]
-    );
+  locations.forEach(
+    function(item){
 
-    if(target){
+      const target =
+      document.getElementById(
+        item[0]
+      );
 
-      target.innerHTML =
-      navigationHTML(active);
+      if(target){
+
+        target.innerHTML =
+        navigationHTML(
+          active
+        );
+
+      }
 
     }
-
-  });
+  );
 
 }
 
@@ -6069,8 +8170,13 @@ function closeSettings(){
 
 async function appleLogin(){
 
+  /*
+    Kept as a separate function so the UI does not pretend
+    Apple authentication is already configured.
+  */
+
   alert(
-    "Apple login is not connected yet."
+    "Apple login isn't connected yet."
   );
 
 }
@@ -6089,7 +8195,9 @@ async function logout(){
   }
   catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
   }
 
@@ -6099,9 +8207,14 @@ async function logout(){
   currentProfile =
   null;
 
+  passwordRecoveryActive =
+  false;
+
   localStorage.removeItem(
     "pairlyProfile"
   );
+
+  closeSettings();
 
   showHome();
 
@@ -6116,10 +8229,16 @@ async function initialisePairly(){
 
   try{
 
+    /*
+      Supabase can return a recovery session after the
+      user clicks the password reset email.
+    */
+
     const {
       data
     } =
     await pairlyClient.auth.getSession();
+
 
     if(
       data &&
@@ -6129,6 +8248,21 @@ async function initialisePairly(){
 
       currentUser =
       data.session.user;
+
+      if(
+        passwordRecoveryActive
+      ){
+
+        hideAllPages();
+
+        document.getElementById(
+          "resetPasswordPage"
+        ).style.display =
+        "block";
+
+        return;
+
+      }
 
       await checkExistingUser();
 
@@ -6158,6 +8292,31 @@ async function initialisePairly(){
 pairlyClient.auth.onAuthStateChange(
   function(event,session){
 
+    if(event === "PASSWORD_RECOVERY"){
+
+      passwordRecoveryActive =
+      true;
+
+      currentUser =
+      session?.user ||
+      null;
+
+      setTimeout(function(){
+
+        hideAllPages();
+
+        document.getElementById(
+          "resetPasswordPage"
+        ).style.display =
+        "block";
+
+      },0);
+
+      return;
+
+    }
+
+
     if(
       session &&
       session.user
@@ -6167,6 +8326,78 @@ pairlyClient.auth.onAuthStateChange(
       session.user;
 
     }
+    else if(
+      event === "SIGNED_OUT"
+    ){
+
+      currentUser =
+      null;
+
+      currentProfile =
+      null;
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   CLOSE OVERLAYS ON BACKDROP
+===================================================== */
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    const matchOverlay =
+    document.getElementById(
+      "matchOverlay"
+    );
+
+    const settingsOverlay =
+    document.getElementById(
+      "settingsOverlay"
+    );
+
+
+    if(
+      event.target ===
+      matchOverlay
+    ){
+
+      closeMatchPopup();
+
+    }
+
+
+    if(
+      event.target ===
+      settingsOverlay
+    ){
+
+      closeSettings();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   ESC KEY
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key !== "Escape"){
+      return;
+    }
+
+    closeMatchPopup();
+    closeSettings();
 
   }
 );
