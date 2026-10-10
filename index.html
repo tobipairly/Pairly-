@@ -6078,10 +6078,22 @@ async function showMyProfile(){
 
 
   renderProfileChips(
-    "myProfileLifestyle",
-    compatibility.lifestyle
-  );
+“myProfileLifestyle”,
+compatibility.lifestyle
+);
 
+const bioElement =
+document.getElementById(
+“myProfileBio”
+);
+
+if(bioElement){
+
+bioElement.textContent =
+stored.bio ||
+“No bio added yet.”;
+
+}
 
   document.getElementById(
     "myProfileLookingFor"
