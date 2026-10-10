@@ -5948,139 +5948,159 @@ function showWelcome(name){
 
 
 /* =====================================================
-   MY PROFILE
+MY PROFILE
 ===================================================== */
 
 async function showMyProfile(){
 
-  hideAllPages();
+hideAllPages();
 
-  const page =
-  document.getElementById(
-    "myProfilePage"
+const page =
+document.getElementById(
+“myProfilePage”
+);
+
+page.style.display =
+“block”;
+
+if(!currentUser){
+
+const {
+  data
+} =
+await pairlyClient.auth.getUser();
+currentUser =
+  data.user;
+
+}
+
+if(!currentUser){
+
+showLogin();
+return;
+
+}
+
+let stored;
+
+try{
+
+const {
+  data,
+  error
+} =
+await pairlyClient
+  .from("profiles")
+  .select("*")
+  .eq(
+    "id",
+    currentUser.id
+  )
+  .maybeSingle();
+if(error){
+  console.error(
+    "PROFILE LOAD ERROR:",
+    error
   );
-
-  page.style.display =
-  "block";
-
-  if(!currentUser){
-
-    const {
-      data
-    } =
-    await pairlyClient.auth.getUser();
-
-    currentUser =
-    data.user;
-
-  }
-
-  if(!currentUser){
-
-    showLogin();
-
-    return;
-
-  }
-
-  let stored =
-  currentProfile;
-
+  stored =
+    currentProfile;
   if(!stored){
-
     stored =
+      JSON.parse(
+        localStorage.getItem(
+          "pairlyProfile"
+        ) || "null"
+      );
+  }
+  if(!stored){
+    return;
+  }
+}
+else{
+  stored =
+    data;
+}
+
+}
+catch(error){
+
+console.error(
+  "PROFILE LOAD ERROR:",
+  error
+);
+stored =
+  currentProfile;
+if(!stored){
+  stored =
     JSON.parse(
       localStorage.getItem(
         "pairlyProfile"
       ) || "null"
     );
+}
+if(!stored){
+  return;
+}
 
-  }
+}
 
-  if(!stored){
+if(!stored){
 
-    const {
-      data
-    } =
-    await pairlyClient
-    .from("profiles")
-    .select("*")
-    .eq(
-      "id",
-      currentUser.id
-    )
-    .maybeSingle();
+showProfile("explore");
+return;
 
-    stored =
-    data;
+}
 
-  }
+currentProfile =
+stored;
 
-  if(!stored){
+localStorage.setItem(
+“pairlyProfile”,
+JSON.stringify(
+stored
+)
+);
 
-    showProfile("explore");
+document.getElementById(
+“myProfileName”
+).textContent =
+${stored.name || "Your Name"}${stored.age ? ", " + stored.age : ""};
 
-    return;
+document.getElementById(
+“myProfileBasic”
+).textContent =
+stored.gender || “Gender”;
 
-  }
+document.getElementById(
+“myProfileLocation”
+).textContent =
+📍 ${stored.city || ""}${ stored.city && stored.country ? ", " : "" }${stored.country || ""};
 
-  currentProfile =
-  stored;
+renderProfileChips(
+“myProfileInterests”,
+stored.interests
+);
 
-  localStorage.setItem(
-    "pairlyProfile",
-    JSON.stringify(
-      stored
-    )
-  );
+const compatibility =
+stored.compatibility_profile || {};
 
-  document.getElementById(
-    "myProfileName"
-  ).textContent =
-  `${stored.name || "Your Name"}${stored.age ? ", " + stored.age : ""}`;
+renderProfileChips(
+“myProfilePersonality”,
+compatibility.personality,
+true
+);
 
-  document.getElementById(
-    "myProfileBasic"
-  ).textContent =
-  stored.gender || "Gender";
+renderProfileChips(
+“myProfileValues”,
+compatibility.values
+);
 
-  document.getElementById(
-    "myProfileLocation"
-  ).textContent =
-  `📍 ${stored.city || ""}${
-    stored.city && stored.country
-    ? ", "
-    : ""
-  }${stored.country || ""}`;
-
-
-  renderProfileChips(
-    "myProfileInterests",
-    stored.interests
-  );
-
-
-  const compatibility =
-  stored.compatibility_profile || {};
-
-
-  renderProfileChips(
-    "myProfilePersonality",
-    compatibility.personality,
-    true
-  );
-
-
-  renderProfileChips(
-    "myProfileValues",
-    compatibility.values
-  );
-
-
-  renderProfileChips(
+renderProfileChips(
 “myProfileLifestyle”,
 compatibility.lifestyle
 );
+
+// Display saved bio
 
 const bioElement =
 document.getElementById(
@@ -6090,293 +6110,260 @@ document.getElementById(
 if(bioElement){
 
 bioElement.textContent =
-stored.bio ||
-“No bio added yet.”;
+  stored.bio ||
+  "No bio added yet.";
 
 }
 
-  document.getElementById(
-    "myProfileLookingFor"
-  ).textContent =
-  stored.looking_for ||
-  "Not specified";
+document.getElementById(
+“myProfileLookingFor”
+).textContent =
+stored.looking_for ||
+“Not specified”;
 
+updateProfileCompletion(
+stored
+);
 
-  updateProfileCompletion(
-    stored
+const photo =
+document.getElementById(
+“myProfilePhoto”
+);
+
+const placeholder =
+document.getElementById(
+“myProfilePhotoPlaceholder”
+);
+
+if(stored.profile_photo){
+
+photo.src =
+  addCacheBust(
+    stored.profile_photo
   );
+photo.style.display =
+  "block";
+placeholder.style.display =
+  "none";
 
+}
+else{
 
-  const photo =
-  document.getElementById(
-    "myProfilePhoto"
-  );
-
-  const placeholder =
-  document.getElementById(
-    "myProfilePhotoPlaceholder"
-  );
-
-  if(stored.profile_photo){
-
-    photo.src =
-    addCacheBust(
-      stored.profile_photo
-    );
-
-    photo.style.display =
-    "block";
-
-    placeholder.style.display =
-    "none";
-
-  }
-  else{
-
-    photo.style.display =
-    "none";
-
-    placeholder.style.display =
-    "flex";
-
-  }
-
-  setActiveNav(
-    "profile"
-  );
+photo.style.display =
+  "none";
+placeholder.style.display =
+  "flex";
 
 }
 
+setActiveNav(
+“profile”
+);
+
+}
 
 function renderProfileChips(
-  elementId,
-  value,
-  personality
+elementId,
+value,
+personality
 ){
 
-  const container =
-  document.getElementById(
-    elementId
-  );
+const container =
+document.getElementById(
+elementId
+);
 
-  if(!container) return;
+if(!container) return;
 
-  container.innerHTML =
-  "";
+container.innerHTML =
+“”;
 
-  let values = [];
+let values = [];
 
-  if(Array.isArray(value)){
+if(Array.isArray(value)){
 
-    values =
-    value.filter(Boolean);
+values =
+  value.filter(Boolean);
 
-  }
-  else if(
-    typeof value === "string" &&
-    value.trim()
-  ){
+}
+else if(
+typeof value === “string” &&
+value.trim()
+){
 
-    if(
-      elementId ===
-      "myProfileInterests"
-    ){
-
-      values =
-      value
+if(
+  elementId ===
+  "myProfileInterests"
+){
+  values =
+    value
       .split(",")
       .map(function(item){
-
         return item.trim();
-
       })
       .filter(Boolean);
-
-    }
-    else{
-
-      values =
-      [value.trim()];
-
-    }
-
-  }
-
-  if(values.length === 0){
-
-    const empty =
-    document.createElement(
-      "span"
-    );
-
-    empty.className =
-    "profile-empty";
-
-    empty.textContent =
-    "Not specified";
-
-    container.appendChild(
-      empty
-    );
-
-    return;
-
-  }
-
-  values.forEach(function(value){
-
-    const chip =
-    document.createElement(
-      "span"
-    );
-
-    chip.className =
-    "profile-chip" +
-    (
-      personality
-      ? " personality"
-      : ""
-    );
-
-    chip.textContent =
-    value;
-
-    container.appendChild(
-      chip
-    );
-
-  });
+}
+else{
+  values =
+    [value.trim()];
+}
 
 }
 
+if(values.length === 0){
+
+const empty =
+  document.createElement(
+    "span"
+  );
+empty.className =
+  "profile-empty";
+empty.textContent =
+  "Not specified";
+container.appendChild(
+  empty
+);
+return;
+
+}
+
+values.forEach(function(value){
+
+const chip =
+  document.createElement(
+    "span"
+  );
+chip.className =
+  "profile-chip" +
+  (
+    personality
+    ? " personality"
+    : ""
+  );
+chip.textContent =
+  value;
+container.appendChild(
+  chip
+);
+
+});
+
+}
 
 function updateProfileCompletion(profile){
 
-  if(!profile) return;
+if(!profile) return;
 
-  const checks = [
+const checks = [
 
-    Boolean(
-      profile.profile_photo
-    ),
+Boolean(
+  profile.profile_photo
+),
+Boolean(
+  profile.name
+),
+Boolean(
+  profile.age
+),
+Boolean(
+  profile.gender
+),
+Boolean(
+  profile.country
+),
+Boolean(
+  profile.city
+),
+Boolean(
+  profile.interests
+),
+Boolean(
+  profile.compatibility_profile &&
+  profile.compatibility_profile.personality
+),
+Boolean(
+  profile.compatibility_profile &&
+  Array.isArray(
+    profile.compatibility_profile.values
+  ) &&
+  profile.compatibility_profile.values.length
+),
+Boolean(
+  profile.compatibility_profile &&
+  Array.isArray(
+    profile.compatibility_profile.lifestyle
+  ) &&
+  profile.compatibility_profile.lifestyle.length
+),
+Boolean(
+  profile.looking_for
+)
 
-    Boolean(
-      profile.name
-    ),
+];
 
-    Boolean(
-      profile.age
-    ),
+const completed =
+checks.filter(Boolean).length;
 
-    Boolean(
-      profile.gender
-    ),
+const percentage =
+Math.round(
+(
+completed /
+checks.length
+) * 100
+);
 
-    Boolean(
-      profile.country
-    ),
+const percent =
+document.getElementById(
+“profileCompletionPercent”
+);
 
-    Boolean(
-      profile.city
-    ),
+const bar =
+document.getElementById(
+“profileProgressBar”
+);
 
-    Boolean(
-      profile.interests
-    ),
+if(percent){
 
-    Boolean(
-      profile.compatibility_profile &&
-      profile.compatibility_profile.personality
-    ),
-
-    Boolean(
-      profile.compatibility_profile &&
-      Array.isArray(
-        profile.compatibility_profile.values
-      ) &&
-      profile.compatibility_profile.values.length
-    ),
-
-    Boolean(
-      profile.compatibility_profile &&
-      Array.isArray(
-        profile.compatibility_profile.lifestyle
-      ) &&
-      profile.compatibility_profile.lifestyle.length
-    ),
-
-    Boolean(
-      profile.looking_for
-    )
-
-  ];
-
-  const completed =
-  checks.filter(Boolean).length;
-
-  const percentage =
-  Math.round(
-    (
-      completed /
-      checks.length
-    ) * 100
-  );
-
-  const percent =
-  document.getElementById(
-    "profileCompletionPercent"
-  );
-
-  const bar =
-  document.getElementById(
-    "profileProgressBar"
-  );
-
-  if(percent){
-
-    percent.textContent =
-    percentage + "%";
-
-  }
-
-  if(bar){
-
-    bar.style.width =
-    percentage + "%";
-
-  }
+percent.textContent =
+  percentage + "%";
 
 }
 
+if(bar){
+
+bar.style.width =
+  percentage + "%";
+
+}
+
+}
 
 function showWelcomeFromStorage(){
 
-  const stored =
-  JSON.parse(
-    localStorage.getItem(
-      "pairlyProfile"
-    ) || "null"
-  );
+const stored =
+JSON.parse(
+localStorage.getItem(
+“pairlyProfile”
+) || “null”
+);
 
-  if(!stored){
+if(!stored){
 
-    showProfile(
-      "explore"
-    );
-
-    return;
-
-  }
-
-  currentProfile =
-  stored;
-
-  showWelcome(
-    stored.name
-  );
+showProfile(
+  "explore"
+);
+return;
 
 }
 
+currentProfile =
+stored;
+
+showWelcome(
+stored.name
+);
+
+}
 
 /* =====================================================
    COMPATIBILITY
