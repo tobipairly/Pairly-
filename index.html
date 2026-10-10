@@ -5579,15 +5579,20 @@ async function finishProfile(){
     "profileCity"
   ).value;
 
-  const interests =
+ const interests =
   document.getElementById(
     "profileInterests"
   ).value.trim();
 
-  const lookingFor =
+const bio =
+  document.getElementById(
+    "profileBio"
+  ).value.trim();
+
+const lookingFor =
   document.getElementById(
     "profileLookingFor"
-  ).value;
+  ).value; 
 
   const personality =
   getPersonality();
@@ -5726,14 +5731,7 @@ async function finishProfile(){
   const oldProfile =
   currentProfile || {};
 
-  /*
-    The bio field is intentionally not sent to Supabase.
-    This preserves the current database schema because the
-    existing schema has not been confirmed to contain a bio
-    column.
-  */
-
-  const profileData = {
+const profileData = {
 
     id:
     currentUser.id,
@@ -5754,10 +5752,13 @@ async function finishProfile(){
     city,
 
     interests:
-    interests,
+  interests,
 
-    looking_for:
-    lookingFor,
+bio:
+  bio,
+
+looking_for:
+  lookingFor,
 
     compatibility_profile:{
       personality:
