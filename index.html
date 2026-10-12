@@ -8420,7 +8420,259 @@ document.addEventListener(
   }
 );
 
+/* =====================================================
+   PAIRLY CHAT
+===================================================== */
 
+let currentChatPartner = null;
+
+
+/* OPEN CHAT */
+
+async function openChat(profile){
+
+  if(!currentUser){
+
+    showLogin();
+    return;
+
+  }
+
+  if(!profile || !profile.id){
+
+    alert("Unable to open this conversation.");
+    return;
+
+  }
+
+  currentChatPartner = profile;
+
+  hideAllPages();
+
+  const chatPage =
+  document.getElementById("chatPage");
+
+  chatPage.style.display = "block";
+
+  document.getElementById(
+    "chatHeaderName"
+  ).textContent =
+  profile.name || "Pairly member";
+
+  document.getElementById(
+    "chatMessages"
+  ).innerHTML = "";
+
+  document.getElementById(
+    "chatStatus"
+  ).textContent = "Loading messages...";
+
+  setActiveNav("matches");
+
+  await loadChatMessages();
+
+}
+
+
+/* LOAD MESSAGES */
+
+async function loadChatMessages(){
+
+  if(!currentUser || !currentChatPartner){
+    return;
+  }
+
+  const messagesBox =
+  document.getElementById("chatMessages");
+
+  const status =
+  document.getElementById("chatStatus");
+
+  const partnerId =
+  currentChatPartner.id;
+
+  const {
+    data:messages,
+    error
+  } = await pairlyClient
+    .from("messages")
+    .select("*")
+    .or(
+      "and(sender_id.eq." +
+      currentUser.id +
+      ",receiver_id.eq." +
+      partnerId +
+      "),and(sender_id.eq." +
+      partnerId +
+      ",receiver_id.eq." +
+      currentUser.id +
+      ")"
+    )
+    .order("created_at", {
+      ascending:true
+    });
+
+  if(error){
+
+    console.error("Chat loading error:",error);
+
+    status.textContent =
+    "Couldn't load messages. Please try again.";
+
+    return;
+
+  }
+
+  messagesBox.innerHTML = "";
+
+  if(!messages || messages.length === 0){
+
+    status.textContent =
+    "Say hello and start the conversation! 💜";
+
+    return;
+
+  }
+
+  messages.forEach(function(message){
+
+    const bubble =
+    document.createElement("div");
+
+    bubble.textContent =
+    message.content;
+
+    bubble.style.maxWidth = "80%";
+    bubble.style.padding = "10px 14px";
+    bubble.style.borderRadius = "16px";
+    bubble.style.overflowWrap = "anywhere";
+
+    if(message.sender_id === currentUser.id){
+
+      bubble.style.alignSelf = "flex-end";
+      bubble.style.background = "#6c2bd9";
+      bubble.style.color = "#ffffff";
+
+    } else {
+
+      bubble.style.alignSelf = "flex-start";
+      bubble.style.background = "#f0eafa";
+      bubble.style.color = "#222222";
+
+    }
+
+    messagesBox.appendChild(bubble);
+
+  });
+
+  messagesBox.scrollTop =
+  messagesBox.scrollHeight;
+
+  status.textContent = "";
+
+}
+
+
+/* SEND MESSAGE */
+
+async function sendChatMessage(event){
+
+  event.preventDefault();
+
+  if(!currentUser || !currentChatPartner){
+    return;
+  }
+
+  const input =
+  document.getElementById("chatInput");
+
+  const status =
+  document.getElementById("chatStatus");
+
+  const content =
+  input.value.trim();
+
+  if(!content){
+    return;
+  }
+
+  if(content.length > 2000){
+
+    status.textContent =
+    "Messages must be 2,000 characters or fewer.";
+
+    return;
+
+  }
+
+  const button =
+  document.querySelector(
+    "#chatForm button[type='submit']"
+  );
+
+  button.disabled = true;
+
+  status.textContent = "Sending...";
+
+  const {
+    error
+  } = await pairlyClient
+    .from("messages")
+    .insert({
+      sender_id: currentUser.id,
+      receiver_id: currentChatPartner.id,
+      content: content
+    });
+
+  button.disabled = false;
+
+  if(error){
+
+    console.error("Message sending error:",error);
+
+    status.textContent =
+    "Message couldn't be sent. Make sure you're still matched.";
+
+    return;
+
+  }
+
+  input.value = "";
+
+  await loadChatMessages();
+
+}
+
+
+/* REFRESH MESSAGES */
+
+let chatRefreshTimer = null;
+
+function startChatRefresh(){
+
+  if(chatRefreshTimer){
+
+    clearInterval(chatRefreshTimer);
+
+  }
+
+  chatRefreshTimer =
+  setInterval(function(){
+
+    if(
+      currentChatPartner &&
+      document.getElementById("chatPage").style.display !== "none"
+    ){
+
+      loadChatMessages();
+
+    }
+
+  },5000);
+
+}
+
+startChatRefresh();
 /* =====================================================
    START
 ===================================================== */
