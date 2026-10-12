@@ -7863,6 +7863,18 @@ function renderPersonListCard(
   '</button>';
 
 
+    if(isMatch){
+
+    card.style.cursor = "pointer";
+
+    card.addEventListener("click", function(){
+
+      openChat(profile);
+
+    });
+
+  }
+
   container.appendChild(
     card
   );
