@@ -8076,7 +8076,7 @@ function navigationHTML(active){
       </button>
 
 
-      <button
+            <button
         class="${
           active === "matches"
           ? "active"
@@ -8086,6 +8086,18 @@ function navigationHTML(active){
       >
         <span>💞</span>
         Matches
+      </button>
+
+      <button
+        class="${
+          active === "messages"
+          ? "active"
+          : ""
+        }"
+        onclick="showMessages()"
+      >
+        <span>💬</span>
+        Messages
       </button>
 
 
